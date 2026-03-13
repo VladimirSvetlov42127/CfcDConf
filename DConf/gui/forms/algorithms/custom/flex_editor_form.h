@@ -78,7 +78,7 @@ private slots:
 	void onSaveAction();
 	void ButtonsEnableChange();
 	void TreeDoubleClicked(const QModelIndex& index);
-	void SetGridEnable(bool enable) { FlexLogic::grid_enable = enable; Scene()->update(); }
+    //void SetGridEnable(bool enable) { FlexLogic::grid_enable = enable; Scene()->update(); }
 	void ZoomInClicked() { ZoomChange(-1); }
 	void ZoomOutClicked() { ZoomChange(1); }
 	void ZoomDefaultClicked() { ZoomChange(0); }

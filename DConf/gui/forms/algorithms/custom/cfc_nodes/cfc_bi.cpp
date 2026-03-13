@@ -14,7 +14,9 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
+// #include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
+#include "service_manager/signals/virtual_input_signal.h"
+
 
 //===================================================================================================================================================
 //	список переменных
@@ -103,12 +105,20 @@ void CfcBI::paintElement(QPainter* painter)
     //  Перегрузка параметров элемента
     inputReset();
 
+    QColor fill_color = notbinded_bkcolor;
+    if (cfcInput()->source()) {
+        fill_color = shape_bkcolor;
+        auto vdin = cfcInput()->source()->to<VirtualInputSignal>();
+        if (vdin && !vdin->source())
+            fill_color = Qt::yellow;
+    }
+
     //  Вывод и заливка контура элемента
     painter->save();
     painter->setPen(QPen(shape_color, shape_width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->setRenderHint(QPainter::Antialiasing);
     painter->drawPath(path);
-    cfcInput()->source() ? painter->fillPath(path, shape_bkcolor) : painter->fillPath(path, notbinded_bkcolor);
+    painter->fillPath(path, fill_color);
 
     //  Перегрузка параметров элемента
     inputReset();

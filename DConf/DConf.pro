@@ -143,6 +143,7 @@ HEADERS += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.h \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
+    gui/forms/algorithms/custom/flexlogic_namespace.h \
     gui/forms/algorithms/embedded/AlgDataModel.h \
     gui/forms/algorithms/embedded/DcAlgDefines.h \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.h \
@@ -513,6 +514,7 @@ SOURCES += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.cpp \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
+    gui/forms/algorithms/custom/flexlogic_namespace.cpp \
     gui/forms/algorithms/embedded/AlgDataModel.cpp \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.cpp \
     gui/forms/algorithms/embedded/IAlgorithm.cpp \

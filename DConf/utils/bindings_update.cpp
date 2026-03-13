@@ -10,8 +10,8 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "gui/forms/algorithms/custom/dep_parser.h"
-#include "gui/forms/algorithms/custom/Editor/editor_node.h"
+#include "gui/forms/algorithms/custom/cfc_tools/cfc_parser.h"
+#include "gui/forms/algorithms/custom/cfc_editor/cfc_node.h"
 #include "file_managers/DcFlexLogicFileManager.h"
 
 
@@ -135,22 +135,22 @@ bool BindingsUpdate::cfcAlgsToParams()
     setParam(SP_FLEXLGCROSSTABLE, QString::number(0xFFFF));
 
      //  Подготовка к работе с гибкой логикой
-    DepCfcParser parser;
+    CfcParser parser;
 
     //  Анализ файлов гибкой логики
     for (uint16_t i = 0; i < param->profilesCount(); i++) {
         QString graph_name = DcFlexLogicFileManager(controller()).localGraphFileName(i + 1);
         if (!QFile::exists(graph_name))
             continue;
-        if (!parser.loadFile(graph_name))
+        if (!parser.loadData(graph_name))
             continue;
 
         //  Назначение сигналов алгоритмов гибкой логики
-        QList<EditorNode*> nodes = parser.editorNodes();
+        QList<CfcNode*> nodes = parser.nodes();
         int nodes_count = nodes.count();
         for (int ii = 0; ii < nodes_count; ii++) {
-            EditorNode* node = nodes.at(ii);
-            if (node->nodeType() != FlexLogic::RZA_LOAD)
+            CfcNode* node = nodes.at(ii);
+            if (node->nodeType() != RZA_LOAD)
                 continue;
 
             int signal_id = node->param("signal").value.toInt();

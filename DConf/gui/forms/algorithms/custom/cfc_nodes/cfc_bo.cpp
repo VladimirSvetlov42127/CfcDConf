@@ -99,7 +99,7 @@ void CfcBO::paintElement(QPainter* painter)
     painter->setPen(QPen(shape_color, shape_width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->setRenderHint(QPainter::Antialiasing);
     painter->drawPath(path);
-    cfcOutput()->target() ? painter->fillPath(path, shape_bkcolor) : painter->fillPath(path, notbinded_bkcolor);
+    painter->fillPath(path, cfcOutput()->target() ? shape_bkcolor : notbinded_bkcolor);
 
     //  Перегрузка параметров элемента
     outputReset();

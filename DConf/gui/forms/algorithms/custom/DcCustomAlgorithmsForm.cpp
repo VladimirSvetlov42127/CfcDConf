@@ -9,7 +9,7 @@
 #include <dpc/gui/widgets/TableView.h>
 #include <dpc/gui/dialogs/msg_box/MsgBox.h>
 #include <gui/forms/algorithms/custom/flex_editor_form.h>
-#include <gui/forms/algorithms/custom/compiler/cfc_compiler.h>
+#include <gui/forms/algorithms/custom/cfc_tools/cfc_compiler.h>
 #include "gui/forms/algorithms/custom/cfc_algs_model.h"
 
 using namespace Dpc::Gui;
@@ -196,10 +196,10 @@ bool DcCustomAlgorithmsForm::compileAlgorithm(CfcAlgService *cfcAlg)
     CfcCompiler compiler;
     connect(&compiler, &CfcCompiler::errorToLog, this, [=](const QString& mess) { journal()->addErrorMessage(mess); });
     connect(&compiler, &CfcCompiler::infoToLog, this, [=](const QString& mess) { journal()->addInfoMessage(mess); });
-    // if (compiler.compile(cfcAlg->parser())) {
-    //     cfcAlg->setCompiledData(*compiler.byteCode());
-    //     return true;
-    // }
+    if (compiler.compile(cfcAlg->parser())) {
+        cfcAlg->setCompiledData(*compiler.byteCode());
+        return true;
+    }
 
     cfcAlg->setCompiledData(QByteArray());
     MsgBox::error(QString("При компиляции алгоритма номер %1, возникли критические ошибки").arg(cfcAlg->id()));
