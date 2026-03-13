@@ -1,0 +1,2315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="journal">
+      <UniqueIdentifier>{7bffaff4-b8d6-41d4-a3d3-1cdbc0e27aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device_operations">
+      <UniqueIdentifier>{b0deaca8-9260-49ce-b11b-199c6050ed31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="report">
+      <UniqueIdentifier>{f9801f77-5feb-4137-ba20-e1d96f6af921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{49a59885-1076-4069-bc9c-e7d454b0dbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms">
+      <UniqueIdentifier>{5cf4bb35-f8a8-4c13-90d8-b9e3790a66a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\input/output">
+      <UniqueIdentifier>{54640eca-2b85-411e-997a-667aee4a7b84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\input/output\inputs">
+      <UniqueIdentifier>{028a834a-da5d-4b21-873d-0bdb352dd858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\input/output\outputs">
+      <UniqueIdentifier>{a222e4be-808c-4717-8b12-3413a594c25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\input/output\analog_inputs">
+      <UniqueIdentifier>{6be41cb6-3c61-4234-9b0d-0d248272fde8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols">
+      <UniqueIdentifier>{f9c0ba21-c4ef-49b1-84bd-b77d6da4f709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\SPODES">
+      <UniqueIdentifier>{5631730e-87f6-43b5-ad9e-c038693b96c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\TCP">
+      <UniqueIdentifier>{ed7dad4c-32d2-4cae-b831-2818e6a0f7e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\IEC-61850">
+      <UniqueIdentifier>{808b159a-c18b-4c1e-8e52-ab0fbf85c273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\IEC-103">
+      <UniqueIdentifier>{be535235-6445-4f30-8691-f2b63f262bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\IEC-101">
+      <UniqueIdentifier>{964fbd1d-fe6b-4d5c-a8b1-9ed619e9f34d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485">
+      <UniqueIdentifier>{77278e8e-1c37-40cf-97a6-c4b98c26394e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Sybus">
+      <UniqueIdentifier>{f17a82c2-1401-4bdb-9b0f-096e75ab100d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Sybus\master">
+      <UniqueIdentifier>{1d402288-94bb-483f-8bdd-0d930f325231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands">
+      <UniqueIdentifier>{b4d8eb91-9d02-4a86-b80c-7c42b9e8144d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Sybus\slave">
+      <UniqueIdentifier>{4e4ef3f3-76a4-4cb9-afef-e536ae47d94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Spodes">
+      <UniqueIdentifier>{3e02b212-bcb9-486b-98d0-b31badcf10a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Spodes\master">
+      <UniqueIdentifier>{d53f912a-9087-45b2-b165-32e84a83a9d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Spodes\slave">
+      <UniqueIdentifier>{1498d12e-4c8c-48cf-b90b-dc3f0cb79806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus">
+      <UniqueIdentifier>{fe26e5a4-3ebf-43f7-84aa-0fc918c9299f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master">
+      <UniqueIdentifier>{3209d88f-5d47-42a5-b579-1906b91c3379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands">
+      <UniqueIdentifier>{e6331282-8dc3-431c-bf81-99238660244a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets">
+      <UniqueIdentifier>{0fdeca5e-3b7a-4e96-814e-0a6a273f4f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\Common">
+      <UniqueIdentifier>{1d0a99f5-0b01-4690-80e1-92d69c6e9b3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary">
+      <UniqueIdentifier>{c6638751-6053-476e-83d1-c466597c9527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions">
+      <UniqueIdentifier>{e894bdd6-d450-4728-8153-e51a7eba7bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets">
+      <UniqueIdentifier>{406b82f3-3a78-42b5-9cc1-3ddcbe9cffe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget">
+      <UniqueIdentifier>{ce9297b1-7fb5-440a-b730-12475fa058b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget\ExtraDialogs">
+      <UniqueIdentifier>{995576ae-73fb-4abd-ae48-005891f63727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\Modbus\slave">
+      <UniqueIdentifier>{0460a6b3-92ac-48fa-adc8-f39aae695ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\SIM">
+      <UniqueIdentifier>{403b2011-a485-4944-8afe-4e25c70d1483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\TimeSync">
+      <UniqueIdentifier>{3e2f8ea0-98db-4aec-b69e-d929ae17d4dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\table_of_bindings">
+      <UniqueIdentifier>{1be4c74e-3ace-4ce7-a2df-6648e355afff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\settings">
+      <UniqueIdentifier>{5fdd3019-e09a-4422-8d4d-1183cd40d741}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\default">
+      <UniqueIdentifier>{cc50179a-2798-4bc2-b6ed-1dd3aeb29817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\thresholds_settings">
+      <UniqueIdentifier>{86c71496-8e83-494e-826b-11f18505226f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\converter">
+      <UniqueIdentifier>{30836888-4c89-4e36-bfc8-a57c1c3cdba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\main">
+      <UniqueIdentifier>{df4f6c59-14b1-4697-ba7b-0b98686eff95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\editors">
+      <UniqueIdentifier>{ef407f9e-4ca9-442b-8340-aae5dea01d61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\editors\types">
+      <UniqueIdentifier>{c449e482-de3d-4398-8284-b342c0bfec12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\dialogs">
+      <UniqueIdentifier>{0e661a58-b17d-4df6-93be-311a06c48a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\table_of_bindings\dialogs">
+      <UniqueIdentifier>{bdd37a79-066e-4306-b695-f1ba13b55b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\table_of_bindings\dialogs\models">
+      <UniqueIdentifier>{2d6b781a-30fc-4304-b2e3-0d6baf57df34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\table_of_bindings\dialogs\delegates">
+      <UniqueIdentifier>{cfa37774-3d31-4cef-bb7b-6adecfaf5263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_model">
+      <UniqueIdentifier>{8ce2d02e-53b9-471e-98bf-cabb83c43416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_model\storage_for_controller_params">
+      <UniqueIdentifier>{4cebddd3-f579-4668-ab6f-d5cc1721936f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{38d28ace-6093-439e-84c7-dd994da8fe30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\IEC">
+      <UniqueIdentifier>{68ccedd2-a5b0-468c-9426-58db37687c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\IEC\101">
+      <UniqueIdentifier>{384f3ab1-c814-44e8-b3a8-c19f0b8d52e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\IEC\103">
+      <UniqueIdentifier>{20f46367-ff56-4e38-9e7f-99c5ab52ec24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\IEC\101\slave">
+      <UniqueIdentifier>{80c6c491-2c9a-4419-9b94-3ce7dcf1de11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\IEC\103\slave">
+      <UniqueIdentifier>{ed7befed-9f35-47c3-9dc9-3dd7030e9323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="file_managers">
+      <UniqueIdentifier>{7137072d-b146-4153-adde-8ec8f97ef153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions">
+      <UniqueIdentifier>{605cfc56-5ce8-4167-8ecc-a266f36d3e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\switches">
+      <UniqueIdentifier>{574f284c-09af-48df-9863-68f073478de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\auv_urov">
+      <UniqueIdentifier>{d7c80f31-5729-45a2-afc7-ee5b12021494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\oscillography">
+      <UniqueIdentifier>{a70de894-ad27-420a-a929-08f9d6a71072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\counters">
+      <UniqueIdentifier>{4822b760-7ec9-4395-8ebf-ab388a60e5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\analogs">
+      <UniqueIdentifier>{8bc7d137-f13c-472b-9264-76cfcbe78282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\analogs\conversion">
+      <UniqueIdentifier>{4e107ff7-63cf-4ea3-aaf8-1d96ba91b799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\analogs\comparison">
+      <UniqueIdentifier>{25dec51e-8bc3-4ff0-9b89-f23f98816331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\functions\virtual_functions">
+      <UniqueIdentifier>{a898ce15-05d2-4756-9c2d-5c1564c92ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms">
+      <UniqueIdentifier>{68d77400-c03d-49f2-8e99-91b2203c1e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom">
+      <UniqueIdentifier>{d786e1b0-e656-417d-a247-2c12d62f649b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom\compiler">
+      <UniqueIdentifier>{7da5ea5e-eb95-466c-9221-f7dba0f55fe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded">
+      <UniqueIdentifier>{f729e2f3-06f0-4223-9679-10a249dbcad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs">
+      <UniqueIdentifier>{28c2f7e1-261e-4e9e-90b7-dc6b220b48a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\ACHR">
+      <UniqueIdentifier>{d1ecdfc1-8e82-44a6-84ff-46da93a730b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\AMTZ">
+      <UniqueIdentifier>{f506edb1-777b-47f3-8af3-a8378234a37b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ">
+      <UniqueIdentifier>{169d488d-5026-4ebc-b607-767ce141d173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\VNR">
+      <UniqueIdentifier>{3dcf3ba9-dcaf-444e-80a3-8b83b8e05807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\ZMN">
+      <UniqueIdentifier>{75e6f437-7d58-4961-ba5b-5a3894c4bac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\ZPN">
+      <UniqueIdentifier>{6038234b-d6a7-45e2-901b-ab30197f3f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\DTO">
+      <UniqueIdentifier>{5e69f2f5-aec5-4a0f-9329-33f092160583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\TO_VN">
+      <UniqueIdentifier>{d4a33e27-e9f8-47cc-b15a-17931c772be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\KCT">
+      <UniqueIdentifier>{654d18a2-474a-4414-8268-1ef14a5a7e69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\DZT">
+      <UniqueIdentifier>{9b4b7fb4-fb50-4f78-845b-66efd0a5656d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ_VN">
+      <UniqueIdentifier>{93b30a4c-b5b0-45f7-a425-ca4f999df1e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\LZSH">
+      <UniqueIdentifier>{ed09a901-3ccf-4a36-8371-904052abf0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\3Uo">
+      <UniqueIdentifier>{e3c246d1-245f-45b1-a8f0-8bf9702b9225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ_3Io">
+      <UniqueIdentifier>{69b64a09-1828-4eb2-a311-f4c8913b270d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\I2">
+      <UniqueIdentifier>{06636c90-6e62-4887-9e28-062e54325173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\U2">
+      <UniqueIdentifier>{adb8edd3-449b-4660-b992-dbd18bae2b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\Device PSC">
+      <UniqueIdentifier>{e7503b13-077d-4640-87d9-ffa096411014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\Device PSC\AMTZ">
+      <UniqueIdentifier>{bd19ac38-f051-4ea6-a0d8-7995a63e0471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\Device PSC\MTZ">
+      <UniqueIdentifier>{e97594a3-8cbc-42e5-bbc4-cb3e8b2936a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\Device PSC\OZZ">
+      <UniqueIdentifier>{c5f206b9-afff-424c-8cb4-cba13779d4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\OZZ_Po">
+      <UniqueIdentifier>{3317e9ce-8af8-46fa-bb56-6fab1b6e8559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ_Accelerated">
+      <UniqueIdentifier>{94992284-b414-46a9-9830-27b65dde59ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\APV">
+      <UniqueIdentifier>{4cbfbcaa-fb50-4e52-8c66-06dee7c5721b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\UROV">
+      <UniqueIdentifier>{a382fd9c-67ac-4025-b9ea-0b8bf6cfc782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\AVR">
+      <UniqueIdentifier>{f0b1fa1f-33c3-471a-ac65-f1e3280c511f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\SectionVoltage">
+      <UniqueIdentifier>{5b3796b4-8c47-47d5-ae9e-6686a681e8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\AUV">
+      <UniqueIdentifier>{cee3261f-5d26-467d-b7d2-c158ef428403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\OZZ_HH">
+      <UniqueIdentifier>{94f47a71-7ed5-41c5-a40c-8aa89333286d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\AutoKvit">
+      <UniqueIdentifier>{9e4e6076-e55c-4127-9569-5dcbe321dd8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="updater">
+      <UniqueIdentifier>{73bdbdab-170f-4f8f-8b6e-1ef34c9e668e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\BKI">
+      <UniqueIdentifier>{48cbae05-512f-431c-9f8d-c5038777fb8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom\Editor">
+      <UniqueIdentifier>{22f03d54-3419-456b-913f-7242234b4b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom\Nodes">
+      <UniqueIdentifier>{fd3e0b6f-dc69-43e3-a5b1-ec0083f44070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ_NN">
+      <UniqueIdentifier>{d5383460-469f-476d-b1ad-f2e20a471f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\MTZ_SN">
+      <UniqueIdentifier>{e787dd3c-d594-4e25-8afe-790b7de53f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom\db">
+      <UniqueIdentifier>{4a6a9776-531f-481f-b7b6-c7f026c231de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\custom\db\sqlite">
+      <UniqueIdentifier>{da7d95ff-0363-4412-98ab-bb71c935c6ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\interfaces/protocols\RS-485\TransparentChannel">
+      <UniqueIdentifier>{9e79b47e-dff1-421d-a914-19e1eb3b907d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\forms\algorithms\embedded\algs\NBLNS">
+      <UniqueIdentifier>{4ba1429b-8f01-4d07-a595-4ac131c0202f}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="service_manager">
+      <UniqueIdentifier>{fda0e8bb-4f97-430e-b2ad-48bffddc4f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service_manager\bind_elements">
+      <UniqueIdentifier>{b2a33253-d9b0-4faf-8493-0f668a930b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service_manager\services">
+      <UniqueIdentifier>{af305826-1f3e-4691-959f-3899f0e70332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service_manager\signals">
+      <UniqueIdentifier>{a9adbbe0-0d75-4abf-8778-13c03d8e5c59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DConf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dc_proj_model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\qzip.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="db\dc_db_wrapper.cpp">
+      <Filter>gui\forms\algorithms\custom\db</Filter>
+    </ClCompile>
+    <ClCompile Include="db\sqlite\sqlite3.c">
+      <Filter>gui\forms\algorithms\custom\db\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param_cfg.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param_cfg_board.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\DcController_v2.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfg_v2.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfg_v2_Headline.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfgPool_v2.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\common_slave_functions.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\ConnectionDiscretWidget.cpp">
+      <Filter>gui\forms\interfaces/protocols</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\Communication.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\DataTypeTemplates.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublisher.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublishersDialog.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\IEC61850Configuration.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\IED.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\InputGooseWidget.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\TreeItems.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\TreeViewDataModel.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\XMLNode.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ACHR\ACHRAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\ACHR</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\VNR\VNR_GSMAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\VNR</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\VNR\VNRAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\VNR</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ZMN\ZMNAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\ZMN</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ZPN\ZPNAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\ZPN</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\Board_Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DTO\DTOAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\DTO</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\TO_VN\TO_VNAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\TO_VN</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\KCT\KCTAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\KCT</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DZT\DZTAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\DZT</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\DcFormFactory.cpp">
+      <Filter>gui\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\DcMenu.cpp">
+      <Filter>gui\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterIdentification.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterChannels.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveWidget.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveSettingsDialog.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesMasterCommon.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveFileSaver.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveDefinition.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusParser.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandNamesJSONSaver.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_standartOrNot.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget\ExtraDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_readOrCreate.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget\ExtraDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction04_ReadInputRegisters.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction02_ReadDiscreteInputs.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction_Custom.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunctionCustom.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction04_ReadInputRegisters.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction02_ReadDiscreteInputs.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CommandLibraryModel.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibTreeItem.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ExtraFunctions.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandDins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandCins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandAins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandInitialization.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDescription.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandCins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandAins.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AMTZ\AMTZAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\AMTZ</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_VN\MTZ_VNAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_VN</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ\MTZAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\LZSH\LZSHAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\LZSH</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcIDeviceOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcReadConfigOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcWriteConfigOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcFormatDriveOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\DeviceWidget.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcRestartOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcInfoOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcResetOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="report\DcIConfigReport.cpp">
+      <Filter>report</Filter>
+    </ClCompile>
+    <ClCompile Include="report\DcTextDocumentConfigReport.cpp">
+      <Filter>report</Filter>
+    </ClCompile>
+    <ClCompile Include="report\DcReportTable.cpp">
+      <Filter>report</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\DcDiscreteInputACDSignalForm.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\DcDiscreteInputTwoPositionedSignalsForm.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputChannelForm.cpp">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103ChannelsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-103</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\SPODES\DcSpodesChannelsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\SPODES</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\DcMainForm.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\settings\DcSettingsForm.cpp">
+      <Filter>gui\forms\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputBlockControl.cpp">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\converter\DcConverterForm.cpp">
+      <Filter>gui\forms\converter</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\default\DcDefaultForm.cpp">
+      <Filter>gui\forms\default</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\switches\DcSwitchesForm.cpp">
+      <Filter>gui\forms\functions\switches</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\DcEmbeddedAlgorithmsForm.cpp">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\auv_urov\DcAuvUrovForm.cpp">
+      <Filter>gui\forms\functions\auv_urov</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\oscillography\DcOscillographyForm.cpp">
+      <Filter>gui\forms\functions\oscillography</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\DcCustomAlgorithmsForm.cpp">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\thresholds_settings\DcThresholdsForm.cpp">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\thresholds_settings\DcPqiSettingsForm.cpp">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\thresholds_settings\DcPqiEventSettingsForm.cpp">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103SettingsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-103</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\SPODES\DcSpodesSettingsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\SPODES</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\SIM\DcSimForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\TimeSync\DcTimeSyncForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\TimeSync</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\TCP\DcTcpForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\TCP</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101SettingsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-101</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101ChannelsForm.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-101</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\analog_inputs\DcAnalogChannelsSettings.cpp">
+      <Filter>gui\forms\input/output\analog_inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\DcForm.cpp">
+      <Filter>gui\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\EditorsManager.cpp">
+      <Filter>gui\editors</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\types\ParamEditor.cpp">
+      <Filter>gui\editors\types</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\types\ListParamEditor.cpp">
+      <Filter>gui\editors\types</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\types\ListEditorContainer.cpp">
+      <Filter>gui\editors\types</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\types\LineParamEditor.cpp">
+      <Filter>gui\editors\types</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\editors\types\CheckParamEditor.cpp">
+      <Filter>gui\editors\types</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\frmOpenProj.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\frmCreateProj.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\storage_for_controller_params\cfg_param_attributes.cpp">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\PortInfo.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputClonesForm.cpp">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\DcFormMatrix.cpp">
+      <Filter>gui\forms\table_of_bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_alg.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_alg_cfc.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_alg_internal.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_alg_io_cfc.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_alg_io_internal.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_board.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_conf_item.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_conf_topology.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_controller.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_data_manager.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_matrix_element.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_matrix_element_alg.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_matrix_element_alg_cfc.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_matrix_element_signal.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_project_description.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_properties.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_setting.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_settings_pool.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="data_model\dc_signal.cpp">
+      <Filter>data_model</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\AlgBindDialog.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\IBindDialog.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\InputBindDialog.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\OutputBindDialog.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\signal_names_functions.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\OutputBindDlgModel.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\InputBindDlgModel.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\IDlgModel.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\AlgBindDlgModel.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\OutputMatrixDelegate.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\InputMatrixDelegate.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\IMatrixDelegate.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\AlgMatrixDelegate.cpp">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485PortWidget.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485Form.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485BaseProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\DcRs485SybusMasterProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\slave\DcRs485SybusSlaveProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\slave</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\slave\DcRs485SpodesSlaveProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\slave</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\DcRs485SpodesMasterProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\slave\DcRs485ModbusSlaveProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\slave</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DcRs485ModbusMasterProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\DcRs485SybusProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\DcRs485SpodesProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\DcRs485ModbusProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\DcRs485IecProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\101\DcRs485Iec101Protocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\101</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\101\slave\DcRs485Iec101SlaveProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\101\slave</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\103\DcRs485Iec103Protocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\103</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\103\slave\DcRs485Iec103SlaveProtocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\103\slave</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\Dc61850Form.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\3Uo\3UoAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\3Uo</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_3Io\MTZ_3IoAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_3Io</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\I2\I2Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\I2</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\U2\U2Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\U2</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\OZZ_Po\OZZ_PoAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\OZZ_Po</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\IAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\ProfileWidget.cpp">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_Accelerated\MTZ_AcceleratedAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_Accelerated</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\APV\APVAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\APV</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\UROV\UROVAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\UROV</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AVR\AVRAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\AVR</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\SectionVoltage\SectionVoltageAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\SectionVoltage</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AUV\AUVAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\AUV</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\OZZ_HH\OZZ_HH_Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\OZZ_HH</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\DcPassportDialog.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcPassportOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcTemporaryConfigOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AutoKvit\AutoKvit.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\AutoKvit</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\AlgDataModel.cpp">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\DateTimeWidget.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\IDeviceTabWidget.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcTimeSetOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\counters\DcCountersForm.cpp">
+      <Filter>gui\forms\functions\counters</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\DcAnalogsForm.cpp">
+      <Filter>gui\forms\functions\analogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\conversion\ConversionModel.cpp">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\conversion\CustomConversionDialog.cpp">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\comparison\ComparisonModel.cpp">
+      <Filter>gui\forms\functions\analogs\comparison</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\DcIec61850FileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\IRs485SlaveFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\DcModbusMasterSlavesFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\IFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\DcSpodesMasterSlavesFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\DcFlexLogicFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_managers\DcAnalogsConversionFileManager.cpp">
+      <Filter>file_managers</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\conversion\LinearSettingsWidget.cpp">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\analogs\conversion\LinearPiecewiseSettingsWidget.cpp">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\virtual_functions\DcVirtualFunctionsForm.cpp">
+      <Filter>gui\forms\functions\virtual_functions</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GseTableModel.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\SvTableModel.cpp">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\DcSignalManager.cpp">
+      <Filter>gui\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\add_controller.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\config_deprotec.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="updater\updater.cpp">
+      <Filter>updater</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\BKI\BKIAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\BKI</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\EditorInitCommands.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\TabSybusInitialization.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\BasePSCAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\OZZ\OZZ_PSCAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\OZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\MTZ\MTZ_PSCAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\MTZ</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\AMTZ\AMTZ_PSCAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\AMTZ</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\flex_editor_form.cpp">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\flexlogic_namespace.cpp">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_item.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_model.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_node_data.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_scene.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_socket.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_socket_data.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\title_item.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\scene_dialog.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\dummy_link.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_link.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_link_data.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\params_dialog.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\and_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\bi_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\bo_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\generator_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\impulse_pf_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\impulse_zf_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\not_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\or_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\return_delay_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\rs_trigger_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\trigger_delay_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\xor_node.cpp">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\dep_parser.cpp">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\ParamDialogBI.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\ParamDialogBO.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\dialogs\info_list_dialog.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\filesystem_page.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_board_widget.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_external_form.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_logical_form.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_model.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_physical_form.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\input_output\inputs\dins_virtual_form.cpp">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_NN\MTZ_NN_Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_NN</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_SN\MTZ_SN_Algorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_SN</Filter>
+    </ClCompile>
+    <ClCompile Include="device_operations\DcUpdateDeviceOperation.cpp">
+      <Filter>device_operations</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\cfg_path.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\main\filesystem_page.cpp">
+      <Filter>gui\forms\main</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\thresholds_settings\pqi_event_model.cpp">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\functions\oscillography\AnalogsModel.cpp">
+      <Filter>gui\forms\functions\oscillography</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\compiler\byte_code.cpp">
+      <Filter>gui\forms\algorithms\custom\compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\compiler\cfc_compiler.cpp">
+      <Filter>gui\forms\algorithms\custom\compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="db\dc_db_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\TransparentChannel\dc_rs485_transparent_protocol.cpp">
+      <Filter>gui\forms\interfaces/protocols\RS-485\TransparentChannel</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\NBLNS\NBLNSAlgorithm.cpp">
+      <Filter>gui\forms\algorithms\embedded\algs\NBLNS</Filter>
+	</ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\graphic_line.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\graphic_path.cpp">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\service_manager.cpp">
+      <Filter>service_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\service_source_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\service_target_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\signal_source_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\signal_target_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\target_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\bind_elements\virtual_signal_element.cpp">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\alg_service.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\cfc_alg_service.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\cfc_service_input.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\cfc_service_output.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\internal_service_input.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\internal_service_output.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\service.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\service_input.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\services\service_output.cpp">
+      <Filter>service_manager\services</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\signals\input_signal.cpp">
+      <Filter>service_manager\signals</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\signals\output_signal.cpp">
+      <Filter>service_manager\signals</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\signals\signal.cpp">
+      <Filter>service_manager\signals</Filter>
+    </ClCompile>
+    <ClCompile Include="service_manager\signals\virtual_input_signal.cpp">
+      <Filter>service_manager\signals</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DConf.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="dc_proj_model.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\ConnectionDiscretWidget.h">
+      <Filter>gui\forms\interfaces/protocols</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublishersDialog.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\IEC61850Configuration.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\IED.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\InputGooseWidget.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\TreeViewDataModel.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterIdentification.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterChannels.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveWidget.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_standartOrNot.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget\ExtraDialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_readOrCreate.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget\ExtraDialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction04_ReadInputRegisters.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction02_ReadDiscreteInputs.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction_Custom.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunctionCustom.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction04_ReadInputRegisters.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction02_ReadDiscreteInputs.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctions</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CommandLibraryModel.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandDins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandCins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandAins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandInitialization.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDescription.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandCins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandAins.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Commands</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcIDeviceOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcReadConfigOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcWriteConfigOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcFormatDriveOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\DeviceWidget.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcRestartOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcInfoOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcResetOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\DcDiscreteInputACDSignalForm.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\DcDiscreteInputTwoPositionedSignalsForm.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputChannelForm.h">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103ChannelsForm.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-103</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\SPODES\DcSpodesChannelsForm.h">
+      <Filter>gui\forms\interfaces/protocols\SPODES</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\DcMainForm.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputBlockControl.h">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\converter\DcConverterForm.h">
+      <Filter>gui\forms\converter</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\switches\DcSwitchesForm.h">
+      <Filter>gui\forms\functions\switches</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\auv_urov\DcAuvUrovForm.h">
+      <Filter>gui\forms\functions\auv_urov</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\oscillography\DcOscillographyForm.h">
+      <Filter>gui\forms\functions\oscillography</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\DcCustomAlgorithmsForm.h">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\thresholds_settings\DcThresholdsForm.h">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\thresholds_settings\DcPqiSettingsForm.h">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\thresholds_settings\DcPqiEventSettingsForm.h">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\TimeSync\DcTimeSyncForm.h">
+      <Filter>gui\forms\interfaces/protocols\TimeSync</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101ChannelsForm.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-101</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\analog_inputs\DcAnalogChannelsSettings.h">
+      <Filter>gui\forms\input/output\analog_inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\editors\EditorsManager.h">
+      <Filter>gui\editors</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\ParamEditor.h">
+      <Filter>gui\editors\types</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\ListParamEditor.h">
+      <Filter>gui\editors\types</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\LineParamEditor.h">
+      <Filter>gui\editors\types</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\CheckParamEditor.h">
+      <Filter>gui\editors\types</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\frmOpenProj.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\frmCreateProj.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputClonesForm.h">
+      <Filter>gui\forms\input/output\outputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\IBindDialog.h">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\OutputBindDlgModel.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\InputBindDlgModel.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\IDlgModel.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\AlgBindDlgModel.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\models</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\delegates\IMatrixDelegate.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\DcSignalManager.h">
+      <Filter>gui\forms</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485PortWidget.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485Form.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485BaseProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\DcRs485SybusMasterProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\slave\DcRs485SybusSlaveProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\slave</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\slave\DcRs485SpodesSlaveProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\slave</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\master\DcRs485SpodesMasterProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\slave\DcRs485ModbusSlaveProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\slave</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DcRs485ModbusMasterProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\DcRs485SybusProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\DcRs485SpodesProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\DcRs485ModbusProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\DcRs485IecProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\101\DcRs485Iec101Protocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\101</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\101\slave\DcRs485Iec101SlaveProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\101\slave</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\103\DcRs485Iec103Protocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\103</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\103\slave\DcRs485Iec103SlaveProtocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\IEC\103\slave</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\Dc61850Form.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="data_model\storage_for_controller_params\DcParamCfg_v2.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\embedded\ProfileWidget.h">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </QtMoc>
+    <QtMoc Include="data_model\dc_controller.h">
+      <Filter>data_model</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\DcPassportDialog.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcPassportOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcTemporaryConfigOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\embedded\AlgDataModel.h">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\DateTimeWidget.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\IDeviceTabWidget.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcTimeSetOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\DcAnalogsForm.h">
+      <Filter>gui\forms\functions\analogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\conversion\CustomConversionDialog.h">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\conversion\ConversionModel.h">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\comparison\ComparisonModel.h">
+      <Filter>gui\forms\functions\analogs\comparison</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\conversion\LinearSettingsWidget.h">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\analogs\conversion\LinearPiecewiseSettingsWidget.h">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\virtual_functions\DcVirtualFunctionsForm.h">
+      <Filter>gui\forms\functions\virtual_functions</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\GseTableModel.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\SvTableModel.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\embedded\DcEmbeddedAlgorithmsForm.h">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\add_controller.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\config_deprotec.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="updater\updater.h">
+      <Filter>updater</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\EditorInitCommands.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\TabSybusInitialization.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\flex_editor_form.h">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_model.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_node.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_scene.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_socket.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\title_item.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\scene_dialog.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\dummy_link.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_link.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\params_dialog.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\and_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\bi_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\bo_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\generator_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\impulse_pf_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\impulse_zf_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\not_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\or_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\return_delay_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\rs_trigger_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\trigger_delay_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\xor_node.h">
+      <Filter>gui\forms\algorithms\custom\Nodes</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\ParamDialogBI.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\ParamDialogBO.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\dialogs\info_list_dialog.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\dep_parser.h">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\filesystem_page.h">
+      <Filter>gui\forms\main</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\dins_external_form.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\dins_logical_form.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\dins_model.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\dins_physical_form.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\input_output\inputs\dins_virtual_form.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </QtMoc>
+    <QtMoc Include="device_operations\DcUpdateDeviceOperation.h">
+      <Filter>device_operations</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\thresholds_settings\pqi_event_model.h">
+      <Filter>gui\forms\thresholds_settings</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\custom\compiler\cfc_compiler.h">
+      <Filter>gui\forms\algorithms\custom\compiler</Filter>
+    </QtMoc>
+    <QtMoc Include="db\dc_db_manager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\TransparentChannel\dc_rs485_transparent_protocol.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\TransparentChannel</Filter>
+    </QtMoc>
+    <QtMoc Include="service_manager\service_manager.h">
+      <Filter>service_manager</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="DConf.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusMainWidget</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\ModbusFunctionWidgets</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\CommandWidgets</Filter>
+    </QtUic>
+    <QtUic Include="gui\dialogs\frmOpenProj.ui">
+      <Filter>gui\dialogs</Filter>
+    </QtUic>
+    <QtUic Include="gui\dialogs\frmCreateProj.ui">
+      <Filter>gui\dialogs</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\table_of_bindings\dialogs\IBindDialog.ui">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtUic>
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.ui">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </QtUic>
+    <QtUic Include="gui\dialogs\ParamDialogBI.ui">
+      <Filter>gui\dialogs</Filter>
+    </QtUic>
+    <QtUic Include="gui\dialogs\ParamDialogBO.ui">
+      <Filter>gui\dialogs</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="utils\qzipreader_p.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\qzipwriter_p.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="db\dc_db_wrapper.h">
+      <Filter>gui\forms\algorithms\custom\db</Filter>
+    </ClInclude>
+    <ClInclude Include="db\sqlite\sqlite3.h">
+      <Filter>gui\forms\algorithms\custom\db\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="db\sqlite\sqlite3ext.h">
+      <Filter>gui\forms\algorithms\custom\db\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\rapidxml.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\rapidxml_print.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg_board.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg_pool.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\DcController_v2.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\DcParamCfg_v2_Headline.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\DcParamCfgPool_v2.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\common_slave_functions.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\61850_defines.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\Communication.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\DataTypeTemplates.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublisher.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\TreeItems.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\XMLNode.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-61850</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ACHR\ACHRAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\ACHR</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\VNR\VNR_GSMAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\VNR</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\VNR\VNRAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\VNR</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ZMN\ZMNAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\ZMN</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ZPN\ZPNAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\ZPN</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\Board_Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DTO\DTOAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\DTO</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\TO_VN\TO_VNAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\TO_VN</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\KCT\KCTAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\KCT</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DZT\DZTAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\DZT</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\DcFormFactory.h">
+      <Filter>gui\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\DcMenu.h">
+      <Filter>gui\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesMasterCommon.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveFileSaver.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveDefinition.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusParser.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandNamesJSONSaver.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibTreeItem.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\DeviceCommandLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusFunctionsHeaders.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusFunctionDefines.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusCommandsHeaders.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusCommandDefines.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_FunctionWidgetHeaders.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ExtraFunctions.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_CommandWidgetHeaders.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_CommandDefines.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Modbus\master\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AMTZ\AMTZAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\AMTZ</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_VN\MTZ_VNAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_VN</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ\MTZAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\LZSH\LZSHAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\LZSH</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveSettingsDialog.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Spodes\master</Filter>
+    </ClInclude>
+    <ClInclude Include="report\DcIConfigReport.h">
+      <Filter>report</Filter>
+    </ClInclude>
+    <ClInclude Include="report\DcTextDocumentConfigReport.h">
+      <Filter>report</Filter>
+    </ClInclude>
+    <ClInclude Include="report\DcReportTable.h">
+      <Filter>report</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\settings\DcSettingsForm.h">
+      <Filter>gui\forms\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\default\DcDefaultForm.h">
+      <Filter>gui\forms\default</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103SettingsForm.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-103</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\SPODES\DcSpodesSettingsForm.h">
+      <Filter>gui\forms\interfaces/protocols\SPODES</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\SIM\DcSimForm.h">
+      <Filter>gui\forms\interfaces/protocols\SIM</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\TCP\DcTcpForm.h">
+      <Filter>gui\forms\interfaces/protocols\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101SettingsForm.h">
+      <Filter>gui\forms\interfaces/protocols\IEC-101</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\DcForm.h">
+      <Filter>gui\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\editors\types\ListEditorContainer.h">
+      <Filter>gui\editors\types</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\macrosCheckPointer.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClInclude>
+    <ClInclude Include="db\current_program_versions_defines.h">
+      <Filter>gui\forms\algorithms\custom\db</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\storage_for_controller_params\cfg_param_attributes.h">
+      <Filter>data_model\storage_for_controller_params</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\PortInfo.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\DcFormMatrix.h">
+      <Filter>gui\forms\table_of_bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\BindMatrixElem.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg_cfc.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg_internal.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg_io.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg_io_cfc.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_alg_io_internal.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_board.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_conf_item.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_conf_topology.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_data_manager.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_matrix_element.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_matrix_element_alg.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_matrix_element_alg_cfc.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_matrix_element_signal.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_matrix_pool.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_pool.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_project_description.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_properties.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_setting.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_settings_pool.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="data_model\dc_signal.h">
+      <Filter>data_model</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\AlgBindDialog.h">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\InputBindDialog.h">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\OutputBindDialog.h">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\signal_names_functions.h">
+      <Filter>gui\forms\table_of_bindings\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\OutputMatrixDelegate.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\InputMatrixDelegate.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\AlgMatrixDelegate.h">
+      <Filter>gui\forms\table_of_bindings\dialogs\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\DcRs485Defines.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\definesSlaveMode.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\DcAlgDefines.h">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\3Uo\3UoAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\3Uo</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_3Io\MTZ_3IoAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_3Io</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\I2\I2Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\I2</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\U2\U2Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\U2</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\OZZ_Po\OZZ_PoAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\OZZ_Po</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\IAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_Accelerated\MTZ_AcceleratedAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_Accelerated</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\APV\APVAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\APV</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\UROV\UROVAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\UROV</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AVR\AVRAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\AVR</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\SectionVoltage\SectionVoltageAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\SectionVoltage</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AUV\AUVAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\AUV</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\OZZ_HH\OZZ_HH_Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\OZZ_HH</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AutoKvit\AutoKvit.h">
+      <Filter>gui\forms\algorithms\embedded\algs\AutoKvit</Filter>
+    </ClInclude>
+    <ClInclude Include="journal\JSource.h">
+      <Filter>journal</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\functions\counters\DcCountersForm.h">
+      <Filter>gui\forms\functions\counters</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\IFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\DcIec61850FileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\IRs485SlaveFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\DcModbusMasterSlavesFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\DcSpodesMasterSlavesFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\DcFlexLogicFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_managers\DcAnalogsConversionFileManager.h">
+      <Filter>file_managers</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\functions\analogs\conversion\ICustomConversionSettingsWidget.h">
+      <Filter>gui\forms\functions\analogs\conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\dialogs\deprotec_data.h">
+      <Filter>gui\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\BKI\BKIAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\BKI</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\init_commands_defines.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InterfaseInitCommand.h">
+      <Filter>gui\forms\interfaces/protocols\RS-485\Sybus\master\Initialization commands</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\BasePSCAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\OZZ\OZZ_PSCAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\OZZ</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\MTZ\MTZ_PSCAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\MTZ</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\AMTZ\AMTZ_PSCAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\Device PSC\AMTZ</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\flexlogic_namespace.h">
+      <Filter>gui\forms\algorithms\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_item.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_node_data.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_socket_data.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_link_data.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\input_output\inputs\dins_board_widget.h">
+      <Filter>gui\forms\input/output\inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_NN\MTZ_NN_Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_NN</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_SN\MTZ_SN_Algorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\MTZ_SN</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\cfg_path.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\functions\oscillography\AnalogsModel.h">
+      <Filter>gui\forms\functions\oscillography</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\compiler\byte_code.h">
+      <Filter>gui\forms\algorithms\custom\compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\graphic_path.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\graphic_line.h">
+      <Filter>gui\forms\algorithms\custom\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="db\dc_db_conf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\NBLNS\NBLNSAlgorithm.h">
+      <Filter>gui\forms\algorithms\embedded\algs\NBLNS</Filter>
+	</ClInclude>
+    <ClInclude Include="service_manager\alg_service.h">
+      <Filter>service_manager</Filter>
+	</ClInclude>
+    <ClInclude Include="service_manager\bind_elements\ibind_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\service_source_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\service_target_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\signal_source_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\signal_target_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\target_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\bind_elements\virtual_signal_element.h">
+      <Filter>service_manager\bind_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\alg_service.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\cfc_alg_service.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\cfc_service_input.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\cfc_service_output.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\internal_service_input.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\internal_service_output.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\service.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\service_input.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\services\service_output.h">
+      <Filter>service_manager\services</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\signals\input_signal.h">
+      <Filter>service_manager\signals</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\signals\output_signal.h">
+      <Filter>service_manager\signals</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\signals\signal.h">
+      <Filter>service_manager\signals</Filter>
+    </ClInclude>
+    <ClInclude Include="service_manager\signals\virtual_input_signal.h">
+      <Filter>service_manager\signals</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DConf.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DConf.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="DConf.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+</Project>

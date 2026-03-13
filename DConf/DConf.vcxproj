@@ -1,0 +1,1066 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Test|Win32">
+      <Configuration>Release_Test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Test|x64">
+      <Configuration>Release_Test</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">10.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <ProjectName>DConf</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="QtSettings">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="QtSettings">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
+    <QtModules>core;gui;network;widgets;printsupport;serialport;xml</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(ProjectDir)3rdparty\genconfig.jar  $(OutDir)
+xcopy /y $(SolutionDir)3rdparty\DepParamsSystem\DEP_ParmsSystem.exe $(OutDir)
+xcopy /y $(SolutionDir)dconf_res\help\result\dconf.chm  $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(ProjectDir)3rdparty\genconfig.jar  $(OutDir)
+xcopy /y $(SolutionDir)3rdparty\DepParamsSystem\DEP_ParmsSystem.exe $(OutDir)
+xcopy /y $(SolutionDir)dconf_res\help\result\dconf.chm  $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>TEST_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y $(ProjectDir)3rdparty\genconfig.jar   $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y $(SolutionDir)dconf_res\help\result\dconf.chm   $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y /e $(SolutionDir)templates\ $(SolutionDir)installer\packages\dconf.dtb\data\templates\
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf\data\bin\$(TargetFileName)
+xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(SolutionDir)installer\packages\dconf\data\bin\
+
+</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dpc;$(ProjectDir)gui\dialogs;$(ProjectDir)gui\forms\algorithms\custom;$(ProjectDir)gui\forms\algorithms\custom\Editor;$(ProjectDir)gui\forms\algorithms\custom\Nodes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>TEST_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile />
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y $(ProjectDir)3rdparty\genconfig.jar   $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y $(SolutionDir)dconf_res\help\result\dconf.chm   $(SolutionDir)installer\packages\dconf\data\bin\
+xcopy /y /e $(SolutionDir)templates\ $(SolutionDir)installer\packages\dconf.dtb\data\templates\
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf\data\bin\$(TargetFileName)
+xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(SolutionDir)installer\packages\dconf\data\bin\
+
+</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dpc\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="db\dc_db_manager.cpp" />
+    <ClCompile Include="device_operations\DcTimeSetOperation.cpp" />
+    <ClCompile Include="device_operations\DcUpdateDeviceOperation.cpp" />
+    <ClCompile Include="file_managers\DcAnalogsConversionFileManager.cpp" />
+    <ClCompile Include="file_managers\DcFlexLogicFileManager.cpp" />
+    <ClCompile Include="file_managers\DcIec61850FileManager.cpp" />
+    <ClCompile Include="file_managers\DcModbusMasterSlavesFileManager.cpp" />
+    <ClCompile Include="file_managers\DcSpodesMasterSlavesFileManager.cpp" />
+    <ClCompile Include="file_managers\IFileManager.cpp" />
+    <ClCompile Include="file_managers\IRs485SlaveFileManager.cpp" />
+    <ClCompile Include="gui\dialogs\add_controller.cpp" />
+    <ClCompile Include="gui\dialogs\config_deprotec.cpp" />
+    <ClCompile Include="gui\dialogs\info_list_dialog.cpp" />
+    <ClCompile Include="gui\dialogs\ParamDialogBI.cpp" />
+    <ClCompile Include="gui\dialogs\ParamDialogBO.cpp" />
+    <ClCompile Include="gui\dialogs\params_dialog.cpp" />
+    <ClCompile Include="gui\dialogs\scene_dialog.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\compiler\byte_code.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\compiler\cfc_compiler.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\dep_parser.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\dummy_link.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_item.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_link.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_link_data.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_model.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_node_data.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_scene.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_socket.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\editor_socket_data.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\graphic_line.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\graphic_path.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Editor\title_item.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\flexlogic_namespace.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\flex_editor_form.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\and_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\bi_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\bo_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\generator_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\impulse_pf_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\impulse_zf_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\not_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\or_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\return_delay_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\rs_trigger_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\trigger_delay_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\Nodes\xor_node.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\BKI\BKIAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\AMTZ\AMTZ_PSCAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\BasePSCAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\MTZ\MTZ_PSCAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DevicePSC\OZZ\OZZ_PSCAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_NN\MTZ_NN_Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_SN\MTZ_SN_Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\NBLNS\NBLNSAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\comparison\ComparisonModel.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\conversion\ConversionModel.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\conversion\CustomConversionDialog.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\conversion\LinearPiecewiseSettingsWidget.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\conversion\LinearSettingsWidget.cpp" />
+    <ClCompile Include="gui\forms\functions\analogs\DcAnalogsForm.cpp" />
+    <ClCompile Include="gui\forms\functions\counters\DcCountersForm.cpp" />
+    <ClCompile Include="device_operations\DcPassportOperation.cpp" />
+    <ClCompile Include="device_operations\DcTemporaryConfigOperation.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\AlgDataModel.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\3Uo\3UoAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\APV\APVAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AutoKvit\AutoKvit.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AUV\AUVAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AVR\AVRAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\I2\I2Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_Accelerated\MTZ_AcceleratedAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\OZZ_HH\OZZ_HH_Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\OZZ_Po\OZZ_PoAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\SectionVoltage\SectionVoltageAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\U2\U2Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\UROV\UROVAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\ProfileWidget.cpp" />
+    <ClCompile Include="gui\forms\functions\oscillography\AnalogsModel.cpp" />
+    <ClCompile Include="gui\forms\functions\virtual_functions\DcVirtualFunctionsForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_board_widget.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_external_form.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_logical_form.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_model.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_physical_form.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\dins_virtual_form.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GseTableModel.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\SvTableModel.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485BaseProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\101\DcRs485Iec101Protocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\101\slave\DcRs485Iec101SlaveProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\103\DcRs485Iec103Protocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\103\slave\DcRs485Iec103SlaveProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\IEC\DcRs485IecProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\DcRs485ModbusProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DcRs485ModbusMasterProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\slave\DcRs485ModbusSlaveProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\DcRs485SpodesProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\DcRs485SpodesMasterProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\slave\DcRs485SpodesSlaveProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\DcRs485SybusProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\DcRs485SybusMasterProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\EditorInitCommands.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\TabSybusInitialization.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\slave\DcRs485SybusSlaveProtocol.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\TransparentChannel\dc_rs485_transparent_protocol.cpp" />
+    <ClCompile Include="gui\forms\main\DateTimeWidget.cpp" />
+    <ClCompile Include="gui\forms\main\DcPassportDialog.cpp" />
+    <ClCompile Include="gui\forms\main\DeviceWidget.cpp" />
+    <ClCompile Include="device_operations\DcFormatDriveOperation.cpp" />
+    <ClCompile Include="device_operations\DcInfoOperation.cpp" />
+    <ClCompile Include="device_operations\DcResetOperation.cpp" />
+    <ClCompile Include="device_operations\DcRestartOperation.cpp" />
+    <ClCompile Include="device_operations\DcWriteConfigOperation.cpp" />
+    <ClCompile Include="gui\forms\main\filesystem_page.cpp" />
+    <ClCompile Include="gui\forms\main\IDeviceTabWidget.cpp" />
+    <ClCompile Include="gui\forms\thresholds_settings\pqi_event_model.cpp" />
+    <ClCompile Include="report\DcIConfigReport.cpp" />
+    <ClCompile Include="report\DcReportTable.cpp" />
+    <ClCompile Include="report\DcTextDocumentConfigReport.cpp" />
+    <ClCompile Include="gui\forms\DcSignalManager.cpp" />
+    <ClCompile Include="gui\forms\DcMenu.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\DcEmbeddedAlgorithmsForm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ACHR\ACHRAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\Board_Algorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\AMTZ\AMTZAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DTO\DTOAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\DZT\DZTAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\KCT\KCTAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\LZSH\LZSHAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ\MTZAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_VN\MTZ_VNAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\MTZ_3Io\MTZ_3IoAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\TO_VN\TO_VNAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\VNR\VNRAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\VNR\VNR_GSMAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ZMN\ZMNAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\algs\ZPN\ZPNAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\algorithms\embedded\IAlgorithm.cpp" />
+    <ClCompile Include="gui\forms\functions\auv_urov\DcAuvUrovForm.cpp" />
+    <ClCompile Include="gui\forms\functions\oscillography\DcOscillographyForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101SettingsForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\Dc61850Form.cpp" />
+    <ClCompile Include="gui\forms\algorithms\custom\DcCustomAlgorithmsForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\analog_inputs\DcAnalogChannelsSettings.cpp" />
+    <ClCompile Include="gui\forms\DcFormFactory.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485Form.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101ChannelsForm.cpp" />
+    <ClCompile Include="gui\forms\default\DcDefaultForm.cpp" />
+    <ClCompile Include="gui\forms\main\DcMainForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\DcDiscreteInputACDSignalForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\inputs\DcDiscreteInputTwoPositionedSignalsForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputBlockControl.cpp" />
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputChannelForm.cpp" />
+    <ClCompile Include="gui\forms\input_output\outputs\DcDiscreteOutputClonesForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\Communication.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\DataTypeTemplates.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublisher.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublishersDialog.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\IEC61850Configuration.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\IED.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\InputGooseWidget.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\TreeItems.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\TreeViewDataModel.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-61850\XMLNode.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\ConnectionDiscretWidget.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103SettingsForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\common_slave_functions.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\DcRs485PortWidget.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\SIM\DcSimForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\SPODES\DcSpodesSettingsForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\TimeSync\DcTimeSyncForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandNamesJSONSaver.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibTreeItem.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CommandLibraryModel.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusParser.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesMasterCommon.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveSettingsDialog.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveWidget.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterChannels.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterIdentification.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandAins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandCins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDescription.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandInitialization.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandAins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandCins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandDins.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ExtraFunctions.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_readOrCreate.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_standartOrNot.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction02_ReadDiscreteInputs.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction04_ReadInputRegisters.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunctionCustom.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction02_ReadDiscreteInputs.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction04_ReadInputRegisters.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction_Custom.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveDefinition.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveFileSaver.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\TCP\DcTcpForm.cpp" />
+    <ClCompile Include="gui\forms\settings\DcSettingsForm.cpp" />
+    <ClCompile Include="gui\forms\thresholds_settings\DcPqiEventSettingsForm.cpp" />
+    <ClCompile Include="gui\forms\thresholds_settings\DcPqiSettingsForm.cpp" />
+    <ClCompile Include="gui\forms\thresholds_settings\DcThresholdsForm.cpp" />
+    <ClCompile Include="gui\forms\functions\switches\DcSwitchesForm.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\AlgBindDlgModel.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\AlgBindDialog.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\AlgMatrixDelegate.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\IBindDialog.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\IMatrixDelegate.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\InputBindDlgModel.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\DcFormMatrix.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\IDlgModel.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\InputBindDialog.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\InputMatrixDelegate.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\models\OutputBindDlgModel.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\OutputBindDialog.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\delegates\OutputMatrixDelegate.cpp" />
+    <ClCompile Include="gui\forms\table_of_bindings\dialogs\signal_names_functions.cpp" />
+    <ClCompile Include="gui\forms\converter\DcConverterForm.cpp" />
+    <ClCompile Include="data_model\dc_alg.cpp" />
+    <ClCompile Include="data_model\dc_alg_cfc.cpp" />
+    <ClCompile Include="data_model\dc_alg_internal.cpp" />
+    <ClCompile Include="data_model\dc_alg_io_cfc.cpp" />
+    <ClCompile Include="data_model\dc_alg_io_internal.cpp" />
+    <ClCompile Include="data_model\dc_board.cpp" />
+    <ClCompile Include="data_model\dc_conf_item.cpp" />
+    <ClCompile Include="data_model\dc_conf_topology.cpp" />
+    <ClCompile Include="data_model\dc_controller.cpp" />
+    <ClCompile Include="data_model\dc_data_manager.cpp" />
+    <ClCompile Include="data_model\dc_matrix_element.cpp" />
+    <ClCompile Include="data_model\dc_matrix_element_alg.cpp" />
+    <ClCompile Include="data_model\dc_matrix_element_alg_cfc.cpp" />
+    <ClCompile Include="data_model\dc_matrix_element_signal.cpp" />
+    <ClCompile Include="data_model\dc_project_description.cpp" />
+    <ClCompile Include="data_model\dc_properties.cpp" />
+    <ClCompile Include="data_model\dc_setting.cpp" />
+    <ClCompile Include="data_model\dc_settings_pool.cpp" />
+    <ClCompile Include="data_model\dc_signal.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\DcController_v2.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfgPool_v2.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfg_v2.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\DcParamCfg_v2_Headline.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param_cfg.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\dc_param_cfg_board.cpp" />
+    <ClCompile Include="db\dc_db_wrapper.cpp" />
+    <ClCompile Include="db\sqlite\sqlite3.c" />
+    <ClCompile Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103ChannelsForm.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\SPODES\DcSpodesChannelsForm.cpp" />
+    <ClCompile Include="data_model\storage_for_controller_params\cfg_param_attributes.cpp" />
+    <ClCompile Include="gui\forms\interfaces_protocols\RS485\PortInfo.cpp" />
+    <ClCompile Include="gui\forms\DcForm.cpp" />
+    <ClCompile Include="DConf.cpp" />
+    <ClCompile Include="dc_proj_model.cpp" />
+    <ClCompile Include="device_operations\DcReadConfigOperation.cpp" />
+    <ClCompile Include="gui\dialogs\frmCreateProj.cpp" />
+    <ClCompile Include="gui\dialogs\frmOpenProj.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="device_operations\DcIDeviceOperation.cpp" />
+    <ClCompile Include="gui\editors\EditorsManager.cpp" />
+    <ClCompile Include="gui\editors\types\CheckParamEditor.cpp" />
+    <ClCompile Include="gui\editors\types\LineParamEditor.cpp" />
+    <ClCompile Include="gui\editors\types\ListEditorContainer.cpp" />
+    <ClCompile Include="gui\editors\types\ListParamEditor.cpp" />
+    <ClCompile Include="gui\editors\types\ParamEditor.cpp" />
+    <ClCompile Include="service_manager\bind_elements\service_source_element.cpp" />
+    <ClCompile Include="service_manager\bind_elements\service_target_element.cpp" />
+    <ClCompile Include="service_manager\bind_elements\signal_source_element.cpp" />
+    <ClCompile Include="service_manager\bind_elements\signal_target_element.cpp" />
+    <ClCompile Include="service_manager\bind_elements\target_element.cpp" />
+    <ClCompile Include="service_manager\bind_elements\virtual_signal_element.cpp" />
+    <ClCompile Include="service_manager\services\alg_service.cpp" />
+    <ClCompile Include="service_manager\services\cfc_alg_service.cpp" />
+    <ClCompile Include="service_manager\services\cfc_service_input.cpp" />
+    <ClCompile Include="service_manager\services\cfc_service_output.cpp" />
+    <ClCompile Include="service_manager\services\internal_service_input.cpp" />
+    <ClCompile Include="service_manager\services\internal_service_output.cpp" />
+    <ClCompile Include="service_manager\services\service.cpp" />
+    <ClCompile Include="service_manager\services\service_input.cpp" />
+    <ClCompile Include="service_manager\services\service_output.cpp" />
+    <ClCompile Include="service_manager\service_manager.cpp" />
+    <ClCompile Include="service_manager\signals\input_signal.cpp" />
+    <ClCompile Include="service_manager\signals\output_signal.cpp" />
+    <ClCompile Include="service_manager\signals\signal.cpp" />
+    <ClCompile Include="service_manager\signals\virtual_input_signal.cpp" />
+    <ClCompile Include="updater\updater.cpp" />
+    <ClCompile Include="utils\cfg_path.cpp" />
+    <ClCompile Include="utils\qzip.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DConf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="gui\dialogs\ParamDialogBI.ui" />
+    <QtUic Include="gui\dialogs\ParamDialogBO.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.ui" />
+    <QtUic Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.ui" />
+    <QtUic Include="gui\forms\table_of_bindings\dialogs\IBindDialog.ui" />
+    <QtUic Include="DConf.ui" />
+    <QtUic Include="gui\dialogs\frmCreateProj.ui" />
+    <QtUic Include="gui\dialogs\frmOpenProj.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="DConf.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="gui\dialogs\frmCreateProj.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="device_operations\DcWriteConfigOperation.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcFormatDriveOperation.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcTimeSetOperation.h" />
+    <QtMoc Include="gui\forms\functions\analogs\DcAnalogsForm.h" />
+    <QtMoc Include="gui\forms\functions\analogs\conversion\ConversionModel.h" />
+    <QtMoc Include="gui\forms\functions\analogs\conversion\CustomConversionDialog.h" />
+    <QtMoc Include="gui\forms\functions\analogs\comparison\ComparisonModel.h" />
+    <QtMoc Include="device_operations\DcUpdateDeviceOperation.h" />
+    <QtMoc Include="db\dc_db_manager.h" />
+    <ClInclude Include="file_managers\DcAnalogsConversionFileManager.h" />
+    <ClInclude Include="file_managers\DcFlexLogicFileManager.h" />
+    <ClInclude Include="file_managers\DcIec61850FileManager.h" />
+    <ClInclude Include="file_managers\DcModbusMasterSlavesFileManager.h" />
+    <ClInclude Include="file_managers\DcSpodesMasterSlavesFileManager.h" />
+    <ClInclude Include="file_managers\IFileManager.h" />
+    <ClInclude Include="file_managers\IRs485SlaveFileManager.h" />
+    <QtMoc Include="gui\dialogs\add_controller.h" />
+    <QtMoc Include="gui\dialogs\config_deprotec.h" />
+    <ClInclude Include="gui\dialogs\deprotec_data.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\flex_editor_form.h" />
+    <QtMoc Include="gui\dialogs\scene_dialog.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\dummy_link.h" />
+    <QtMoc Include="gui\dialogs\params_dialog.h" />
+    <QtMoc Include="gui\dialogs\ParamDialogBI.h" />
+    <QtMoc Include="gui\dialogs\ParamDialogBO.h" />
+    <QtMoc Include="gui\dialogs\info_list_dialog.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\dep_parser.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\compiler\byte_code.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\compiler\cfc_compiler.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_item.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_model.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_link.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_link_data.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_node_data.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_scene.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\editor_socket.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\editor_socket_data.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Editor\title_item.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\graphic_line.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\Editor\graphic_path.h" />
+    <ClInclude Include="gui\forms\algorithms\custom\flexlogic_namespace.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\and_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\bi_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\bo_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\generator_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\impulse_pf_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\impulse_zf_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\not_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\or_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\return_delay_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\rs_trigger_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\trigger_delay_node.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\Nodes\xor_node.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\BKI\BKIAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\AMTZ\AMTZ_PSCAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\BasePSCAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\MTZ\MTZ_PSCAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DevicePSC\OZZ\OZZ_PSCAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_NN\MTZ_NN_Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_SN\MTZ_SN_Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\NBLNS\NBLNSAlgorithm.h" />
+    <ClInclude Include="gui\forms\functions\analogs\conversion\ICustomConversionSettingsWidget.h" />
+    <QtMoc Include="gui\forms\functions\analogs\conversion\LinearSettingsWidget.h" />
+    <QtMoc Include="gui\forms\functions\analogs\conversion\LinearPiecewiseSettingsWidget.h" />
+    <ClInclude Include="gui\forms\functions\counters\DcCountersForm.h" />
+    <QtMoc Include="device_operations\DcPassportOperation.h" />
+    <QtMoc Include="device_operations\DcTemporaryConfigOperation.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485BaseProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\DcRs485SybusMasterProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\slave\DcRs485SybusSlaveProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\slave\DcRs485SpodesSlaveProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\master\DcRs485SpodesMasterProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\slave\DcRs485ModbusSlaveProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DcRs485ModbusMasterProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\101\slave\DcRs485Iec101SlaveProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\DcRs485SybusProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\DcRs485SpodesProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\DcRs485ModbusProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\101\DcRs485Iec101Protocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\DcRs485IecProtocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\103\DcRs485Iec103Protocol.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\IEC\103\slave\DcRs485Iec103SlaveProtocol.h" />
+    <QtMoc Include="gui\forms\algorithms\embedded\AlgDataModel.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\3Uo\3UoAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\APV\APVAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AutoKvit\AutoKvit.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AUV\AUVAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AVR\AVRAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\I2\I2Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_Accelerated\MTZ_AcceleratedAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\OZZ_HH\OZZ_HH_Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\OZZ_Po\OZZ_PoAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\SectionVoltage\SectionVoltageAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\U2\U2Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\UROV\UROVAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\DcAlgDefines.h" />
+    <QtMoc Include="gui\forms\algorithms\embedded\ProfileWidget.h" />
+    <QtMoc Include="gui\forms\main\DcPassportDialog.h" />
+    <QtMoc Include="gui\forms\main\DeviceWidget.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcRestartOperation.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcInfoOperation.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcResetOperation.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\main\DateTimeWidget.h" />
+    <QtMoc Include="gui\forms\main\IDeviceTabWidget.h" />
+    <QtMoc Include="gui\forms\functions\virtual_functions\DcVirtualFunctionsForm.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\GseTableModel.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\SvTableModel.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\EditorInitCommands.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandCopyParam.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InitSybusCommandSetParam.h" />
+    <ClInclude Include="gui\forms\functions\oscillography\AnalogsModel.h" />
+    <ClInclude Include="gui\forms\input_output\inputs\dins_board_widget.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\dins_external_form.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\dins_logical_form.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\dins_model.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\dins_physical_form.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\dins_virtual_form.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\init_commands_defines.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\InterfaseInitCommand.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\InitializationCommands\TabSybusInitialization.h" />
+    <QtMoc Include="gui\forms\main\filesystem_page.h" />
+    <QtMoc Include="gui\forms\thresholds_settings\pqi_event_model.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\TransparentChannel\dc_rs485_transparent_protocol.h" />
+    <ClInclude Include="journal\JSource.h" />
+    <ClInclude Include="report\DcIConfigReport.h">
+    </ClInclude>
+    <ClInclude Include="report\DcReportTable.h" />
+    <ClInclude Include="report\DcTextDocumentConfigReport.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ\MTZAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_VN\MTZ_VNAlgorithm.h" />
+    <QtMoc Include="device_operations\DcReadConfigOperation.h">
+    </QtMoc>
+    <QtMoc Include="device_operations\DcIDeviceOperation.h">
+    </QtMoc>
+    <ClInclude Include="gui\editors\types\ListEditorContainer.h" />
+    <QtMoc Include="updater\updater.h" />
+    <QtMoc Include="service_manager\service_manager.h" />
+    <ClInclude Include="service_manager\bind_elements\ibind_element.h" />
+    <ClInclude Include="service_manager\bind_elements\service_source_element.h" />
+    <ClInclude Include="service_manager\bind_elements\service_target_element.h" />
+    <ClInclude Include="service_manager\bind_elements\signal_source_element.h" />
+    <ClInclude Include="service_manager\bind_elements\signal_target_element.h" />
+    <ClInclude Include="service_manager\bind_elements\target_element.h" />
+    <ClInclude Include="service_manager\bind_elements\virtual_signal_element.h" />
+    <ClInclude Include="service_manager\services\alg_service.h" />
+    <ClInclude Include="service_manager\services\cfc_alg_service.h" />
+    <ClInclude Include="service_manager\services\cfc_service_input.h" />
+    <ClInclude Include="service_manager\services\cfc_service_output.h" />
+    <ClInclude Include="service_manager\services\internal_service_input.h" />
+    <ClInclude Include="service_manager\services\internal_service_output.h" />
+    <ClInclude Include="service_manager\services\service.h" />
+    <ClInclude Include="service_manager\services\service_input.h" />
+    <ClInclude Include="service_manager\services\service_output.h" />
+    <ClInclude Include="service_manager\signals\input_signal.h" />
+    <ClInclude Include="service_manager\signals\output_signal.h" />
+    <ClInclude Include="service_manager\signals\signal.h" />
+    <ClInclude Include="service_manager\signals\virtual_input_signal.h" />
+    <ClInclude Include="utils\cfg_path.h" />
+    <ClInclude Include="version.h" />
+    <QtMoc Include="gui\forms\input_output\analog_inputs\DcAnalogChannelsSettings.h" />
+    <QtMoc Include="gui\forms\DcSignalManager.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\Dc61850Form.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\DcFormFactory.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485Form.h" />
+    <QtMoc Include="gui\forms\algorithms\custom\DcCustomAlgorithmsForm.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101ChannelsForm.h" />
+    <ClInclude Include="gui\forms\DcMenu.h" />
+    <ClInclude Include="gui\forms\default\DcDefaultForm.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\DcDiscreteInputACDSignalForm.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandAins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandCins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDescription.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandDins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandAins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandCins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommandDins.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandWidgets\ModbusWidgetCommonCommand.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Commands\ModbusCommandInitialization.h" />
+    <QtMoc Include="gui\forms\main\DcMainForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\auv_urov\DcAuvUrovForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\oscillography\DcOscillographyForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\algorithms\embedded\DcEmbeddedAlgorithmsForm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ACHR\ACHRAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\Board_Algorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\AMTZ\AMTZAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DTO\DTOAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\DZT\DZTAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\KCT\KCTAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\LZSH\LZSHAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\MTZ_3Io\MTZ_3IoAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\TO_VN\TO_VNAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\VNR\VNRAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\VNR\VNR_GSMAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ZMN\ZMNAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\algs\ZPN\ZPNAlgorithm.h" />
+    <ClInclude Include="gui\forms\algorithms\embedded\IAlgorithm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-101\DcIEC101SettingsForm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\61850_defines.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\IEC61850Configuration.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\Communication.h">
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\DataTypeTemplates.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\IED.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublishersDialog.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\GoosePublisher.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\InputGooseWidget.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\TreeItems.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-61850\TreeViewDataModel.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-61850\XMLNode.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\ConnectionDiscretWidget.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103SettingsForm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\common_slave_functions.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\CommandNamesJSONSaver.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_CommandDefines.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_CommandWidgetHeaders.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ExtraFunctions.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_FunctionWidgetHeaders.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusCommandDefines.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusCommandsHeaders.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusFunctionDefines.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\Common\common_ModbusFunctionsHeaders.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction02_ReadDiscreteInputs.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunction04_ReadInputRegisters.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctions\ModbusFunctionCustom.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\IModbusWidgetFunction.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction_Custom.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction02_ReadDiscreteInputs.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusFunctionWidgets\ModbusWidgetFunction04_ReadInputRegisters.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_readOrCreate.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusDialogSlaveInit_standartOrNot.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveDefinition.h">
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusSlaveFileSaver.h">
+    </ClInclude>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetChannelsTable.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetSlaveSettings.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusWidgetInitCommands.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CommandLibraryModel.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibTreeItem.h">
+    </ClInclude>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Modbus\master\DeviceCommandLibrary\CmdLibWidget.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Modbus\master\ModbusParser.h" />
+    <QtMoc Include="gui\forms\input_output\inputs\DcDiscreteInputTwoPositionedSignalsForm.h" />
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputBlockControl.h" />
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputChannelForm.h" />
+    <QtMoc Include="gui\forms\input_output\outputs\DcDiscreteOutputClonesForm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\DcRs485Defines.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\TimeSync\DcTimeSyncForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\DcRs485PortWidget.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesMasterCommon.h">
+    </ClInclude>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveSettingsDialog.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Spodes\master\SpodesSlaveWidget.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\Sybus\master\definesSlaveMode.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterChannels.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\RS485\Sybus\master\TabSybusMasterIdentification.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\AlgBindDlgModel.h" />
+    <QtMoc Include="gui\forms\thresholds_settings\DcThresholdsForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\functions\switches\DcSwitchesForm.h">
+    </QtMoc>
+    <ClInclude Include="gui\forms\interfaces_protocols\SIM\DcSimForm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\SPODES\DcSpodesSettingsForm.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\TCP\DcTcpForm.h">
+    </ClInclude>
+    <ClInclude Include="gui\forms\settings\DcSettingsForm.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\AlgBindDialog.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\AlgMatrixDelegate.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\InputBindDlgModel.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\IBindDialog.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\DcFormMatrix.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\IDlgModel.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\delegates\IMatrixDelegate.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\InputBindDialog.h" />
+    <QtMoc Include="gui\forms\table_of_bindings\dialogs\models\OutputBindDlgModel.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\InputMatrixDelegate.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\OutputBindDialog.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\delegates\OutputMatrixDelegate.h" />
+    <ClInclude Include="gui\forms\table_of_bindings\dialogs\signal_names_functions.h" />
+    <QtMoc Include="gui\forms\thresholds_settings\DcPqiEventSettingsForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\thresholds_settings\DcPqiSettingsForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\converter\DcConverterForm.h">
+    </QtMoc>
+    <ClInclude Include="data_model\BindMatrixElem.h" />
+    <ClInclude Include="data_model\dc_alg.h" />
+    <ClInclude Include="data_model\dc_alg_cfc.h" />
+    <ClInclude Include="data_model\dc_alg_internal.h" />
+    <ClInclude Include="data_model\dc_alg_io.h" />
+    <ClInclude Include="data_model\dc_alg_io_cfc.h" />
+    <ClInclude Include="data_model\dc_alg_io_internal.h" />
+    <ClInclude Include="data_model\dc_board.h" />
+    <ClInclude Include="data_model\dc_conf_item.h" />
+    <ClInclude Include="data_model\dc_conf_topology.h" />
+    <QtMoc Include="data_model\dc_controller.h" />
+    <ClInclude Include="data_model\dc_data_manager.h" />
+    <ClInclude Include="data_model\dc_matrix_element.h" />
+    <ClInclude Include="data_model\dc_matrix_element_alg.h" />
+    <ClInclude Include="data_model\dc_matrix_element_alg_cfc.h" />
+    <ClInclude Include="data_model\dc_matrix_element_signal.h" />
+    <ClInclude Include="data_model\dc_matrix_pool.h" />
+    <ClInclude Include="data_model\dc_pool.h" />
+    <ClInclude Include="data_model\dc_project_description.h" />
+    <QtMoc Include="dc_proj_model.h" />
+    <QtMoc Include="gui\dialogs\frmOpenProj.h" />
+    <ClInclude Include="data_model\dc_properties.h" />
+    <ClInclude Include="data_model\dc_setting.h" />
+    <ClInclude Include="data_model\dc_settings_pool.h" />
+    <ClInclude Include="data_model\dc_signal.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\DcController_v2.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\DcParamCfgPool_v2.h" />
+    <QtMoc Include="data_model\storage_for_controller_params\DcParamCfg_v2.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\DcParamCfg_v2_Headline.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg_board.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\dc_param_cfg_pool.h" />
+    <ClInclude Include="db\dc_db_conf.h" />
+    <ClInclude Include="db\dc_db_wrapper.h" />
+    <ClInclude Include="db\sqlite\sqlite3.h" />
+    <ClInclude Include="db\sqlite\sqlite3ext.h" />
+    <QtMoc Include="gui\forms\interfaces_protocols\IEC-103\DcIEC103ChannelsForm.h">
+    </QtMoc>
+    <QtMoc Include="gui\forms\interfaces_protocols\SPODES\DcSpodesChannelsForm.h">
+    </QtMoc>
+    <ClInclude Include="db\current_program_versions_defines.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\PortInfo.h" />
+    <ClInclude Include="gui\forms\interfaces_protocols\RS485\macrosCheckPointer.h" />
+    <ClInclude Include="data_model\storage_for_controller_params\cfg_param_attributes.h" />
+    <ClInclude Include="gui\forms\DcForm.h">
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <QtMoc Include="gui\editors\types\CheckParamEditor.h">
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\LineParamEditor.h">
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\ListParamEditor.h">
+    </QtMoc>
+    <QtMoc Include="gui\editors\types\ParamEditor.h">
+    </QtMoc>
+    <QtMoc Include="gui\editors\EditorsManager.h">
+    </QtMoc>
+    <ClInclude Include="utils\qzipreader_p.h" />
+    <ClInclude Include="utils\qzipwriter_p.h" />
+    <ClInclude Include="utils\rapidxml.hpp" />
+    <ClInclude Include="utils\rapidxml_print.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DConf.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DConf.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="zoom_navig.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.69486532"
+     inkscape:cx="431.73834"
+     inkscape:cy="365.53846"
+     inkscape:window-width="1920"
+     inkscape:window-height="976"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><g
+       id="g2"><path
+         style="fill:#547586;fill-opacity:1;stroke:none;stroke-width:17.0118;stroke-dasharray:none"
+         d="m 53.627176,130.49503 -35.178678,35.17872 c -13.503307,14.65158 4.647534,36.09697 22.591817,25.49649 l 36.146979,-38.72886 z"
+         id="path5"
+         sodipodi:nodetypes="ccccc" /><path
+         id="path4"
+         style="fill:#df601c;fill-opacity:1;stroke:none;stroke-width:17.1124;stroke-dasharray:none"
+         d="M 112.67248,8.3163203 A 77.592077,77.592077 0 0 0 35.080216,85.908581 77.592077,77.592077 0 0 0 112.67248,163.50087 77.592077,77.592077 0 0 0 190.26476,85.908581 77.592077,77.592077 0 0 0 112.67248,8.3163203 Z m 0,14.0439397 a 63.548115,63.548115 0 0 1 63.5471,63.548321 63.548115,63.548115 0 0 1 -63.5471,63.548349 A 63.548115,63.548115 0 0 1 49.124156,85.908581 63.548115,63.548115 0 0 1 112.67248,22.36026 Z" /><path
+         id="path1"
+         style="fill:#547586;fill-opacity:1;stroke-width:12.198"
+         d="M 60.768384,54.361023 V 117.90701 H 162.51825 V 54.361023 Z m 5.428092,4.711857 h 89.835344 v 54.12228 H 66.196476 Z"
+         sodipodi:nodetypes="cccccccccc" /></g></g></svg>

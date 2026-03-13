@@ -1,0 +1,6 @@
+465,525                         // depRTU-LT-R
+469,527                         // depRTU-LT-RB
+467,471,526,529                 // depRTU-LT-T,depRTU-LT-F
+470,472,528,530,575,576,591,592 // depRTU-LT-TB,depRTU-LT-FB,depRTU-LT-TB-RAM32,depRTU-LT-FB-RAM32
+495,494,512,513					// depRTU
+675,706							// T2-AOUT4

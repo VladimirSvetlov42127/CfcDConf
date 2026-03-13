@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="returndelay.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.24567199"
+     inkscape:cx="1015.5818"
+     inkscape:cy="-20.352341"
+     inkscape:window-width="1394"
+     inkscape:window-height="960"
+     inkscape:window-x="510"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="path3-7-0-2"
+       style="fill:#547586;fill-opacity:1;stroke-width:0.474713;stroke-dashoffset:20.512"
+       d="M 66.041313,11.149544 V 178.85755 H 185.36667 V 11.149544 Z m 48.180807,9.355574 v 17.403539 h 8.49087 v 6.567431 h -8.49087 v 29.131003 c 0,2.408039 0.14082,3.956236 0.42227,4.644244 0.31273,0.68801 0.79746,1.235383 1.45416,1.641927 0.68803,0.406544 1.65761,0.609809 2.90854,0.609809 0.93819,0 2.17348,-0.109645 3.7059,-0.328551 l 1.21965,7.458788 c -2.37678,0.500371 -4.50359,0.75057 -6.37997,0.75057 -3.06475,0 -5.44141,-0.484662 -7.1302,-1.454137 -1.68873,-0.969474 -2.87714,-2.236261 -3.56513,-3.799918 -0.68802,-1.594924 -1.0321,-4.925518 -1.0321,-9.991782 V 44.476088 h -6.192151 v -6.567431 h 6.192151 V 25.571383 Z m 24.89696,68.991159 34.34051,34.601713 -34.34051,36.19498 v -20.38552 h -13.82003 v -31.61864 h 13.82003 z M 78.900846,108.28881 h 3.977557 v 31.61864 h -3.977557 z m 9.594533,0 h 6.114586 v 31.61864 h -6.114586 z m 10.744529,0 h 7.619872 v 31.61864 h -7.619872 z m 12.388952,0 h 10.5887 v 31.61864 h -10.5887 z"
+       sodipodi:nodetypes="ccccccccccsccsccsscscccccccccccccccccccccccccccccccccc" /><path
+       id="path3-7-55-9-4"
+       style="fill:#df601c;fill-opacity:1;stroke-width:0.474713;stroke-dashoffset:20.512"
+       d="M 60.576449,10.058066 V 183.29192 H 184.824 v 8.17114 H 12.302112 V 10.058066 Z"
+       sodipodi:nodetypes="ccccccc" /></g></svg>

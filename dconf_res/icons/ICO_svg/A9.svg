@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="A9.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.69486532"
+     inkscape:cx="467.71654"
+     inkscape:cy="492.18171"
+     inkscape:window-width="1827"
+     inkscape:window-height="960"
+     inkscape:window-x="2"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       transform="matrix(3.3727196,0,0,3.3737671,11537.105,4841.5282)"
+       id="g3820-4-8-4-7-3-2"
+       style="stroke-width:0.523746" />
+    <g
+       id="g93"
+       transform="matrix(18.832752,0,0,18.832752,-12817.233,-11122.882)">
+      <path
+         style="fill:#df601c;fill-opacity:1;stroke:none;stroke-width:4.00001;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 681.03758,598.83439 v -5.80138 c -0.004,-0.23763 0.16881,-0.36787 0.56009,-0.36633 h 8.67015 c 0.35471,10e-4 0.53148,0.12524 0.53768,0.36633 v 5.80138 c -0.003,0.24607 -0.19729,0.35189 -0.53768,0.35137 h -8.67015 c -0.32987,-0.003 -0.55658,-0.0883 -0.56009,-0.35137 z"
+         id="path21-0-7-71-2-4"
+         sodipodi:nodetypes="ccccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.42078px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4.00001;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="683.19843"
+         y="597.40857"
+         id="text28-8-1-0-5-6"><tspan
+           sodipodi:role="line"
+           id="tspan28-4-7-9-6-8"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#ffffff;fill-opacity:1;stroke-width:4.00001"
+           x="683.19843"
+           y="597.40857">А9</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="warning.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.49134398"
+     inkscape:cx="284.93277"
+     inkscape:cy="199.45294"
+     inkscape:window-width="1920"
+     inkscape:window-height="976"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="rect21"
+       style="opacity:1;fill:#df601c;fill-opacity:1;stroke:none;stroke-width:5.86586;stroke-dasharray:none"
+       d="M 100.69725,3.1217937 3.1218145,100.69723 100.69725,198.27319 198.27321,100.69723 Z M 100.00479,28.51766 c 7.18425,0.05722 14.46979,4.478172 16.63465,12.518619 1.52643,5.668882 -0.57197,18.577057 -7.50446,46.149636 -2.68552,10.682444 -5.57559,24.625775 -6.42235,30.985185 -0.84673,6.35936 -1.8993,11.56209 -2.33939,11.56209 -0.439659,0 -1.469262,-4.92185 -2.287716,-10.93784 C 97.267298,112.77942 94.045958,97.16919 90.927308,84.105998 84.137844,55.666802 82.737727,42.493604 85.882654,36.653597 88.890468,31.068459 94.417036,28.473159 100.00479,28.51766 Z m 0.40463,109.9969 c 8.58493,-0.17643 15.29491,7.35274 15.22181,15.12518 -0.0944,10.03335 -7.92884,15.19512 -15.21406,15.36805 -9.644416,0.22894 -15.456073,-8.15398 -15.344282,-15.39957 0.151265,-9.80451 8.165536,-14.9463 15.336532,-15.09366 z" /></g></svg>

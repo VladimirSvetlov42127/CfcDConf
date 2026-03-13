@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="block.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.69486532"
+     inkscape:cx="410.87099"
+     inkscape:cy="521.68383"
+     inkscape:window-width="1488"
+     inkscape:window-height="1041"
+     inkscape:window-x="406"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><g
+       id="g5523-9"
+       transform="matrix(1.7340633,1.6209247,-1.6209247,1.7340633,1270.9525,4042.4745)"><path
+         sodipodi:nodetypes="cssssccsc"
+         inkscape:connector-curvature="0"
+         id="path5504-0"
+         d="m -1501.1295,-866.05657 h 13.816 c 5.4332,0 9.4981,-4.06537 9.4981,-9.4992 v -28.92592 c 0,-5.43382 -4.0643,-9.49809 -9.4981,-9.49809 h -13.816 v 0 c -5.4338,0 -9.4981,4.06427 -9.4981,9.49809 v 11.37445"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#df601c;stroke-width:8.00443766;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" /><path
+         sodipodi:nodetypes="cssssccsc"
+         inkscape:connector-curvature="0"
+         id="path5504-7-7"
+         d="m -1487.84,-887.04891 h -13.816 c -5.4332,0 -9.4981,4.06537 -9.4981,9.4992 v 28.92592 c 0,5.43382 4.0643,9.49809 9.4981,9.49809 h 13.816 v 0 c 5.4338,0 9.4981,-4.06427 9.4981,-9.49809 v -11.37445"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#547586;stroke-width:8.00443766;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" /></g></g></svg>

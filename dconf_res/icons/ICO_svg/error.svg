@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="error.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.34743266"
+     inkscape:cx="-30.221684"
+     inkscape:cy="518.08601"
+     inkscape:window-width="1920"
+     inkscape:window-height="976"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="path61"
+       style="opacity:1;fill:#df601c;fill-opacity:1;stroke:none;stroke-width:13.1884"
+       d="M 100.4325,10.989862 A 87.802153,87.802153 0 0 0 12.630284,98.792076 87.802153,87.802153 0 0 0 100.4325,186.5943 87.802153,87.802153 0 0 0 188.23472,98.792076 87.802153,87.802153 0 0 0 100.4325,10.989862 Z m 0,17.698716 A 70.103526,70.103526 0 0 1 170.536,98.792076 70.103526,70.103526 0 0 1 100.4325,168.89558 70.103526,70.103526 0 0 1 30.329,98.792076 70.103526,70.103526 0 0 1 100.4325,28.688578 Z M 134.90071,50.780457 100.11972,86.014958 65.066382,51.183619 52.227025,64.191062 87.737836,98.729049 52.956838,133.96434 l 13.00705,12.83976 34.781392,-35.23529 35.05293,34.83172 12.83977,-13.00744 -35.23491,-34.780989 34.50509,-34.991889 z" /></g></svg>

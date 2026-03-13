@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Test|Win32">
+      <Configuration>Release_Test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Test|x64">
+      <Configuration>Release_Test</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{314934A5-22B0-49C8-ABCA-2ABD7D061B44}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">10.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019</QtInstall>
+    <QtModules>core;network;widgets;serialport</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf.dpc\data\bin\
+xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf.dview\data\bin\
+xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf\data\bin\
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.dpc\data\bin\$(TargetFileName)
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.dview\data\bin\$(TargetFileName)
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.\data\bin\$(TargetFileName)
+xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(SolutionDir)installer\packages\dconf.dpc\data\bin\
+
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <ImportLibrary>$(IntDir)lib\$(TargetName).lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf.dpc\data\bin\
+xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf.dview\data\bin\
+xcopy /y $(TargetPath)  $(SolutionDir)installer\packages\dconf\data\bin\
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.dpc\data\bin\$(TargetFileName)
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.dview\data\bin\$(TargetFileName)
+$(QtDllPath)/windeployqt.exe $(SolutionDir)installer\packages\dconf.\data\bin\$(TargetFileName)
+xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(SolutionDir)installer\packages\dconf.dpc\data\bin\
+
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;TEST_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Test|Win32'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>DPC_LIB;TEST_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dpc\dep_about_box.cpp" />
+    <ClCompile Include="dpc\gui\delegates\ComboBoxDelegate.cpp" />
+    <ClCompile Include="dpc\gui\delegates\LineEditDelegate.cpp" />
+    <ClCompile Include="dpc\gui\delegates\ProgressBarDelegate.cpp" />
+    <ClCompile Include="dpc\gui\delegates\PushButtonDelegate.cpp" />
+    <ClCompile Include="dpc\gui\delegates\SpinBoxDelegate.cpp" />
+    <ClCompile Include="dpc\gui\dialogs\channel\ChannelsDialog.cpp" />
+    <ClCompile Include="dpc\gui\dialogs\channel\Rs485SettingsWidget.cpp" />
+    <ClCompile Include="dpc\gui\dialogs\channel\TcpSettingsWidget.cpp" />
+    <ClCompile Include="dpc\gui\dialogs\channel\VComSettingsWidget.cpp" />
+    <ClCompile Include="dpc\gui\dialogs\msg_box\MsgBox.cpp" />
+    <ClCompile Include="dpc\gui\gui.cpp" />
+    <ClCompile Include="dpc\gui\widgets\CheckableComboBox.cpp" />
+    <ClCompile Include="dpc\gui\widgets\CheckableHeaderView.cpp" />
+    <ClCompile Include="dpc\gui\widgets\ColorSelectButton.cpp" />
+    <ClCompile Include="dpc\gui\widgets\ComboBox.cpp" />
+    <ClCompile Include="dpc\gui\widgets\IpAddressWidget.cpp" />
+    <ClCompile Include="dpc\gui\widgets\journal\JournalTableModel.cpp" />
+    <ClCompile Include="dpc\gui\widgets\journal\JournalWidget.cpp" />
+    <ClCompile Include="dpc\gui\widgets\LineEdit.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilter.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilterEditor.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\FilterEditor.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\IValueEditor.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilter.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterEditor.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterModel.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\TextFilter.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\TextFilterEditor.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdFilter.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdFrame.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdHeaderView.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdHeaderViewMenu.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdProxyModel.cpp" />
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdTableView.cpp" />
+    <ClCompile Include="dpc\gui\widgets\SpinBox.cpp" />
+    <ClCompile Include="dpc\gui\widgets\TableView.cpp" />
+    <ClCompile Include="dpc\iconvlite.cpp" />
+    <ClCompile Include="dpc\journal\Journal.cpp" />
+    <ClCompile Include="dpc\login_dialog.cpp" />
+    <ClCompile Include="dpc\log_settings_dialog.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\AsyncChannel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\AsyncChannelManager.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncRs485Channel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\IRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\AttributeRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\DimensionRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\AttrPathRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\DeletePathRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\DownloadFileRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemCommandRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemResponseRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\IFileSystemRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\ListPathRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\MakeDirRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\UploadFileRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\IMetadataRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\ParamListRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\NameRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\SizeRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\TypeRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\MultipleRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\ReadParamRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\WriteParamRequest.cpp" />
+    <ClCompile Include="dpc\sybus\channel\Channel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\ChannelReply.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\ChannelRequest.h" />
+    <ClCompile Include="dpc\sybus\channel\ChannelsFactory.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncTcpChannel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncVComChannel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\channel_types\TcpChannel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\channel_types\VComChannel.cpp" />
+    <ClCompile Include="dpc\sybus\channel\channel_types\Rs485Channel.cpp" />
+    <ClCompile Include="dpc\sybus\ParamAttribute.cpp" />
+    <ClCompile Include="dpc\sybus\ParamDimension.cpp" />
+    <ClCompile Include="dpc\sybus\ParamPack.cpp" />
+    <ClCompile Include="dpc\sybus\utils.cpp" />
+    <ClCompile Include="dpc\utilities.cpp" />
+    <ClInclude Include="dpc\iconvlite.h" />
+    <ClInclude Include="dpc\utilities.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="version.h" />
+    <QtMoc Include="dpc\dep_about_box.h" />
+    <ClInclude Include="dpc\dep_settings.h" />
+    <ClInclude Include="dpc\dep_user_roles.h" />
+    <ClInclude Include="dpc\dpc_global.h" />
+    <QtMoc Include="dpc\gui\delegates\ComboBoxDelegate.h" />
+    <ClInclude Include="dpc\gui\delegates\LineEditDelegate.h" />
+    <QtMoc Include="dpc\gui\delegates\PushButtonDelegate.h" />
+    <QtMoc Include="dpc\gui\delegates\ProgressBarDelegate.h" />
+    <ClInclude Include="dpc\gui\delegates\SpinBoxDelegate.h" />
+    <QtMoc Include="dpc\gui\dialogs\channel\ChannelsDialog.h" />
+    <QtMoc Include="dpc\gui\dialogs\channel\ISettingsWidget.h" />
+    <ClInclude Include="dpc\gui\dialogs\channel\Rs485SettingsWidget.h" />
+    <ClInclude Include="dpc\gui\dialogs\channel\TcpSettingsWidget.h" />
+    <ClInclude Include="dpc\gui\dialogs\channel\VComSettingsWidget.h" />
+    <ClInclude Include="dpc\gui\dialogs\msg_box\MsgBox.h" />
+    <ClInclude Include="dpc\gui\gui.h" />
+    <QtMoc Include="dpc\gui\widgets\CheckableComboBox.h" />
+    <QtMoc Include="dpc\gui\widgets\CheckableHeaderView.h" />
+    <QtMoc Include="dpc\gui\widgets\ComboBox.h" />
+    <QtMoc Include="dpc\gui\widgets\IpAddressWidget.h" />
+    <QtMoc Include="dpc\gui\widgets\LineEdit.h" />
+    <QtMoc Include="dpc\gui\widgets\SpinBox.h" />
+    <QtMoc Include="dpc\gui\widgets\TableView.h" />
+    <QtMoc Include="dpc\gui\widgets\ColorSelectButton.h" />
+    <ClInclude Include="dpc\gui\widgets\journal\JournalTableModel.h" />
+    <QtMoc Include="dpc\gui\widgets\journal\JournalWidget.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilter.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilterEditor.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\FilterEditor.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\IValueEditor.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\ListFilter.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterEditor.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterModel.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\TextFilter.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\TextFilterEditor.h" />
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\QxdFilter.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdFrame.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdHeaderView.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdHeaderViewMenu.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdProxyModel.h" />
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdTableView.h" />
+    <ClInclude Include="dpc\journal\Record.h" />
+    <QtMoc Include="dpc\sybus\channel\Channel.h" />
+    <QtMoc Include="dpc\sybus\channel\async\AsyncChannel.h" />
+    <QtMoc Include="dpc\sybus\channel\async\ChannelReply.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\AsyncChannelManager.h" />
+    <QtMoc Include="dpc\login_dialog.h" />
+    <QtMoc Include="dpc\log_settings_dialog.h" />
+    <ClInclude Include="dpc\sybus\channel\async\channel_types\AsyncRs485Channel.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\IRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\ReadParamRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\WriteParamRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\AttributeRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\DimensionRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\NameRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemCommandRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\MakeDirRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\DeletePathRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemResponseRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\ListPathRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\AttrPathRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\DownloadFileRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\UploadFileRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\IFileSystemRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\MultipleRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\IMetadataRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\TypeRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\SizeRequest.h" />
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\ParamListRequest.h" />
+    <ClInclude Include="dpc\sybus\channel\ChannelsFactory.h" />
+    <QtMoc Include="dpc\sybus\channel\async\channel_types\AsyncTcpChannel.h" />
+    <QtMoc Include="dpc\sybus\channel\async\channel_types\AsyncVComChannel.h" />
+    <ClInclude Include="dpc\sybus\channel\channel_types\TcpChannel.h" />
+    <ClInclude Include="dpc\sybus\channel\channel_types\VComChannel.h" />
+    <ClInclude Include="dpc\sybus\channel\channel_types\Rs485Channel.h" />
+    <ClInclude Include="dpc\sybus\channel\async\DeviceDefinition.h" />
+    <ClInclude Include="dpc\sybus\channel\Common.h" />
+    <ClInclude Include="dpc\sybus\ParamAttribute.h" />
+    <ClInclude Include="dpc\sybus\ParamDimension.h" />
+    <ClInclude Include="dpc\sybus\ParamPack.h" />
+    <ClInclude Include="dpc\sybus\smparlist.h" />
+    <ClInclude Include="dpc\sybus\utils.h" />
+    <QtMoc Include="dpc\journal\Source.h" />
+    <QtMoc Include="dpc\journal\Journal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="dpc\dpc_resource.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dpc.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

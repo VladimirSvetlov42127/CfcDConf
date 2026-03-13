@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="impulsePF.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.49134398"
+     inkscape:cx="408.06443"
+     inkscape:cy="419.25821"
+     inkscape:window-width="1394"
+     inkscape:window-height="960"
+     inkscape:window-x="510"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="path1-0"
+       style="fill:#df601c;fill-opacity:1;stroke-width:2.34982;stroke-dashoffset:20.512"
+       d="M 5.9272726,6.8305773 V 190.3984 L 189.4951,6.8305773 Z M 66.839319,16.802212 H 120.23343 V 24.92213 H 74.960124 v 88.9326 H 21.22348 v -8.11992 H 66.839319 Z M 45.011259,16.066795 59.223647,47.777823 H 50.454563 V 98.086242 H 39.418467 V 47.777823 h -8.618361 z"
+       sodipodi:nodetypes="ccccccccccccccccccccc" /><path
+       id="path1-0-1"
+       style="fill:#547586;fill-opacity:1;stroke-width:2.34982;stroke-dashoffset:20.512"
+       d="M 193.97156,11.439877 10.404625,195.0077 H 193.97156 Z m -80.2369,90.300503 h 49.07492 v 73.743 h 23.61028 v 8.33316 H 154.4862 v -73.75277 h -32.42725 v 73.75277 H 88.738263 v -8.33316 h 24.996397 z"
+       sodipodi:nodetypes="ccccccccccccccccc" /></g></svg>

@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="sybus">
+      <UniqueIdentifier>{bb42b2d9-a15b-4c6a-afb5-42248139cc84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{f556ef01-3b00-4511-b888-9a97a6a394ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="journal">
+      <UniqueIdentifier>{1541d94e-b6cb-4b99-a4bf-07a7f6db320e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel">
+      <UniqueIdentifier>{4230a298-6f43-4d66-b2c9-026190dd07bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\channel_types">
+      <UniqueIdentifier>{9e48b99d-69b7-4c91-813d-c8e66f1e902b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\widgets">
+      <UniqueIdentifier>{57090fce-6c50-4a3b-b936-b84b93a7b756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\dialogs">
+      <UniqueIdentifier>{9dcb9d43-f515-4e11-94d9-45f0574a838b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\delegates">
+      <UniqueIdentifier>{00545475-e17f-4861-aa5c-3a96ea9867d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\widgets\journal">
+      <UniqueIdentifier>{ef572b73-3322-46f0-9b12-9dff3dc48116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\dialogs\channel">
+      <UniqueIdentifier>{bf8ce2f9-5434-409a-aace-3303807e38bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\dialogs\msg_box">
+      <UniqueIdentifier>{fe5a0899-0827-4a20-b20a-286669f031e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async">
+      <UniqueIdentifier>{3938e993-9fff-4d44-87b1-d7fc8e8992f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async\channel_types">
+      <UniqueIdentifier>{1f4ddd05-37bd-47e1-9489-c6a9c13c94ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async\manager">
+      <UniqueIdentifier>{176f064c-0021-42d2-b693-e6349e766d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async\manager\requests">
+      <UniqueIdentifier>{5d4ce3cb-9c28-417b-a327-2bcdb78259ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async\manager\requests\filesystem">
+      <UniqueIdentifier>{0d8a04b0-70f7-4d86-a1ba-39644a88d3c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\widgets\qxd_tableview">
+      <UniqueIdentifier>{ebc851e8-d561-41e5-9f96-84a9b9102c76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\widgets\qxd_tableview\filters">
+      <UniqueIdentifier>{81bfc6ba-2d95-4285-be4c-612f06ef0a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sybus\channel\async\manager\requests\metadata">
+      <UniqueIdentifier>{279cc7ce-a828-419d-9bd2-8dc879dacc2e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dpc\dpc_global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\journal\Record.h">
+      <Filter>journal</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\smparlist.h">
+      <Filter>sybus</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\utils.h">
+      <Filter>sybus</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\channel_types\TcpChannel.h">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\channel_types\VComChannel.h">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\delegates\LineEditDelegate.h">
+      <Filter>gui\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\delegates\SpinBoxDelegate.h">
+      <Filter>gui\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\gui.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\journal\JournalTableModel.h">
+      <Filter>gui\widgets\journal</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\dialogs\msg_box\MsgBox.h">
+      <Filter>gui\dialogs\msg_box</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\dialogs\channel\Rs485SettingsWidget.h">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\dialogs\channel\TcpSettingsWidget.h">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\dialogs\channel\VComSettingsWidget.h">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\channel_types\Rs485Channel.h">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\async\DeviceDefinition.h">
+      <Filter>sybus\channel\async</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\ParamPack.h">
+      <Filter>sybus</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\ParamDimension.h">
+      <Filter>sybus</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\ParamAttribute.h">
+      <Filter>sybus</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\async\channel_types\AsyncRs485Channel.h">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\ChannelsFactory.h">
+      <Filter>sybus\channel</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\sybus\channel\Common.h">
+      <Filter>sybus\channel</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\QxdFilter.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilter.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilterEditor.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\ListFilter.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\TextFilter.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\gui\widgets\qxd_tableview\filters\TextFilterEditor.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\dep_settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\dep_user_roles.h">
+      <Filter>gui\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dpc\iconvlite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dpc\journal\Journal.cpp">
+      <Filter>journal</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\utils.cpp">
+      <Filter>sybus</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\Channel.cpp">
+      <Filter>sybus\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\channel_types\TcpChannel.cpp">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\channel_types\VComChannel.cpp">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\delegates\ComboBoxDelegate.cpp">
+      <Filter>gui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\delegates\LineEditDelegate.cpp">
+      <Filter>gui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\delegates\SpinBoxDelegate.cpp">
+      <Filter>gui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\CheckableComboBox.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\CheckableHeaderView.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\ComboBox.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\IpAddressWidget.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\LineEdit.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\SpinBox.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\TableView.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\journal\JournalTableModel.cpp">
+      <Filter>gui\widgets\journal</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\journal\JournalWidget.cpp">
+      <Filter>gui\widgets\journal</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\dialogs\msg_box\MsgBox.cpp">
+      <Filter>gui\dialogs\msg_box</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\dialogs\channel\ChannelsDialog.cpp">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\dialogs\channel\Rs485SettingsWidget.cpp">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\dialogs\channel\TcpSettingsWidget.cpp">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\dialogs\channel\VComSettingsWidget.cpp">
+      <Filter>gui\dialogs\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\gui.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\channel_types\Rs485Channel.cpp">
+      <Filter>sybus\channel\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\ColorSelectButton.cpp">
+      <Filter>gui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\delegates\PushButtonDelegate.cpp">
+      <Filter>gui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\ChannelRequest.h">
+      <Filter>sybus\channel\async</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\ChannelReply.cpp">
+      <Filter>sybus\channel\async</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\AsyncChannel.cpp">
+      <Filter>sybus\channel\async</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncTcpChannel.cpp">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncVComChannel.cpp">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\ParamPack.cpp">
+      <Filter>sybus</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\ParamDimension.cpp">
+      <Filter>sybus</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\ParamAttribute.cpp">
+      <Filter>sybus</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\channel_types\AsyncRs485Channel.cpp">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\ChannelsFactory.cpp">
+      <Filter>sybus\channel</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\AsyncChannelManager.cpp">
+      <Filter>sybus\channel\async\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\IRequest.cpp">
+      <Filter>sybus\channel\async\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\WriteParamRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\ReadParamRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemCommandRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\MakeDirRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\DeletePathRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemResponseRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\ListPathRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\AttrPathRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\DownloadFileRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\UploadFileRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\filesystem\IFileSystemRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdFilter.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdFrame.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdHeaderView.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdHeaderViewMenu.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdProxyModel.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\QxdTableView.cpp">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilter.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\CompareFilterEditor.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\FilterEditor.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\IValueEditor.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilter.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterEditor.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterModel.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\TextFilter.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\widgets\qxd_tableview\filters\TextFilterEditor.cpp">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\AttributeRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\DimensionRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\NameRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\IMetadataRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\MultipleRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\TypeRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\SizeRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\sybus\channel\async\manager\requests\metadata\ParamListRequest.cpp">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\gui\delegates\ProgressBarDelegate.cpp">
+      <Filter>gui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\dep_about_box.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\log_settings_dialog.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\login_dialog.cpp">
+      <Filter>gui\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dpc\iconvlite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="dpc\journal\Journal.h">
+      <Filter>journal</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\journal\Source.h">
+      <Filter>journal</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\Channel.h">
+      <Filter>sybus\channel</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\CheckableComboBox.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\CheckableHeaderView.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\ComboBox.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\IpAddressWidget.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\LineEdit.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\SpinBox.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\TableView.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\journal\JournalWidget.h">
+      <Filter>gui\widgets\journal</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\dialogs\channel\ChannelsDialog.h">
+      <Filter>gui\dialogs\channel</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\ColorSelectButton.h">
+      <Filter>gui\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\delegates\ComboBoxDelegate.h">
+      <Filter>gui\delegates</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\delegates\PushButtonDelegate.h">
+      <Filter>gui\delegates</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\ChannelReply.h">
+      <Filter>sybus\channel\async</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\AsyncChannel.h">
+      <Filter>sybus\channel\async</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\channel_types\AsyncTcpChannel.h">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\channel_types\AsyncVComChannel.h">
+      <Filter>sybus\channel\async\channel_types</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\AsyncChannelManager.h">
+      <Filter>sybus\channel\async\manager</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\IRequest.h">
+      <Filter>sybus\channel\async\manager</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\WriteParamRequest.h">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\ReadParamRequest.h">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemCommandRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\MakeDirRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\DeletePathRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\FileSystemResponseRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\ListPathRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\AttrPathRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\DownloadFileRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\UploadFileRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\filesystem\IFileSystemRequest.h">
+      <Filter>sybus\channel\async\manager\requests\filesystem</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdFrame.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdHeaderView.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdHeaderViewMenu.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdProxyModel.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\QxdTableView.h">
+      <Filter>gui\widgets\qxd_tableview</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\FilterEditor.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\IValueEditor.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterEditor.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\widgets\qxd_tableview\filters\ListFilterModel.h">
+      <Filter>gui\widgets\qxd_tableview\filters</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\AttributeRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\DimensionRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\NameRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\IMetadataRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\MultipleRequest.h">
+      <Filter>sybus\channel\async\manager\requests</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\TypeRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\SizeRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\sybus\channel\async\manager\requests\metadata\ParamListRequest.h">
+      <Filter>sybus\channel\async\manager\requests\metadata</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\delegates\ProgressBarDelegate.h">
+      <Filter>gui\delegates</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\dep_about_box.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\log_settings_dialog.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\login_dialog.h">
+      <Filter>gui\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="dpc\gui\dialogs\channel\ISettingsWidget.h">
+      <Filter>gui\dialogs\channel</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="dpc\dpc_resource.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dpc.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

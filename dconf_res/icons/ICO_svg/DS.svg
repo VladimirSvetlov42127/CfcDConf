@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   sodipodi:docname="DS.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.34743266"
+     inkscape:cx="459.08177"
+     inkscape:cy="284.9473"
+     inkscape:window-width="1920"
+     inkscape:window-height="976"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" /><defs
+     id="defs1" /><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="rect1"
+       style="fill:#547586;stroke-width:1;stroke-dashoffset:20.512;fill-opacity:1"
+       d="M 24.196456 5.3309408 C 13.955886 5.3309408 5.7117961 13.57503 5.7117961 23.815601 L 5.7117961 175.32677 C 5.7117961 185.56734 13.955886 193.81143 24.196456 193.81143 L 175.70762 193.81143 C 185.94819 193.81143 194.19228 185.56734 194.19228 175.32677 L 194.19228 23.815601 C 194.19228 13.57503 185.94819 5.3309408 175.70762 5.3309408 L 24.196456 5.3309408 z M 31.248739 18.793168 L 168.65534 18.793168 C 175.34479 18.793168 180.73005 24.178436 180.73005 30.867883 L 180.73005 168.27448 C 180.73005 174.96393 175.34479 180.3492 168.65534 180.3492 L 31.248739 180.3492 C 24.559292 180.3492 19.174023 174.96393 19.174023 168.27448 L 19.174023 30.867883 C 19.174023 24.178436 24.559292 18.793168 31.248739 18.793168 z " /><text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:126.743px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';text-align:center;text-anchor:middle;fill:#ff6600;stroke-width:39.919;stroke-dashoffset:20.512"
+       x="99.929832"
+       y="145.0885"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="fill:#ff6600;stroke-width:39.919"
+         x="99.929832"
+         y="145.0885">DS</tspan></text></g></svg>
