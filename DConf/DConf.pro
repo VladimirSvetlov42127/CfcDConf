@@ -137,11 +137,11 @@ HEADERS += \
     gui/forms/algorithms/custom/cfc_nodes/cfc_rs_trigger.h \
     gui/forms/algorithms/custom/cfc_nodes/cfc_trigger_delay.h \
     gui/forms/algorithms/custom/cfc_nodes/cfc_xor.h \
+    gui/forms/algorithms/custom/cfc_tools/byte_code.h \
+    gui/forms/algorithms/custom/cfc_tools/cfc_compiler.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.h \
-    gui/forms/algorithms/custom/compiler/byte_code.h \
-    gui/forms/algorithms/custom/compiler/cfc_compiler.h \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
     gui/forms/algorithms/embedded/AlgDataModel.h \
     gui/forms/algorithms/embedded/DcAlgDefines.h \
@@ -401,9 +401,7 @@ HEADERS += \
     gui/forms/algorithms/custom/Nodes/rs_trigger_node.h \
     gui/forms/algorithms/custom/Nodes/trigger_delay_node.h \
     gui/forms/algorithms/custom/Nodes/xor_node.h \
-    gui/forms/algorithms/custom/dep_parser.h \
     gui/forms/algorithms/custom/flex_editor_form.h \
-    gui/forms/algorithms/custom/flexlogic_namespace.h \
     gui/forms/input_output/inputs/dins_board_widget.h \
     gui/forms/input_output/inputs/dins_external_form.h \
     gui/forms/input_output/inputs/dins_logical_form.h \
@@ -509,11 +507,11 @@ SOURCES += \
     gui/forms/algorithms/custom/cfc_nodes/cfc_rs_trigger.cpp \
     gui/forms/algorithms/custom/cfc_nodes/cfc_trigger_delay.cpp \
     gui/forms/algorithms/custom/cfc_nodes/cfc_xor.cpp \
+    gui/forms/algorithms/custom/cfc_tools/byte_code.cpp \
+    gui/forms/algorithms/custom/cfc_tools/cfc_compiler.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.cpp \
-    gui/forms/algorithms/custom/compiler/byte_code.cpp \
-    gui/forms/algorithms/custom/compiler/cfc_compiler.cpp \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
     gui/forms/algorithms/embedded/AlgDataModel.cpp \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.cpp \
@@ -755,9 +753,7 @@ SOURCES += \
     gui/forms/algorithms/custom/Nodes/rs_trigger_node.cpp \
     gui/forms/algorithms/custom/Nodes/trigger_delay_node.cpp \
     gui/forms/algorithms/custom/Nodes/xor_node.cpp \
-    gui/forms/algorithms/custom/dep_parser.cpp \
     gui/forms/algorithms/custom/flex_editor_form.cpp \
-    gui/forms/algorithms/custom/flexlogic_namespace.cpp \
     gui/forms/input_output/inputs/dins_board_widget.cpp \
     gui/forms/input_output/inputs/dins_external_form.cpp \
     gui/forms/input_output/inputs/dins_logical_form.cpp \
