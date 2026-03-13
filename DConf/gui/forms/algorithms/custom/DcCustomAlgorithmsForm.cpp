@@ -167,7 +167,7 @@ void DcCustomAlgorithmsForm::onViewDoubleClicked(const QModelIndex &index)
 
 void DcCustomAlgorithmsForm::onEditorAboutToClose()
 {
-    auto editor = dynamic_cast<flexEditorForm*>(sender());
+    auto editor = dynamic_cast<FlexEditorForm*>(sender());
     if (!editor)
         return;
 
@@ -185,8 +185,8 @@ void DcCustomAlgorithmsForm::onEditorAboutToClose()
 
 void DcCustomAlgorithmsForm::editAlgorithm(CfcAlgService *cfcAlg)
 {
-    auto editor = new flexEditorForm(controller(), cfcAlg, this);
-	connect(editor, &flexEditorForm::aboutToClose, this, &DcCustomAlgorithmsForm::onEditorAboutToClose, Qt::QueuedConnection);
+    auto editor = new FlexEditorForm(controller(), cfcAlg, this);
+    connect(editor, &FlexEditorForm::aboutToClose, this, &DcCustomAlgorithmsForm::onEditorAboutToClose, Qt::QueuedConnection);
 	editor->setWindowModality(Qt::ApplicationModal);
 	editor->show();	
 }

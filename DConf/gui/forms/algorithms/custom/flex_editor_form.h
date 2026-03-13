@@ -1,9 +1,6 @@
 #ifndef __FLEX_EDITOR_FORM_H__
-#define __FLEX_EDITOR_FORM_H__	
+#define __FLEX_EDITOR_FORM_H__
 
-//===================================================================================================================================================
-//	Подключение стандартных библиотек
-//===================================================================================================================================================
 
 //===================================================================================================================================================
 //	Подключение сторонних библиотек
@@ -24,21 +21,17 @@
 #include <QAction>
 #include <QLineEdit>
 
-//===================================================================================================================================================
-//	Подключение сторонних библиотек
-//===================================================================================================================================================
-#include <dpc/gui/dialogs/msg_box/MsgBox.h>
 
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "gui/forms/algorithms/custom/Editor/editor_scene.h"
+#include "gui/forms/algorithms/custom/cfc_editor/cfc_scene.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_view.h"
 
 //===================================================================================================================================================
 //	Описание класса
 //===================================================================================================================================================
-class flexEditorForm : public QMainWindow
+class FlexEditorForm : public QMainWindow
 {
 	Q_OBJECT
 
@@ -46,14 +39,20 @@ public:
 	//===============================================================================================================================================
 	//	Конструктор и деструктор класса
 	//===============================================================================================================================================
-    flexEditorForm(DcController* device, CfcAlgService* cfcAlg, QWidget* parent = 0);
-	~flexEditorForm();
+    FlexEditorForm(DcController* device, CfcAlgService* cfcAlg, QWidget* parent = 0);
+    ~FlexEditorForm();
+
+    //	Правило пяти
+    FlexEditorForm(const FlexEditorForm& other) = delete;
+    FlexEditorForm(FlexEditorForm&& other) = delete;
+    FlexEditorForm& operator=(const FlexEditorForm& other) = delete;
+    FlexEditorForm& operator=(FlexEditorForm&& other) = delete;
 
 	//===============================================================================================================================================
 	//	Открытые методы класса
 	//===============================================================================================================================================
-	QGraphicsView* GraphView() const { return _graph_view; }
-	EditorScene* Scene() { return _scene; }
+    CfcView* graphView() const { return _graph_view; }
+    CfcScene* scene() { return _scene; }
     CfcAlgService* cfcAlg() const { return _cfcAlg; }
 	bool hasError() const { return _hasError; }
     QString errorString() const { return _errorString; }
@@ -62,27 +61,23 @@ private:
 	//===============================================================================================================================================
 	//	Вспомогательные методы класса
 	//===============================================================================================================================================
-	void setFileName();
-	void ZoomChange(int flag);
-
-	//===============================================================================================================================================
-	//	Методы работы с формой
-	//===============================================================================================================================================
-	void CreateTreeView();
-	void CreateToolbar();
+    void zoomChange(int flag);
+    void createTreeView();
+    void createToolbar();
 
 private slots:
 	//===============================================================================================================================================
 	//	Методы обработки сигналов формы
 	//===============================================================================================================================================
 	void onSaveAction();
-	void ButtonsEnableChange();
-	void TreeDoubleClicked(const QModelIndex& index);
-    //void SetGridEnable(bool enable) { FlexLogic::grid_enable = enable; Scene()->update(); }
-	void ZoomInClicked() { ZoomChange(-1); }
-	void ZoomOutClicked() { ZoomChange(1); }
-	void ZoomDefaultClicked() { ZoomChange(0); }
-	void DataChange() { _data_changed = true; }
+    void buttonsChange();
+    void treeClicked(const QModelIndex& index);
+    void setGridEnable(bool enable);
+    void zoomInClicked() { zoomChange(-1); }
+    void zoomOutClicked() { zoomChange(1); }
+    void zoomDefaultClicked() { zoomChange(0); }
+    void addInputs();
+    void removeInputs();
 
 protected:
 	//===============================================================================================================================================
@@ -103,21 +98,21 @@ private:
 	//	Элементы формы
 	//===============================================================================================================================================
     CfcView* _graph_view;
-	EditorScene* _scene;
-	QTreeView* _tree_menu;
-	QLineEdit* _zoom_edit;
-	QAction* _copy_action;
-	QAction* _cut_action;
-	QAction* _paste_action;
-	QAction* _delete_action;
-	QAction* _append_connector_action;
-	QAction* _remove_connector_action;
+    CfcScene* _scene;
+    QTreeView* _tree_menu;
+    QLineEdit* _zoom_edit;
+    QAction* _grid_action;
+    QAction* _copy_action;
+    QAction* _cut_action;
+    QAction* _paste_action;
+    QAction* _delete_action;
+    QAction* _append_connector_action;
+    QAction* _remove_connector_action;
 
     CfcAlgService* _cfcAlg;
 	bool _hasError;
     QString _errorString;
 	float _scale_factor;
-    bool _data_changed;
 };
 
 #endif // __FLEX_EDITOR_FORM_H__
