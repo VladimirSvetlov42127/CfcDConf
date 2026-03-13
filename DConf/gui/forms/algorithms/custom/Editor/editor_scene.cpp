@@ -326,12 +326,12 @@ void EditorScene::EditNode()
 	if (node->ParamsList().count() < 1) return;
 
 	//	Редактирование параметров элемента
-    ParamsDialog dialog(node->ParamsList());
-    dialog.exec();
-    if (dialog.result() != QDialog::Accepted) return;
-    QList<FlexLogic::NodeParam> params = dialog.ParamsList();
-    for (int i = 0; i < params.count(); i++) node->setParam(params.at(i).index, params.at(i).value);
-    node->update();
+    // ParamsDialog dialog(node->ParamsList());
+    // dialog.exec();
+    // if (dialog.result() != QDialog::Accepted) return;
+    // QList<FlexLogic::NodeParam> params = dialog.ParamsList();
+    // for (int i = 0; i < params.count(); i++) node->setParam(params.at(i).index, params.at(i).value);
+    // node->update();
 
 	return;
 }

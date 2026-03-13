@@ -199,16 +199,16 @@ void EditorNode::SetInputs(int inputs)
 //===============================================================================================================================================
 void EditorNode::EditNode()
 {
-	//	Проверка свойств
-	if (ParamsList().count() < 1) return;
+    // //	Проверка свойств
+    // if (ParamsList().count() < 1) return;
 
-	//	Редактирование параметров элемента
-    ParamsDialog dialog(ParamsList());
-    dialog.exec();
-    if (dialog.result() != QDialog::Accepted) return;
-    QList<FlexLogic::NodeParam> params = dialog.ParamsList();
-    for (int i = 0; i < params.count(); i++) setParam(params.at(i).index, params.at(i).value);
-    update();
+    // //	Редактирование параметров элемента
+ //    ParamsDialog dialog(ParamsList());
+ //    dialog.exec();
+ //    if (dialog.result() != QDialog::Accepted) return;
+ //    QList<FlexLogic::NodeParam> params = dialog.ParamsList();
+ //    for (int i = 0; i < params.count(); i++) setParam(params.at(i).index, params.at(i).value);
+ //    update();
 
 	return;
 }

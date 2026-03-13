@@ -5,7 +5,7 @@
 #include "service_manager/services/alg_cfc/cfc_service_input.h"
 #include "service_manager/services/alg_cfc/cfc_service_output.h"
 
-#include "gui/forms/algorithms/custom/dep_parser.h"
+#include "gui/forms/algorithms/custom/cfc_tools/cfc_parser.h"
 
 class CfcAlgManager;
 
@@ -47,7 +47,7 @@ public:
     void removeOutput(CfcServiceOutput* output);
 
     // Парсер
-    DepCfcParser* parser() const;
+    CfcParser* parser() const;
 
     // Сохранить данные алгоритма в файл
     bool save();
@@ -107,7 +107,7 @@ private:
     uint8_t m_id;
     std::vector<std::pair<ParameterElement*, ServiceIO*>> m_ios;
 
-    DepCfcParser* m_parser;
+    CfcParser* m_parser;
     ParameterElement* m_fileElement = nullptr;
     QByteArray m_compiledData;
     QString m_descriptrion;

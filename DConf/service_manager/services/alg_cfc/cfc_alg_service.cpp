@@ -5,8 +5,8 @@
 #include "file_managers/DcFlexLogicFileManager.h"
 #include "data_model/dc_properties.h"
 
-#include "gui/forms/algorithms/custom/Nodes/bi_node.h"
-#include "gui/forms/algorithms/custom/Nodes/bo_node.h"
+#include "gui/forms/algorithms/custom/cfc_nodes/cfc_bi.h"
+#include "gui/forms/algorithms/custom/cfc_nodes/cfc_bo.h"
 
 namespace {
 
@@ -19,7 +19,7 @@ CfcAlgService::CfcAlgService(uint8_t id, CfcAlgManager *manager)
     : Service { QString("Гибкая логика %1").arg(id) }
     , m_manager{manager}
     , m_id{id}
-    , m_parser{new DepCfcParser}
+    , m_parser{new CfcParser}
 {
     m_ios.reserve(32);
 }
@@ -137,7 +137,7 @@ void CfcAlgService::removeOutput(CfcServiceOutput *output)
     Service::deleteOutput(output);
 }
 
-DepCfcParser *CfcAlgService::parser() const
+CfcParser *CfcAlgService::parser() const
 {
     return m_parser;
 }
@@ -145,7 +145,7 @@ DepCfcParser *CfcAlgService::parser() const
 bool CfcAlgService::save()
 {
     parser()->setTitle(name());
-    return parser()->saveFile(localGraphFileName());
+    return parser()->saveData(localGraphFileName());
 }
 
 bool CfcAlgService::hasInvalidInput() const
@@ -225,7 +225,7 @@ CfcAlgService::UPtr CfcAlgService::load(uint8_t position, CfcAlgManager *manager
     if (!alg)
         return nullptr;
 
-    if (!alg->parser()->loadFile(graphFilePath))
+    if (!alg->parser()->loadData(graphFilePath))
         return nullptr;
 
     auto bcaFilePath = DcFlexLogicFileManager(manager->config()).localBcaFileName(algID);
@@ -234,9 +234,9 @@ CfcAlgService::UPtr CfcAlgService::load(uint8_t position, CfcAlgManager *manager
         alg->m_compiledData = bcaFile.readAll();
 
     alg->setName(alg->parser()->title());
-    auto nodes = alg->parser()->editorNodes();
+    auto nodes = alg->parser()->nodes();
     for (auto node: nodes) {
-        if (node->nodeType() != FlexLogic::RZA_LOAD)
+        if (node->nodeType() != RZA_LOAD)
             continue;
 
         // Параметры входа/выхода
@@ -265,13 +265,13 @@ CfcAlgService::UPtr CfcAlgService::load(uint8_t position, CfcAlgManager *manager
         if (node->name() == "BI") {
             auto input = alg->makeInput(io_id, io_pin);
             input->setSource(manager->config()->serviceManager()->din(bindValue));
-            static_cast<BI*>(node)->setCfcInput(input);
+            static_cast<CfcBI*>(node)->setCfcInput(input);
         }
 
         if (node->name() == "BO") {
             auto output = alg->makeOutput(io_id, io_pin);
             output->setTarget(manager->config()->serviceManager()->vdin(bindValue));
-            static_cast<BO*>(node)->setCfcOutput(output);
+            static_cast<CfcBO*>(node)->setCfcOutput(output);
         }
     }
 

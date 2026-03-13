@@ -196,10 +196,10 @@ bool DcCustomAlgorithmsForm::compileAlgorithm(CfcAlgService *cfcAlg)
     CfcCompiler compiler;
     connect(&compiler, &CfcCompiler::errorToLog, this, [=](const QString& mess) { journal()->addErrorMessage(mess); });
     connect(&compiler, &CfcCompiler::infoToLog, this, [=](const QString& mess) { journal()->addInfoMessage(mess); });
-    if (compiler.compile(cfcAlg->parser())) {
-        cfcAlg->setCompiledData(*compiler.byteCode());
-        return true;
-    }
+    // if (compiler.compile(cfcAlg->parser())) {
+    //     cfcAlg->setCompiledData(*compiler.byteCode());
+    //     return true;
+    // }
 
     cfcAlg->setCompiledData(QByteArray());
     MsgBox::error(QString("При компиляции алгоритма номер %1, возникли критические ошибки").arg(cfcAlg->id()));

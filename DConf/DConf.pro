@@ -110,8 +110,36 @@ HEADERS += \
     gui/forms/DcForm.h \
     gui/forms/DcFormFactory.h \
     gui/forms/DcMenu.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_link.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_node.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_scene.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_line.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_link.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_new_link.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_node.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_scene.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_socket.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_title_item.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_view.h \
     gui/forms/algorithms/custom/cfc_algs_model.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_and.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_bi.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_bo.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_generator.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_impulse_pf.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_impulse_zf.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_nodes_list.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_not.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_or.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_return_delay.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_rs_trigger.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_trigger_delay.h \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_xor.h \
+    gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.h \
+    gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h \
+    gui/forms/algorithms/custom/cfc_tools/cfc_parser.h \
     gui/forms/algorithms/custom/compiler/byte_code.h \
     gui/forms/algorithms/custom/compiler/cfc_compiler.h \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
@@ -352,10 +380,8 @@ HEADERS += \
     gui/dialogs/params_dialog.h \
     gui/dialogs/scene_dialog.h \
     gui/forms/algorithms/custom/Editor/dummy_link.h \
-    gui/forms/algorithms/custom/Editor/editor_item.h \
     gui/forms/algorithms/custom/Editor/editor_link.h \
     gui/forms/algorithms/custom/Editor/editor_link_data.h \
-    gui/forms/algorithms/custom/Editor/editor_model.h \
     gui/forms/algorithms/custom/Editor/editor_node.h \
     gui/forms/algorithms/custom/Editor/editor_node_data.h \
     gui/forms/algorithms/custom/Editor/editor_scene.h \
@@ -457,8 +483,35 @@ SOURCES += \
     gui/forms/DcForm.cpp \
     gui/forms/DcFormFactory.cpp \
     gui/forms/DcMenu.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_link.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_node.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_basic_scene.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_line.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_link.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_new_link.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_node.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_scene.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_socket.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_title_item.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_view.cpp \
     gui/forms/algorithms/custom/cfc_algs_model.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_and.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_bi.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_bo.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_generator.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_impulse_pf.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_impulse_zf.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_not.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_or.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_return_delay.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_rs_trigger.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_trigger_delay.cpp \
+    gui/forms/algorithms/custom/cfc_nodes/cfc_xor.cpp \
+    gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.cpp \
+    gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.cpp \
+    gui/forms/algorithms/custom/cfc_tools/cfc_parser.cpp \
     gui/forms/algorithms/custom/compiler/byte_code.cpp \
     gui/forms/algorithms/custom/compiler/cfc_compiler.cpp \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
@@ -681,10 +734,8 @@ SOURCES += \
     gui/dialogs/params_dialog.cpp \
     gui/dialogs/scene_dialog.cpp \
     gui/forms/algorithms/custom/Editor/dummy_link.cpp \
-    gui/forms/algorithms/custom/Editor/editor_item.cpp \
     gui/forms/algorithms/custom/Editor/editor_link.cpp \
     gui/forms/algorithms/custom/Editor/editor_link_data.cpp \
-    gui/forms/algorithms/custom/Editor/editor_model.cpp \
     gui/forms/algorithms/custom/Editor/editor_node.cpp \
     gui/forms/algorithms/custom/Editor/editor_node_data.cpp \
     gui/forms/algorithms/custom/Editor/editor_scene.cpp \

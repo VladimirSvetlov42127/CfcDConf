@@ -19,14 +19,9 @@
 #include <QLabel>
 
 //===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
-#include <gui/forms/algorithms/custom/flexlogic_namespace.h>
-
-//===================================================================================================================================================
 //	Конструктор и деструктор класса
 //===================================================================================================================================================
-ParamsDialog::ParamsDialog(QList<FlexLogic::NodeParam> params, QWidget* parent) : QDialog(parent)
+ParamsDialog::ParamsDialog(QList<NodeParam> params, QWidget* parent) : QDialog(parent)
 {
 	//	Свойства класса
 	_params = params;
@@ -35,7 +30,7 @@ ParamsDialog::ParamsDialog(QList<FlexLogic::NodeParam> params, QWidget* parent) 
 	//	Формирование окна диалога
 	setWindowTitle("Параметры элемента");
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    setWindowIcon(QIcon(":/icons/chanel_settings.svg"));
+	setWindowIcon(QIcon(":/icons/32/setting_1.png"));
 
 	//	Создание кнопок
 	QPushButton* ok_button = new QPushButton(QString("OK"));
@@ -53,7 +48,7 @@ ParamsDialog::ParamsDialog(QList<FlexLogic::NodeParam> params, QWidget* parent) 
 	//	Формирование виджета
 	QVBoxLayout* main_layout = new QVBoxLayout;
 	for (int i = 0; i < _params.count(); i++) {
-		FlexLogic::NodeParam param = _params.at(i);
+        NodeParam param = _params.at(i);
 		QHBoxLayout* param_layout = new QHBoxLayout;
 		QLabel* name_label = new QLabel(this);
 		name_label->setText(param.name);
