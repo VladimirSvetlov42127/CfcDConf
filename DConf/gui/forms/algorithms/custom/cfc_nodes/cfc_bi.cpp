@@ -14,7 +14,6 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-// #include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
 #include "service_manager/signals/virtual_input_signal.h"
 
 
@@ -37,9 +36,10 @@ namespace {
 //===================================================================================================================================================
 //	Конструкторы класса
 //===================================================================================================================================================
-CfcBI::CfcBI(QString id, QSizeF node_size, QGraphicsItem* parent) : CfcNode(id, parent)
+CfcBI::CfcBI(QString id, QSizeF node_size, CfcServiceInput* input, QGraphicsItem* parent) : CfcNode(id, parent)
 {
     //  Настройка параметров
+    _input = input;
     setName("BI");
     setNodeType(RZA_LOAD);
     node_size == QSizeF() ? setSize(QSizeF(150, 30)) : setSize(node_size);
@@ -54,9 +54,10 @@ CfcBI::CfcBI(QString id, QSizeF node_size, QGraphicsItem* parent) : CfcNode(id, 
     setOutput();
 }
 
-CfcBI::CfcBI(QDomNode xml, QGraphicsItem* parent) : CfcNode(xml, parent)
+CfcBI::CfcBI(QDomNode xml, CfcServiceInput* input, QGraphicsItem* parent) : CfcNode(xml, parent)
 {
     //  Настройка параметров
+    _input = input;
     setName("BI");
     setNodeType(RZA_LOAD);
     setInversion(false);

@@ -25,23 +25,13 @@ namespace {
 //===================================================================================================================================================
 //	Конструктор класса
 //===================================================================================================================================================
-CfcBasicScene::CfcBasicScene(uint16_t id, ServiceManager* service_manager, const QString& title, QGraphicsScene* parent) : QGraphicsScene(parent)
+CfcBasicScene::CfcBasicScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent) : QGraphicsScene(parent)
 {
     _menu_point = QPointF();
     _basic_point = QPointF();
     _grid_enable = true;
     _service_manager = service_manager;
-    // _cfc_service = _service_manager->CfcAlg(id);
-    // if (_cfc_service)
-    //     _service_manager->appendCfcService(QString(), id, id);
-
-    //  Вывод заголовка
-    // _title_item = new CfcTitle(title);
-    // addItem(_title_item);
-    // _title_item->setPos((sceneRect().width() + _title_item->width()) / 2 + 150, 0);
-    title == QString() ? _title_item = new CfcTitleItem("Алгоритм гибкой логики") : _title_item = new CfcTitleItem(title);
-    addItem(_title_item);
-    _title_item->setPos((sceneRect().width() + _title_item->titleWidth()) / 2, 0);
+    _service = service;
 
     setItemIndexMethod(QGraphicsScene::NoIndex);
     setBackgroundBrush(scene_bkcolor);
@@ -75,17 +65,18 @@ CfcNode* CfcBasicScene::newEditorNode(QString name)
         return new CfcXor();
 
     if (name == "BI") {
-        // CfcBI* node = new CfcBI();
-        // CfcServiceInput* input = cfcService()->makeInput(serviceManager()->nextCfcID(), cfcService()->freePin());
-        // node->setCfcInput(input);
-        // return node;
+        auto input = service()->makeInput();
+        if (!input)
+            return nullptr;
+
+        return new CfcBI(QString(), QSizeF(), input);
     }
 
     if (name == "BO") {
-        // CfcBO* node = new CfcBO();
-        // CfcServiceOutput* output = cfcService()->makeOutput(serviceManager()->nextCfcID(), cfcService()->freePin());
-        // node->setCfcOutput(output);
-        // return node;
+        auto output = service()->makeOutput();
+        if (!output)
+            return nullptr;
+        return new CfcBO(QString(), QSizeF(), output);
     }
 
     return nullptr;
@@ -467,7 +458,7 @@ void CfcBasicScene::removeNode(CfcNode* node)
         if (bi_node->cfcInput()) {
             if (bi_node->cfcInput()->source())
                 bi_node->cfcInput()->setSource(nullptr);
-            cfcService()->removeInput(bi_node->cfcInput());
+            service()->removeInput(bi_node->cfcInput());
         }
         CfcSocket* socket= node->sockets().at(0);
         for (int i = 0; i < socket->links().count(); i++)
@@ -483,7 +474,7 @@ void CfcBasicScene::removeNode(CfcNode* node)
         if (bo_node->cfcOutput()) {
             if (bo_node->cfcOutput()->target())
                 bo_node->cfcOutput()->setTarget(nullptr);
-            cfcService()->removeOutput(bo_node->cfcOutput());
+            service()->removeOutput(bo_node->cfcOutput());
         }
         CfcSocket* socket= node->sockets().at(0);
         for (int i = 0; i < socket->links().count(); i++)

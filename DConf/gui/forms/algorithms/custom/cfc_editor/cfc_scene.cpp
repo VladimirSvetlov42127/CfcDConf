@@ -42,7 +42,7 @@ namespace {
 //===================================================================================================================================================
 //	Конструктор класса
 //===================================================================================================================================================
-CfcScene::CfcScene(uint16_t id, ServiceManager* service_manager, const QString& title, QGraphicsScene* parent) : CfcBasicScene(id, service_manager, title, parent)
+CfcScene::CfcScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent) : CfcBasicScene(service, service_manager, parent)
 {
     //  Свойства класса
     _new_link = nullptr;

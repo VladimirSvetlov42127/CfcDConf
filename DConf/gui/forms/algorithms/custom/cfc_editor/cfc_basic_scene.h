@@ -18,6 +18,7 @@
 //	Подключение модулей проекта
 //===================================================================================================================================================
 #include "service_manager/service_manager.h"
+#include "service_manager/services/alg_cfc/cfc_alg_service.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_node.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_link.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_title_item.h"
@@ -37,15 +38,17 @@ public:
     //===============================================================================================================================================
     //	Конструктор класса
     //===============================================================================================================================================
-    CfcBasicScene(uint16_t id, ServiceManager* service_manager, const QString& title, QGraphicsScene* parent = nullptr);
+    CfcBasicScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent = nullptr);
 
     //===============================================================================================================================================
     //	Открытые методы класса
     //===============================================================================================================================================
+    CfcAlgService* service() const { return _service; }
+    ServiceManager* serviceManager() const { return _service_manager; }
+
+
     QList<CfcNode*> bufferNodes() const { return _buffer_nodes; }
     QList<CfcLink*> bufferLinks() const { return _buffer_links; }
-    ServiceManager* serviceManager() const { return _service_manager; }
-    CfcAlgService* cfcService() const { return _cfc_service; }
     void setTitle(const QString& title) { _title_item->setTitle(title); }
     QString title() const {return _title_item->title(); }
     bool gridEnabled() const { return _grid_enable; }
@@ -98,12 +101,12 @@ private:
     //===============================================================================================================================================
     //	Свойства класса
     //===============================================================================================================================================
+    ServiceManager* _service_manager;           //  Менеджер сервисов
+    CfcAlgService* _service;                    //  Сервис алгоритма гибкой логикиж
     QMenu* _context_menu;                       //  Контекстное меню сцены
     CfcTitleItem* _title_item;                  //  Объект заголовка окна
     QList<CfcNode*> _buffer_nodes;              //  Список узлов для копирования
     QList<CfcLink*> _buffer_links;              //  Список связей для копирования
-    ServiceManager* _service_manager;           //  Менеджер сервисов
-    CfcAlgService* _cfc_service;                //  Сервис алгоритма гибкой логикиж
     bool _grid_enable;                          //  Флаг активации сетки
     QPointF _basic_point;                       //  Базовая точка для копирования и вставки
     QPointF _menu_point;                        //  Точка вызова меню

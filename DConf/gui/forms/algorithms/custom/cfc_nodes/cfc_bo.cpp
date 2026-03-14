@@ -30,9 +30,10 @@ namespace {
 //===================================================================================================================================================
 //	Конструкторы класса
 //===================================================================================================================================================
-CfcBO::CfcBO(QString id, QSizeF node_size, QGraphicsItem* parent) : CfcNode(id, parent)
+CfcBO::CfcBO(QString id, QSizeF node_size, CfcServiceOutput* output, QGraphicsItem* parent) : CfcNode(id, parent)
 {
     //  Настройка параметров
+    _output = output;
     setName("BO");
     setNodeType(RZA_LOAD);
     node_size == QSizeF() ? setSize(QSizeF(150, 30)) : setSize(node_size);
@@ -47,9 +48,10 @@ CfcBO::CfcBO(QString id, QSizeF node_size, QGraphicsItem* parent) : CfcNode(id, 
     setInputs(1);
 }
 
-CfcBO::CfcBO(QDomNode xml, QGraphicsItem* parent) : CfcNode(xml, parent)
+CfcBO::CfcBO(QDomNode xml, CfcServiceOutput* output, QGraphicsItem* parent) : CfcNode(xml, parent)
 {
     //  Настройка параметров
+    _output = output;
     setName("BO");
     setNodeType(RZA_LOAD);
     setInversion(false);

@@ -54,8 +54,8 @@ FlexEditorForm::FlexEditorForm(DcController* device, CfcAlgService *cfcAlg, QWid
     setWindowTitle(QString("Контроллер: %1, Алгоритм: %2").arg(device->name(), cfcAlg->name()));
 
 	//	Формирование графической области
-    // _scene = new EditorScene(this->cfcAlg(), device->serviceManager());
-    // _graph_view = new CfcView(_scene);
+    _scene = new CfcScene(this->cfcAlg(), device->serviceManager());
+    _graph_view = new CfcView(_scene);
     connect(scene(), &CfcScene::selectionChanged, this, &FlexEditorForm::buttonsChange);
 
 
@@ -71,30 +71,29 @@ FlexEditorForm::FlexEditorForm(DcController* device, CfcAlgService *cfcAlg, QWid
     splitter->addWidget(_graph_view);
     setCentralWidget(splitter);
 
-	//	Масштабирование формы
+    //	Масштабирование формы
     resize(1200, 800);
 
     //	Вывод элементов сцену
-    // auto parser = cfcAlg->parser();
-    // for (int i = 0; i < parser->editorNodes().count(); i++) {
-    //     auto node = parser->editorNodes().at(i);
-    //     if ( node->name() == "BO") {
-    //         auto boNode =static_cast<BO*>(node);
-    //         if (!boNode->cfcOutput())
-    //             continue;
-    //     }
+    auto parser = cfcAlg->parser();
+    for (int i = 0; i < parser->nodes().count(); i++) {
+        auto node = parser->nodes().at(i);
+        if ( node->name() == "BO") {
+            auto boNode =static_cast<CfcBO*>(node);
+            if (!boNode->cfcOutput())
+                continue;
+        }
 
-    //     if ( node->name() == "BI") {
-    //         auto biNode = static_cast<BI*>(node);
-    //         if (!biNode->cfcInput())
-    //             continue;
-    //     }
+        if ( node->name() == "BI") {
+            auto biNode = static_cast<CfcBI*>(node);
+            if (!biNode->cfcInput())
+                continue;
+        }
+        scene()->addItem(node);
+    }
 
-    //     Scene()->addItem(node);
-    // }
-
-    // for (int i = 0; i < parser->editorLinks().count(); i++)
-    //     Scene()->addItem(parser->editorLinks().at(i));
+    for (int i = 0; i < parser->links().count(); i++)
+        scene()->addItem(parser->links().at(i));
 }
 
 FlexEditorForm::~FlexEditorForm()
@@ -103,8 +102,6 @@ FlexEditorForm::~FlexEditorForm()
 	if (!_scene) delete _scene;
 	if (!_graph_view) delete _graph_view;
 }
-
-
 
 
 //===================================================================================================================================================

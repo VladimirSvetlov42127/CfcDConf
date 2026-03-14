@@ -32,8 +32,8 @@ public:
 	//===============================================================================================================================================
     //	Конструкторы класса
 	//===============================================================================================================================================
-    CfcBI(QString id = QString(), QSizeF node_size = QSizeF(), QGraphicsItem* parent = nullptr);
-    CfcBI(QDomNode xml, QGraphicsItem* parent = nullptr);
+    CfcBI(QString id = QString(), QSizeF node_size = QSizeF(), CfcServiceInput* input = nullptr, QGraphicsItem* parent = nullptr);
+    CfcBI(QDomNode xml, CfcServiceInput* input = nullptr, QGraphicsItem* parent = nullptr);
 
     //===============================================================================================================================================
     //	Открытые методы класса
