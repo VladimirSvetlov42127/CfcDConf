@@ -45,17 +45,9 @@ public:
     //===============================================================================================================================================
     CfcAlgService* service() const { return _service; }
     ServiceManager* serviceManager() const { return _service_manager; }
-
-
     QList<CfcNode*> bufferNodes() const { return _buffer_nodes; }
     QList<CfcLink*> bufferLinks() const { return _buffer_links; }
-    void setTitle(const QString& title) { _title_item->setTitle(title); }
-    QString title() const {return _title_item->title(); }
-    bool gridEnabled() const { return _grid_enable; }
-    void setGrid(bool flag) { _grid_enable = flag; }
     uint16_t bufferCount() { return _buffer_nodes.count() + _buffer_links.count(); }
-    QMenu* contextMenu() { return _context_menu; }
-    void setContextMenu(QMenu* menu) { _context_menu = menu; }
     QPointF menuPoint() const { return _menu_point; }
     void setMenuPoint(const QPointF& point) { _menu_point = point; }
 
@@ -64,9 +56,6 @@ public:
     QList<CfcLink*> links() const;
     QList<CfcNode*> selectedNodes() const;
     QList<CfcLink*> selectedLinks() const;
-
-    bool dataProcessing(QList<CfcNode*> nodes, QList<CfcLink*> links);
-    bool validate(QList<CfcNode*> nodes, QList<CfcLink*> links);
 
 public slots:
     //===============================================================================================================================================
@@ -83,7 +72,6 @@ private:
     //===============================================================================================================================================
     CfcNode* nodeByID(const QString& id);
     CfcLink* linkByID(const QString& id);
-    void nodesProcessing(QList<CfcNode*> nodes);
     void removeLink(CfcLink* link);
     void removeNode(CfcNode* node);
     CfcNode* copyNode(CfcNode* source);
@@ -103,11 +91,9 @@ private:
     //===============================================================================================================================================
     ServiceManager* _service_manager;           //  Менеджер сервисов
     CfcAlgService* _service;                    //  Сервис алгоритма гибкой логикиж
-    QMenu* _context_menu;                       //  Контекстное меню сцены
     CfcTitleItem* _title_item;                  //  Объект заголовка окна
     QList<CfcNode*> _buffer_nodes;              //  Список узлов для копирования
     QList<CfcLink*> _buffer_links;              //  Список связей для копирования
-    bool _grid_enable;                          //  Флаг активации сетки
     QPointF _basic_point;                       //  Базовая точка для копирования и вставки
     QPointF _menu_point;                        //  Точка вызова меню
 };

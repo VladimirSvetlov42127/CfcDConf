@@ -143,7 +143,6 @@ HEADERS += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.h \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
-    gui/forms/algorithms/custom/flexlogic_namespace.h \
     gui/forms/algorithms/embedded/AlgDataModel.h \
     gui/forms/algorithms/embedded/DcAlgDefines.h \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.h \
@@ -380,28 +379,6 @@ HEADERS += \
     version.h \
     gui/dialogs/params_dialog.h \
     gui/dialogs/scene_dialog.h \
-    gui/forms/algorithms/custom/Editor/dummy_link.h \
-    gui/forms/algorithms/custom/Editor/editor_link.h \
-    gui/forms/algorithms/custom/Editor/editor_link_data.h \
-    gui/forms/algorithms/custom/Editor/editor_node.h \
-    gui/forms/algorithms/custom/Editor/editor_node_data.h \
-    gui/forms/algorithms/custom/Editor/editor_scene.h \
-    gui/forms/algorithms/custom/Editor/editor_socket.h \
-    gui/forms/algorithms/custom/Editor/editor_socket_data.h \
-    gui/forms/algorithms/custom/Editor/graphic_line.h \
-    gui/forms/algorithms/custom/Editor/graphic_path.h \
-    gui/forms/algorithms/custom/Nodes/and_node.h \
-    gui/forms/algorithms/custom/Nodes/bi_node.h \
-    gui/forms/algorithms/custom/Nodes/bo_node.h \
-    gui/forms/algorithms/custom/Nodes/generator_node.h \
-    gui/forms/algorithms/custom/Nodes/impulse_pf_node.h \
-    gui/forms/algorithms/custom/Nodes/impulse_zf_node.h \
-    gui/forms/algorithms/custom/Nodes/not_node.h \
-    gui/forms/algorithms/custom/Nodes/or_node.h \
-    gui/forms/algorithms/custom/Nodes/return_delay_node.h \
-    gui/forms/algorithms/custom/Nodes/rs_trigger_node.h \
-    gui/forms/algorithms/custom/Nodes/trigger_delay_node.h \
-    gui/forms/algorithms/custom/Nodes/xor_node.h \
     gui/forms/algorithms/custom/flex_editor_form.h \
     gui/forms/input_output/inputs/dins_board_widget.h \
     gui/forms/input_output/inputs/dins_external_form.h \
@@ -514,7 +491,6 @@ SOURCES += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.cpp \
     gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
-    gui/forms/algorithms/custom/flexlogic_namespace.cpp \
     gui/forms/algorithms/embedded/AlgDataModel.cpp \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.cpp \
     gui/forms/algorithms/embedded/IAlgorithm.cpp \
@@ -733,28 +709,6 @@ SOURCES += \
     utils/qzip.cpp \
     gui/dialogs/params_dialog.cpp \
     gui/dialogs/scene_dialog.cpp \
-    gui/forms/algorithms/custom/Editor/dummy_link.cpp \
-    gui/forms/algorithms/custom/Editor/editor_link.cpp \
-    gui/forms/algorithms/custom/Editor/editor_link_data.cpp \
-    gui/forms/algorithms/custom/Editor/editor_node.cpp \
-    gui/forms/algorithms/custom/Editor/editor_node_data.cpp \
-    gui/forms/algorithms/custom/Editor/editor_scene.cpp \
-    gui/forms/algorithms/custom/Editor/editor_socket.cpp \
-    gui/forms/algorithms/custom/Editor/editor_socket_data.cpp \
-    gui/forms/algorithms/custom/Editor/graphic_line.cpp \
-    gui/forms/algorithms/custom/Editor/graphic_path.cpp \
-    gui/forms/algorithms/custom/Nodes/and_node.cpp \
-    gui/forms/algorithms/custom/Nodes/bi_node.cpp \
-    gui/forms/algorithms/custom/Nodes/bo_node.cpp \
-    gui/forms/algorithms/custom/Nodes/generator_node.cpp \
-    gui/forms/algorithms/custom/Nodes/impulse_pf_node.cpp \
-    gui/forms/algorithms/custom/Nodes/impulse_zf_node.cpp \
-    gui/forms/algorithms/custom/Nodes/not_node.cpp \
-    gui/forms/algorithms/custom/Nodes/or_node.cpp \
-    gui/forms/algorithms/custom/Nodes/return_delay_node.cpp \
-    gui/forms/algorithms/custom/Nodes/rs_trigger_node.cpp \
-    gui/forms/algorithms/custom/Nodes/trigger_delay_node.cpp \
-    gui/forms/algorithms/custom/Nodes/xor_node.cpp \
     gui/forms/algorithms/custom/flex_editor_form.cpp \
     gui/forms/input_output/inputs/dins_board_widget.cpp \
     gui/forms/input_output/inputs/dins_external_form.cpp \

@@ -35,5 +35,6 @@ void CfcView::SceneChanged(const QRectF& rectangle)
     rectangle.height() - rectangle.y() < _base_height ? new_bound.setHeight(_base_height) : new_bound.setHeight(rectangle.height() - rectangle.y());
 
     setSceneRect(new_bound);
+    update();
 }
 

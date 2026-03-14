@@ -46,6 +46,9 @@ CfcScene::CfcScene(CfcAlgService* service, ServiceManager* service_manager, QGra
 {
     //  Свойства класса
     _new_link = nullptr;
+    //_menu_point = QPointF();
+    //_basic_point = QPointF();
+    _grid_enable = true;
 
     //  Параметры меню
     _action_bi = new QAction("Привязка", this);
@@ -55,23 +58,6 @@ CfcScene::CfcScene(CfcAlgService* service, ServiceManager* service_manager, QGra
     connect(_action_bi, &QAction::triggered, this, &CfcScene::onActionBI);
     connect(_action_bo, &QAction::triggered, this, &CfcScene::onActionBO);
     connect(_action_param, &QAction::triggered, this, &CfcScene::onActionParam);
-}
-
-
-//===================================================================================================================================================
-//	Открытые методы класса
-//===================================================================================================================================================
-void CfcScene::showItems(const QList<CfcNode*>& nodes, const QList<CfcLink*>& links)
-{
-    if (!dataProcessing(nodes, links))
-        Dpc::Gui::MsgBox::warning("Схема содержит ошибки.");
-
-    for (int i = 0; i < nodes.count(); i++)
-        addItem(nodes.at(i));
-    for (int i = 0; i < links.count(); i++)
-        addItem(links.at(i));
-
-    return;
 }
 
 
@@ -89,10 +75,11 @@ void CfcScene::onActionBI()
         return;
 
     InputSignal* input_signal = dialog.selectedSignal();
-    if (!bi_node->cfcInput()) {
-        // auto input = cfcService()->makeInput(serviceManager()->nextCfcID(), cfcService()->freePin());
-        // bi_node->setCfcInput(input);
-    }
+    if (!input_signal)
+        return;
+
+    if (!bi_node->cfcInput())
+        return;
     bi_node->cfcInput()->setSource(input_signal);
     update();
 
@@ -113,10 +100,8 @@ void CfcScene::onActionBO()
     if (!output_signal)
         return;
 
-    if (!bo_node->cfcOutput()) {
-        // auto output = cfcService()->makeOutput(serviceManager()->nextCfcID(), cfcService()->freePin());
-        // bo_node->setCfcOutput(output);
-    }
+    if (!bo_node->cfcOutput())
+        return;
     bo_node->cfcOutput()->setTarget(output_signal);
     update();
 
@@ -149,9 +134,9 @@ void CfcScene::drawBackground(QPainter* painter, const QRectF& rect)
     if (!gridEnabled()) return;
 
     //  Определение переменных
-    int left = int(sceneRect().left());
+    int left = int(rect.left());
     int right = int(rect.right());
-    int top = int(sceneRect().top());
+    int top = int(rect.top());
     int bottom = int(rect.bottom());
 
     int first_top = top - top % grid_step;
@@ -166,6 +151,7 @@ void CfcScene::drawBackground(QPainter* painter, const QRectF& rect)
     painter->setPen(QPen(grid_color, 1));
     for (int y = first_top; y <= bottom; y = y + grid_small_step) painter->drawLine(left, y, right, y);
     for (int x = first_left; x <= right; x = x + grid_small_step) painter->drawLine(x, top, x, bottom);
+    update();
 
     return;
 }

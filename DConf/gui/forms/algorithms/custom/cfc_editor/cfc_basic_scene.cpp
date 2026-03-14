@@ -29,7 +29,8 @@ CfcBasicScene::CfcBasicScene(CfcAlgService* service, ServiceManager* service_man
 {
     _menu_point = QPointF();
     _basic_point = QPointF();
-    _grid_enable = true;
+    _buffer_nodes.clear();
+    _buffer_links.clear();
     _service_manager = service_manager;
     _service = service;
 
@@ -136,95 +137,6 @@ QList<CfcLink*> CfcBasicScene::selectedLinks() const
     }
 
     return list;
-}
-
-bool CfcBasicScene::dataProcessing(QList<CfcNode*> nodes, QList<CfcLink*> links)
-{
-    nodesProcessing(nodes);
-    return validate(nodes, links);
-}
-
-bool CfcBasicScene::validate(QList<CfcNode*> nodes, QList<CfcLink*> links)
-{
-    bool error = true;
-
-    //  Проверка состояния элементов BI/BO
-    QString error_text_1 = QString("Элемент %1 ID= %2. - Отстутствие сервиса.");
-    QString error_text_2 = QString("Элемент %1 ID= %2. - Не привязан сигнал.");
-    for (int i = 0; i < nodes.count(); i++) {
-        if (nodes.at(i)->name() != "BI" && nodes.at(i)->name() != "BO")
-            continue;
-
-        if (nodes.at(i)->name() == "BI") {
-            CfcBI* bi_node = static_cast<CfcBI*>(nodes.at(i));
-            if (!bi_node->cfcInput()) {
-                error = false;
-                QString message = error_text_1.arg(bi_node->name(), bi_node->id());
-                emit warningToLog(message);
-            }
-            if (bi_node->cfcInput() && !bi_node->cfcInput()->source()) {
-                error = false;
-                QString message = error_text_2.arg(bi_node->name(), bi_node->id());
-                emit warningToLog(message);
-            }
-            continue;
-        }
-
-        if (nodes.at(i)->name() == "BO") {
-            CfcBO* bo_node = static_cast<CfcBO*>(nodes.at(i));
-            if (!bo_node->cfcOutput()) {
-                error = false;
-                QString message = error_text_1.arg(bo_node->name(), bo_node->id());
-                emit warningToLog(message);
-            }
-            if (bo_node->cfcOutput() &&  !bo_node->cfcOutput()->target()) {
-                error = false;
-                QString message = error_text_2.arg(bo_node->name(), bo_node->id());
-                emit warningToLog(message);
-            }
-            continue;
-        }
-    }
-
-    //  Перебор элементов для проверки наличия соединений
-    QString error_text = QString("Элемент %1 ID= %2. Сокет[%3] - Отстутствие соединения.");
-    for (int i = 0; i < nodes.count(); i++) {
-        CfcNode* node = nodes.at(i);
-        QString node_name = node->name();
-        QString node_id = node->id();
-
-        if (node_name == "BI" || node_name == "BO")
-            continue;
-
-        //  Проверка сокетов
-        for (uint8_t ii = 0; ii < node->sockets().count(); ii++) {
-            CfcSocket* socket = node->sockets().at(ii);
-            if (socket->links().isEmpty()) {
-                error = false;
-                QString message = error_text.arg(node_name, node_id, QString::number(ii));
-                emit warningToLog(message);
-            }
-        }
-    }
-
-    //  Проверка соединений
-    QString link_source = QString("Связь ID= %1 Отсутствие источника сигнала.");
-    QString link_target = QString("Связь ID= %1 Отсутствие приемника сигнала.");
-    for (int i = 0; i < links.count(); i++) {
-        CfcLink* link = links.at(i);
-        if (!link->source()) {
-            error = false;
-            QString message = link_source.arg(link->id());
-            emit warningToLog(message);
-        }
-        if (!link->target()) {
-            error = false;
-            QString message = link_target.arg(link->id());
-            emit warningToLog(message);
-        }
-    }
-
-    return error;
 }
 
 
@@ -378,38 +290,6 @@ CfcLink* CfcBasicScene::linkByID(const QString& id)
             return cfc_links.at(i);
 
     return nullptr;
-}
-
-void CfcBasicScene::nodesProcessing(QList<CfcNode*> nodes)
-{
-    //  Привязка BI/BO к соответствующим сервисам
-    for (int i = 0; i < nodes.count(); i++) {
-
-        if (nodes.at(i)->name() != "BI" && nodes.at(i)->name() != "BO")
-            continue;
-
-        if (nodes.at(i)->name() == "BI") {
-            // CfcBI* bi_node = dynamic_cast<CfcBI*>(nodes.at(i));
-            // uint8_t pin = bi_node->pin();
-            // if (pin < 0)
-            //     continue;
-            // CfcServiceInput* input = cfcService()->input(pin);
-            // bi_node->setCfcInput(input);
-            // continue;
-        }
-
-        if (nodes.at(i)->name() == "BO") {
-        //     CfcBO* bo_node = dynamic_cast<CfcBO*>(nodes.at(i));
-        //     uint8_t pin = bo_node->pin();
-        //     if (pin < 0)
-        //         continue;
-        //     CfcServiceOutput* output = cfcService()->output(pin);
-        //     bo_node->setCfcOutput(output);
-        //     continue;
-        }
-    }
-
-    return;
 }
 
 void CfcBasicScene::removeLink(CfcLink* link)

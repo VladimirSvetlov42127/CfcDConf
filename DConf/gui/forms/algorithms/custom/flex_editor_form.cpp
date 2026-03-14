@@ -57,6 +57,7 @@ FlexEditorForm::FlexEditorForm(DcController* device, CfcAlgService *cfcAlg, QWid
     _scene = new CfcScene(this->cfcAlg(), device->serviceManager());
     _graph_view = new CfcView(_scene);
     connect(scene(), &CfcScene::selectionChanged, this, &FlexEditorForm::buttonsChange);
+    connect(scene(), &CfcScene::sceneRectChanged, graphView(), &CfcView::SceneChanged);
 
 
 	//	Формирование виджетов окна
