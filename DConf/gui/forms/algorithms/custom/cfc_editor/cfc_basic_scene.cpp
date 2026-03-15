@@ -69,7 +69,6 @@ CfcNode* CfcBasicScene::newEditorNode(QString name)
         auto input = service()->makeInput();
         if (!input)
             return nullptr;
-
         return new CfcBI(QString(), QSizeF(), input);
     }
 
@@ -335,11 +334,8 @@ void CfcBasicScene::removeNode(CfcNode* node)
     //  Удаление элементов BI/BO
     if (node->name() == "BI") {
         CfcBI* bi_node = static_cast<CfcBI*>(node);
-        if (bi_node->cfcInput()) {
-            if (bi_node->cfcInput()->source())
-                bi_node->cfcInput()->setSource(nullptr);
-            service()->removeInput(bi_node->cfcInput());
-        }
+        auto input = bi_node->cfcInput();
+        service()->removeInput(input);
         CfcSocket* socket= node->sockets().at(0);
         for (int i = 0; i < socket->links().count(); i++)
             if (socket->links().at(i))
@@ -351,11 +347,8 @@ void CfcBasicScene::removeNode(CfcNode* node)
 
     if (node->name() == "BO") {
         CfcBO* bo_node = static_cast<CfcBO*>(node);
-        if (bo_node->cfcOutput()) {
-            if (bo_node->cfcOutput()->target())
-                bo_node->cfcOutput()->setTarget(nullptr);
-            service()->removeOutput(bo_node->cfcOutput());
-        }
+        auto output = bo_node->cfcOutput();
+        service()->removeOutput(output);
         CfcSocket* socket= node->sockets().at(0);
         for (int i = 0; i < socket->links().count(); i++)
             if (socket->links().at(i))
