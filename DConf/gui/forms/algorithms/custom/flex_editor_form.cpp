@@ -24,7 +24,6 @@
 //	Подключение модулей проекта
 //===================================================================================================================================================
 #include <file_managers/DcFlexLogicFileManager.h>
-#include <gui/forms/algorithms/custom/flexlogic_namespace.h>
 #include "gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h"
 #include "gui/forms/algorithms/custom/cfc_nodes/cfc_bo.h"
 #include "gui/forms/algorithms/custom/cfc_nodes/cfc_bi.h"

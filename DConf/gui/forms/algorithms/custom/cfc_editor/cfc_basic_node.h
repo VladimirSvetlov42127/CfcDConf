@@ -85,7 +85,7 @@ public:
     void setSize(const QSizeF& size) { _size = size; }
     uint8_t minInputs() const { return _min_inputs; }
     uint8_t maxInputs() const { return _max_inputs; }
-    QList<NodeParam> paramsList() const { return _params_list; }
+    virtual QList<NodeParam> paramsList() const { return _params_list; }
     QList<CfcSocket*> sockets() const { return _sockets; }
     QStringList paramNames() const { return _param_names; }
     QStringList paramValues() const { return _param_values; }

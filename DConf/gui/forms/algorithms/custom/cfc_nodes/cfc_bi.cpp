@@ -77,13 +77,17 @@ CfcBI::CfcBI(QDomNode xml, CfcServiceInput* input, QGraphicsItem* parent) : CfcN
 //===================================================================================================================================================
 //	Виртуальные методы класса
 //===================================================================================================================================================
-void CfcBI::setCfcInput(CfcServiceInput* input)
+QList<NodeParam> CfcBI::paramsList() const
 {
-    //  Подключение входа сервиса
-    _input = input;
-    inputReset();
+    if (!cfcInput())
+        return CfcBasicNode::paramsList();
 
-    return;
+    QList<NodeParam> result;
+    result.append({QString(), "io_id", cfcInput()->id(), QString()});
+    result.append({QString(), "alg_pin", cfcInput()->pin() + 1, QString()});
+    result.append({QString(), "name", cfcInput()->text(), QString()});
+    result.append({QString(), "signal", cfcInput()->source() ? cfcInput()->source()->internalID() : -1, QString()});
+    return result;
 }
 
 
@@ -103,9 +107,6 @@ void CfcBI::paintElement(QPainter* painter)
     path.lineTo(rectangle.x(), rectangle.y() + rectangle.height());
     path.closeSubpath();
 
-    //  Перегрузка параметров элемента
-    inputReset();
-
     QColor fill_color = notbinded_bkcolor;
     if (cfcInput()->source()) {
         fill_color = shape_bkcolor;
@@ -121,12 +122,8 @@ void CfcBI::paintElement(QPainter* painter)
     painter->drawPath(path);
     painter->fillPath(path, fill_color);
 
-    //  Перегрузка параметров элемента
-    inputReset();
-
     //  Вывод названия сигнала
     QString text = cfcInput()->text();
-
     if (!text.isEmpty()) {
         QFontMetrics fm(CHANNEL_TEXT_FONT);
         QRectF text_rect(QPointF(rectangle.x() + 10, rectangle.y()), QPointF(rectangle.right() - 10, rectangle.bottom()));
@@ -147,20 +144,3 @@ void CfcBI::paintElement(QPainter* painter)
     return;
 }
 
-
-//===================================================================================================================================================
-//	Вспомогательные методы класса
-//===================================================================================================================================================
-void CfcBI::inputReset()
-{
-    if (cfcInput()) {
-        setParam("io_id", cfcInput()->id() + 1);
-        setParam("alg_pin", cfcInput()->pin() + 1);
-        if (cfcInput()->source()) {
-            setParam("name", cfcInput()->source()->fullText());
-            setParam("signal", cfcInput()->source()->internalID());
-        }
-    }
-
-    return;
-}

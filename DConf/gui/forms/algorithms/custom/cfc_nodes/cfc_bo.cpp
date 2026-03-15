@@ -70,15 +70,19 @@ CfcBO::CfcBO(QDomNode xml, CfcServiceOutput* output, QGraphicsItem* parent) : Cf
 //===================================================================================================================================================
 //	Виртуальные методы класса
 //===================================================================================================================================================
-void CfcBO::setCfcOutput(CfcServiceOutput* output)
+QList<NodeParam> CfcBO::paramsList() const
 {
-    //  Подключение входа сервиса
-    _output = output;
-    outputReset();
+    if (!cfcOutput())
+        return CfcNode::paramsList();
 
-    return;
+    QList<NodeParam> result;
+    result.append({QString(), "io_id", cfcOutput()->id(), QString()});
+    result.append({QString(), "alg_pin", cfcOutput()->pin() + 1, QString()});
+    result.append({QString(), "name", cfcOutput()->text(), QString()});
+    result.append({QString(), "signal", cfcOutput()->target() ? cfcOutput()->target()->internalID() : -1, QString()});
+
+    return result;
 }
-
 
 //===================================================================================================================================================
 //	Вспомогательные методы класса
@@ -103,9 +107,6 @@ void CfcBO::paintElement(QPainter* painter)
     painter->drawPath(path);
     painter->fillPath(path, cfcOutput()->target() ? shape_bkcolor : notbinded_bkcolor);
 
-    //  Перегрузка параметров элемента
-    outputReset();
-
     //  Вывод названия сигнала
     QString text = cfcOutput()->text();
 
@@ -124,22 +125,3 @@ void CfcBO::paintElement(QPainter* painter)
 
     return;
 }
-
-
-//===================================================================================================================================================
-//	Вспомогательные методы класса
-//===================================================================================================================================================
-void CfcBO::outputReset()
-{
-    if (cfcOutput()) {
-        setParam("io_id", cfcOutput()->id() + 1);
-        setParam("alg_pin", cfcOutput()->pin() + 1);
-        if (cfcOutput()->target()) {
-            setParam("name", cfcOutput()->target()->fullText());
-            setParam("signal", cfcOutput()->target()->internalID());
-        }
-    }
-
-    return;
-}
-

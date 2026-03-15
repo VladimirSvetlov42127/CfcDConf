@@ -51,7 +51,6 @@ bool CfcParser::loadData(const QString& file_name)
     QFile xml_file(file_name);
     if (!xml_file.exists()) {
         QString error_text = "Файл алгоритма не найден.";
-        // _error_list.append(error_text);
         emit errorToLog(error_text);
         return false;
     }
@@ -59,7 +58,6 @@ bool CfcParser::loadData(const QString& file_name)
     //  Открытие графического файла
     if (!xml_file.open(QIODevice::ReadOnly)) {
         QString error_text = "Ошибка открытия файла алгоритма.";
-        // _error_list.append(error_text);
         emit errorToLog(error_text);
         xml_file.close();
         return false;

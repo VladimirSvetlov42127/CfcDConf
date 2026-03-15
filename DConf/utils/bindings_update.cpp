@@ -4,7 +4,6 @@
 //===================================================================================================================================================
 //	Подключение библиотек QT
 //===================================================================================================================================================
-#include <QDebug>
 #include <QFile>
 
 //===================================================================================================================================================
@@ -146,11 +145,11 @@ bool BindingsUpdate::cfcAlgsToParams()
             continue;
 
         //  Назначение сигналов алгоритмов гибкой логики
-        QList<CfcNode*> nodes = parser.nodes();
-        int nodes_count = nodes.count();
+        QList<CfcNode*> cfc_nodes = parser.nodes();
+        int nodes_count = cfc_nodes.count();
         for (int ii = 0; ii < nodes_count; ii++) {
-            CfcNode* node = nodes.at(ii);
-            if (node->nodeType() != RZA_LOAD)
+            CfcNode* node = cfc_nodes.at(ii);
+            if (node->name() != "BI" && node->name() != "BO")
                 continue;
 
             int signal_id = node->param("signal").value.toInt();

@@ -36,18 +36,11 @@ public:
     CfcBO(QDomNode xml, CfcServiceOutput* output = nullptr, QGraphicsItem* parent = nullptr);
 
     //===============================================================================================================================================
-    //	Открытые методы класса
-    //===============================================================================================================================================
-    QString name() const { return param("name").value.toString(); }
-    int pin() const { return param("alg_pin").value.toInt() - 1; }
-    int globalID() const  { return param("io_id").value.toInt() - 1; }
-    int signalID() const {return param("signal").value.toInt(); }
-
-    //===============================================================================================================================================
     //	Виртуальные методы класса
     //===============================================================================================================================================
-    virtual CfcServiceOutput* cfcOutput() const { return _output; }
-    virtual void setCfcOutput(CfcServiceOutput* output);
+    CfcServiceOutput* cfcOutput() const { return _output; }
+    void setCfcOutput(CfcServiceOutput* output) { _output = output; };
+    virtual QList<NodeParam> paramsList() const override;
 
 protected:
 	//===============================================================================================================================================

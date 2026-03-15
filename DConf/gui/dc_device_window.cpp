@@ -230,7 +230,6 @@ DcDeviceWindow::DcDeviceWindow(DcDeviceNode *device_node, QWidget *parent)
 
 DcDeviceWindow::~DcDeviceWindow()
 {
-    qDebug() << "~DcDeviceWindow";
 }
 
 DcDeviceNode *DcDeviceWindow::node() const
