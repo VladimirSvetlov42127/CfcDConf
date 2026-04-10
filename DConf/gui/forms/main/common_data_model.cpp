@@ -10,6 +10,7 @@
 namespace {
 
 const std::array g_WorkMode = {"Рабочий", "Подготовка"};
+const std::array g_DecontMode = {"Деконт", "Деконт Т2"};
 
 }
 
@@ -115,6 +116,10 @@ QVariant CommonDataModel::data(const QModelIndex &index, int role) const
             if (item.addr == SP_NEWPROFILE) {
                 auto value = item.deviceInfo.toUInt();
                 return value < g_WorkMode.size() ? g_WorkMode[value] : QString();
+            }
+            else if (item.addr == SP_ALTERNATE_MODE) {
+                auto value = item.deviceInfo.toUInt();
+                return value < g_DecontMode.size() ? g_DecontMode[value] : QString();
             }
             else
                 return item.deviceInfo;

@@ -1,34 +1,34 @@
 #include "signal.h"
 
-Signal::Signal(int32_t id, int32_t internalid, uint8_t direction, uint8_t type, uint8_t subtype, const QString &name, uint16_t subtypeID)
-    : m_id{id}
-    , m_internal_id{internalid}
-    , m_direction{direction}
-    , m_type{type}
-    , m_subtype{subtype}
+#include <QDebug>
+
+Signal::Signal(uint32_t globalID, uint16_t internalID, uint16_t subtypeID, const QString &name, const QString &properties)
+    : m_globalID{globalID}
+    , m_internalID{internalID}
+    , m_subtypeID{subtypeID}
     , m_name{name}
+    , m_properties{properties}
 {
-    _syb_type_id = subtypeID;
 }
 
-uint8_t Signal::type() const
+Signal::Signal(const Config &config)
+    : Signal{config.globalID, config.internalID, config.subtypeID, config.name, config.properties }
 {
-    return m_type;
 }
 
-uint8_t Signal::subType() const
+uint32_t Signal::globalID() const
 {
-    return m_subtype;
-}
-
-int32_t Signal::globalID() const
-{
-    return m_id;
+    return m_globalID;
 }
 
 uint16_t Signal::internalID() const
 {
-    return m_internal_id;
+    return m_internalID;
+}
+
+uint16_t Signal::subtypeID() const
+{
+    return m_subtypeID;
 }
 
 QString Signal::name() const
@@ -37,11 +37,16 @@ QString Signal::name() const
 }
 QString Signal::text() const
 {
-    return QString("[%1] %2").arg(m_internal_id).arg(name());
+    return QString("[%1] %2").arg(m_internalID).arg(name());
 }
 
 QString Signal::fullText() const
 {
     return text();
+}
+
+bool Signal::init(DcController *)
+{
+    return true;
 }
 

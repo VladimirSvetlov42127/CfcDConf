@@ -65,6 +65,25 @@ void ParameterElement::update(const QString &name, const QString &value)
     update();
 }
 
+bool ParameterElement::bitValue(uint8_t bit) const
+{
+    auto elementValue = value().toUInt();
+    auto bitValue = static_cast<decltype(elementValue)>(1) << bit;
+    return elementValue & bitValue;
+}
+
+void ParameterElement::setBitValue(uint8_t bit, bool value)
+{
+    auto elementValue = this->value().toUInt();
+    auto bitValue = static_cast<decltype(elementValue)>(1) << bit;
+    if (value)
+        elementValue |= bitValue;
+    else
+        elementValue &= ~bitValue;
+
+    updateValue(QString::number(elementValue));
+}
+
 uint8_t ParameterElement::type() const
 {
     return parameter() ? parameter()->type() : 0;

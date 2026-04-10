@@ -24,8 +24,8 @@ QString FuncServiceOutput::name() const
     return m_vfunc->text();
 }
 
-void FuncServiceOutput::updateBinding(VirtualInputSignal *new_target)
+void FuncServiceOutput::updateBinding(DinVirtualSignal *new_target)
 {
-    auto newValue = new_target ? new_target->subTypeID() : g_NoSignal;
+    auto newValue = new_target ? new_target->subtypeID() : g_NoSignal;
     bindElement()->updateValue(QString::number(newValue));
 }

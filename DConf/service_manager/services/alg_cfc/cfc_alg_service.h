@@ -1,6 +1,8 @@
 #ifndef CFCALGSERVICE_H
 #define CFCALGSERVICE_H
 
+#include <optional>
+
 #include "service_manager/services/service.h"
 #include "service_manager/services/alg_cfc/cfc_service_input.h"
 #include "service_manager/services/alg_cfc/cfc_service_output.h"

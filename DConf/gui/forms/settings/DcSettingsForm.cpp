@@ -8,6 +8,9 @@
 
 #include <gui/editors/EditorsManager.h>
 
+#include "service_manager/signals/ain_virtual_signal.h"
+#include "service_manager/signals/cin_virtual_signal.h"
+
 using namespace Dpc::Gui;
 
 namespace {
@@ -74,9 +77,9 @@ namespace {
 	const ListEditorContainer g_ProfileList = { "1", "2", "3", "4" };
 
 	const ListEditorContainer g_SignalTypesList = { 
-		{ "Дискреты", DEF_SIG_TYPE_DISCRETE },
-		{ "Аналоги", DEF_SIG_TYPE_ANALOG},
-		{ "Счётчики", DEF_SIG_TYPE_COUNTER}
+        { "Дискреты", static_cast<uint32_t>(Signal::Type::Din) },
+        { "Аналоги", static_cast<uint32_t>(Signal::Type::Ain) },
+        { "Счётчики", static_cast<uint32_t>(Signal::Type::Cin) }
 	};
 
 	class SetpointsGroupsModel : public QAbstractTableModel
@@ -96,11 +99,11 @@ namespace {
 			QVariant getSignal;
 		};
 
-		SetpointsGroupsModel(DcController* contr, DefSignalType sigType, QObject* parent = nullptr) :
+        SetpointsGroupsModel(DcController* contr, Signal::Type sigType, QObject* parent = nullptr) :
 			QAbstractTableModel(parent),
 			m_contr(contr) 
 		{
-			if (sigType == DEF_SIG_TYPE_DISCRETE) {
+            if (sigType == Signal::Type::Din) {
                 auto param = contr->paramsRegistry().parameter(SP_APPL_MANAGE_WORDDIN_PARAM);
 				if (!param)
 					return;
@@ -121,7 +124,7 @@ namespace {
 				}
 			}
 
-			if (sigType == DEF_SIG_TYPE_ANALOG) {
+            if (sigType == Signal::Type::Ain) {
                 auto param = contr->paramsRegistry().element(SP_APPL_MANAGE_WORDAOUT_PARAM, 0);
 				if (!param)
 					return;
@@ -132,7 +135,7 @@ namespace {
 				m_items << it;
 			}
 
-			if (sigType == DEF_SIG_TYPE_COUNTER) {
+            if (sigType == Signal::Type::Cin) {
                 auto param = contr->paramsRegistry().element(SP_APPL_MANAGE_WORDCIN_PARAM, 0);
 				if (!param)
 					return;
@@ -234,19 +237,20 @@ namespace {
 	{
 		ComboBoxDelegate* result = new ComboBoxDelegate(parent);
 		result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-		for (auto signal : contr->getSignalList(DEF_SIG_TYPE_DISCRETE)) {
-			result->append({ signal->name(), static_cast<uint>(signal->internalId()) });
+        for (auto signal : contr->signalManager().getSignals<DinSignal>()) {
+            result->append({ signal->text(), signal->internalID() });
 		}
 
 		return result;
 	}
 
-	ComboBoxDelegate* g_virtualSignalsDelegate(DcController* contr, DefSignalType sigType, QObject* parent = nullptr)
+    template<typename SignalType>
+    ComboBoxDelegate* g_virtualSignalsDelegate(DcController* contr, QObject* parent = nullptr)
 	{
 		ComboBoxDelegate* result = new ComboBoxDelegate(parent);
 		result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-		for (auto signal : contr->getSignalList(sigType, DEF_SIG_SUBTYPE_VIRTUAL)) {
-			result->append({ signal->name(), static_cast<uint>(signal->internalId()) });
+        for (auto signal : contr->signalManager().getSignals<SignalType>()) {
+            result->append({ signal->text(), signal->internalID() });
 		}
 
 		return result;
@@ -732,12 +736,12 @@ QWidget* DcSettingsForm::createSetpointsGroupsTab()
 	EditorsManager manager(controller(), tabLayout);
 
 	auto discretsDelegate = g_DiscretsDelegate(controller(), this);
-	auto virtualDiscretsDelegate = g_virtualSignalsDelegate(controller(), DEF_SIG_TYPE_DISCRETE, this);
-	auto virtualAnalogsDelegate = g_virtualSignalsDelegate(controller(), DEF_SIG_TYPE_ANALOG, this);
-	auto virtualCountersDelegate = g_virtualSignalsDelegate(controller(), DEF_SIG_TYPE_COUNTER, this);
+    auto virtualDiscretsDelegate = g_virtualSignalsDelegate<DinVirtualSignal>(controller(), this);
+    auto virtualAnalogsDelegate = g_virtualSignalsDelegate<AinVirtualSignal>(controller(), this);
+    auto virtualCountersDelegate = g_virtualSignalsDelegate<CinVirtualSignal>(controller(), this);
 
 	auto createTableView = [=](const QVariant& data) {
-		auto signalType = static_cast<DefSignalType>(data.toUInt());
+        auto signalType = static_cast<Signal::Type>(data.toUInt());
 		auto model = new SetpointsGroupsModel(controller(), signalType, tab);
 
 		auto view = new TableView(tab);
@@ -748,14 +752,14 @@ QWidget* DcSettingsForm::createSetpointsGroupsTab()
 
 		switch (signalType)
 		{
-		case DEF_SIG_TYPE_DISCRETE:
+        case Signal::Type::Din:
 			view->setItemDelegateForColumn(SetpointsGroupsModel::SetColumn, discretsDelegate);
 			view->setItemDelegateForColumn(SetpointsGroupsModel::GetColumn, virtualDiscretsDelegate);
 			break;
-		case DEF_SIG_TYPE_ANALOG:
+        case Signal::Type::Ain:
 			view->setItemDelegateForColumn(SetpointsGroupsModel::GetColumn, virtualAnalogsDelegate);
 			break;
-		case DEF_SIG_TYPE_COUNTER:
+        case Signal::Type::Cin:
 			view->setItemDelegateForColumn(SetpointsGroupsModel::GetColumn, virtualCountersDelegate);
 			break;
 		default:

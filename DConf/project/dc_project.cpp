@@ -93,6 +93,7 @@ DcProject::DcProject(const QString &path, const QString &name)
     , m_updatedTime{QDateTime::currentDateTime()}
     , m_version{0}
 {
+    connect(this, &DcNode::nameChanged, this, &DcProject::infoChanged);
 }
 
 DcProject::~DcProject()
@@ -119,6 +120,33 @@ QString DcProject::topologyFilePath(const QString &prefix)
 QIcon DcProject::icon() const
 {
     return QIcon(":/icons/proj.svg");
+}
+
+void DcProject::setObject(const QString &obj)
+{
+    if (obj == m_object)
+        return;
+
+    m_object = obj;
+    emit infoChanged();
+}
+
+void DcProject::setAuthor(const QString &author)
+{
+    if (author == m_author)
+        return;
+
+    m_author = author;
+    emit infoChanged();
+}
+
+void DcProject::setDesc(const QString &desc)
+{
+    if (desc == m_desc)
+        return;
+
+    m_desc = desc;
+    emit infoChanged();
 }
 
 bool DcProject::load()

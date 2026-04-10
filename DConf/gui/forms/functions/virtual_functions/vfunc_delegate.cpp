@@ -5,7 +5,6 @@
 //	Подключение модулей проекта
 //===================================================================================================================================================
 #include <dpc/gui/delegates/SpinBoxDelegate.h>
-#include "gui/editors/EditorsManager.h"
 #include "service_manager/services/func/func_service.h"
 
 //===================================================================================================================================================
@@ -23,10 +22,10 @@ namespace {
 VFuncDelegate::VFuncDelegate(DcController* dc_controller, QObject* parent) : QStyledItemDelegate(parent)
 {
     _controller = dc_controller;
-    int count = _controller->serviceManager()->funcService().funcList().size();
+    int count = _controller->funcService().funcList().size();
     for (int i = 0; i < count; i++) {
-        auto func_type = _controller->serviceManager()->funcService().funcList().at(i).get()->type();
-        uint16_t value = _controller->serviceManager()->funcService().funcList().at(i).get()->argValue();
+        auto func_type = _controller->funcService().funcList().at(i).get()->type();
+        uint16_t value = _controller->funcService().funcList().at(i).get()->argValue();
         InnerDelegate inner;
         inner.type = func_type;
         inner.delegate = getDelegate(func_type, value);
@@ -128,15 +127,13 @@ QStringList VFuncDelegate::xcbrList() const
 QList<ComboBoxDelegate::Item> VFuncDelegate::dinList(uint16_t value) const
 {
     QList<ComboBoxDelegate::Item> result;
-    QList<VirtualInputSignal*> din_list =controller()->serviceManager()->vdins();
-    for (int i = 0; i < din_list.count();i++) {
-        if (din_list.at(i)->source()) {
-            if (din_list.at(i)->subTypeID() != value)
-                continue;
-        }
+    for (auto vdin: controller()->signalManager().getSignals<DinVirtualSignal>()) {
+        if (vdin->source() && vdin->subtypeID() != value)
+            continue;
+
         ComboBoxDelegate::Item item;
-        item.text = din_list.at(i)->text();
-        item.value = din_list.at(i)->subTypeID();
+        item.text = vdin->text();
+        item.value = vdin->subtypeID();
         result.append(item);
     }
 
@@ -146,20 +143,20 @@ QList<ComboBoxDelegate::Item> VFuncDelegate::dinList(uint16_t value) const
 QList<ComboBoxDelegate::Item> VFuncDelegate::fixDinList(uint16_t value) const
 {
     QList<ComboBoxDelegate::Item> result;
-    QList<VirtualInputSignal*> din_list =controller()->serviceManager()->vdins();
-    for (int i = 0; i < din_list.count();i++) {
-        if (din_list.at(i)->source()) {
-            if (din_list.at(i)->subTypeID() != value)
-                continue;
-        }
+    auto vdins = controller()->signalManager().getSignals<DinVirtualSignal>();
+    for (size_t i = 0; i < vdins.size(); i++) {
+        auto vdin = vdins.at(i);
+        if (vdin->source() && vdin->subtypeID() != value)
+            continue;
+
         auto p = controller()->paramsRegistry().element(SP_DIN_VDINFIXED, i / 8);
         if (!p)
             continue;
         if ( !(p->value().toUInt() & (1 << (i % 8))))
             continue;
         ComboBoxDelegate::Item item;
-        item.text = din_list.at(i)->text();
-        item.value = din_list.at(i)->subTypeID();
+        item.text = vdin->text();
+        item.value = vdin->subtypeID();
         result.append(item);
     }
 

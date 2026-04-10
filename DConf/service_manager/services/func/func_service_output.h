@@ -14,7 +14,7 @@ public:
     QString name() const override;
 
 protected:
-    void updateBinding(VirtualInputSignal* new_target) override;
+    void updateBinding(DinVirtualSignal* new_target) override;
 
 private:
     VFunc* m_vfunc;

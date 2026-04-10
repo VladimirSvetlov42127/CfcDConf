@@ -47,6 +47,7 @@ public:
     bool highLight() const { return _highlight; }
     CfcBasicNode* parent() { return _parent; }
     QList<CfcLink*> links() {return _links; }
+    void setHighLight(bool flag);
     void appendLink(CfcLink* link);
     void removeLink(CfcLink* link);
 

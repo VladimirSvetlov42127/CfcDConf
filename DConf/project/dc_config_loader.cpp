@@ -3,14 +3,88 @@
 #include <QFile>
 #include <QDebug>
 
+#include <dpc/sybus/utils.h>
+
 #include "db/dc_db_manager.h"
 #include "device_templates/dc_templates_manager.h"
-#include "utils/bindings_update.h"
+
+#include "file_managers/DcFlexLogicFileManager.h"
+
+//#define TRACE_ENABLE
+
+#ifdef TRACE_ENABLE
+
+#define TRACE(msg) \
+    qDebug().noquote() << QString("[Loader] %1").arg(msg);
+#define TRACE_PAR(par, msg) \
+    TRACE(QString("Param(%1, %2): %3").arg(toHex(par->addr()), par->name(), msg))
+
+#define TRACE_ELEM(elem, msg) \
+    TRACE(QString("Elem(%1[%2], %3): %4").arg(toHex(elem->addr())).arg(elem->position()).arg(elem->name(), msg))
+
+#define TRACE_ALG(alg, msg) \
+    TRACE(QString("ALG(%1, %2): %3").arg(alg->index()).arg(alg->name(), msg))
+
+#define TRACE_ALG_IO(alg, io, msg) \
+    TRACE(QString("ALG_IO(%1, %2, %3): %4").arg(alg->index()).arg(alg->name()).arg(io->index()).arg(msg))
+
+#else
+#define TRACE(msg)
+#define TRACE_PAR(par, msg)
+#define TRACE_ELEM(elem, msg)
+#define TRACE_ALG(alg, msg)
+#define TRACE_ALG_IO(alg, io, msg)
+#endif
+
+using namespace Dpc::Sybus;
 
 namespace {
 
 constexpr const char* SETTINGS_BOARDS_VERSION = "boards_version";
 constexpr const unsigned int BOARDS_UPDATE_STORAGE_VERSION = 2;
+
+void setParam(DcController* config, uint16_t address, const QString& value)
+{
+    auto parameter = config->paramsRegistry().parameter(address);
+    if (!parameter)
+        return;
+
+    for (auto &profile: parameter->profiles())
+        for (auto &element: profile)
+            element->updateValue(value);
+}
+
+DcAlgInternal* getAlgByIO(DcController *config, int32_t source_id)
+{
+    for (uint32_t i = 0; i < config->algs_internal()->size(); i++) {
+        auto palg = config->algs_internal()->get(i);
+        for (uint32_t j = 0; j < palg->ios()->size(); j++) {
+            auto pcfcio = palg->ios()->get(j);
+            if (pcfcio->index() == source_id)
+                return palg;
+        }
+    }
+
+    return nullptr;
+}
+
+uint16_t getVirtualID(DcController *config, int index, int global_io)
+{
+    auto cfc = config->algs_cfc()->get(index);
+    if (!cfc)
+        return 0xFFFF;
+
+    DcAlgIOCfc *pio = cfc->ios()->getById(global_io);
+    if (!pio)
+        return 0xFFFF;
+
+    DcMatrixElementAlgCfc *pmatrix = config->matrix_cfc()->get(pio->index());
+    if (!pmatrix)
+        return 0xFFFF;
+
+    auto signal = config->getSignal(pmatrix->dst());
+    return signal ? signal->internalId() : 0xFFFF;
+}
 
 }
 
@@ -31,8 +105,7 @@ DcController::UPtr ConfigLoader::load(const QString &filePath)
 
 DcController::UPtr ConfigLoader::load(const QString &filePath, const QString &name, bool updateFromTemplate)
 {
-//    qDebug() << "======================================================";
-
+    TRACE(QString("============================ %1 %2").arg(name, filePath));
     auto config = gDbManager.load(filePath, name);
     if (!config) {
         emit error(QString("Ошибка загрузки конфигурации устройства из файла: %1").arg(filePath));
@@ -42,9 +115,13 @@ DcController::UPtr ConfigLoader::load(const QString &filePath, const QString &na
     if (updateFromTemplate)
         updateController(config.get());
 
-    config->loadServiceManager();
+    outputsToParams(config.get());
+    algsToParams(config.get());
+    cfcAlgsToParams(config.get());
 
-//    qDebug() << "------------------------------------------------------";
+    config->initBindings();
+
+    TRACE("------------------------------------------------------");
     return config;
 }
 
@@ -111,15 +188,16 @@ void ConfigLoader::updateController(DcController *config)
 
 void ConfigLoader::updateParams(DcController *contr, DcController *temp)
 {
+    std::vector<uint16_t> paramsToRemove;
+
     // Принудительно удаляем параметры записи паролей. ВРЕМЕНОЕ РЕШЕНИЕ для отключения перезаписи паролей, на устройстве.
-    contr->paramsRegistry().remove(SP_PASSWORDMAN);
-    contr->paramsRegistry().remove(SP_PASSWORDNET);
+    paramsToRemove.emplace_back(SP_PASSWORDMAN);
+    paramsToRemove.emplace_back(SP_PASSWORDNET);
 
     // Список особых праметров, значения элементов которых надо обновлять всегда.
     auto specialParams = DcController::specialParams(DcController::UpdatableParam);
 
-    // Отмечаем для удаления параметры которых больше нет в шаблоне и обновляем те которые есть, по шаблону.
-    std::vector<uint16_t> paramsToRemove;
+    // Отмечаем для удаления параметры которых больше нет в шаблоне и обновляем те которые есть, по шаблону.    
     for(auto &[addr, parameter]: contr->paramsRegistry()) {
         // Получаем параметр с таким же адресом из шаблона
         auto tempParameter = temp->paramsRegistry().parameter(addr);
@@ -139,8 +217,14 @@ void ConfigLoader::updateParams(DcController *contr, DcController *temp)
         auto oldElementsCount = parameter->elementsCount();
 
         // Меняем размерность параметра, по шаблоному параметру. Если размерность увеличилась, в параметре будут созданы новые элементы.
-        parameter->setProfilesCount(tempParameter->profilesCount());
-        parameter->setElementsCount(tempParameter->elementsCount());
+        if (parameter->profilesCount() != tempParameter->profilesCount()) {
+            parameter->setProfilesCount(tempParameter->profilesCount());
+            TRACE_PAR(parameter, QString("profile size changed: %1").arg(tempParameter->profilesCount()));
+        }
+        if (parameter->elementsCount() != tempParameter->elementsCount()) {
+            parameter->setElementsCount(tempParameter->elementsCount());
+            TRACE_PAR(parameter, QString("elements size changed: %1").arg(tempParameter->elementsCount()));
+        }
 
         // Проходимся по элементам параметра
         for(size_t i = 0; i < parameter->profilesCount(); ++i) {
@@ -151,19 +235,31 @@ void ConfigLoader::updateParams(DcController *contr, DcController *temp)
 
                 // Для старых элементов, которые не относятся к особым параметрам обновляем только имя, по шаблоному элементу.
                 if ((i < oldProfilesCount) && (j < oldElementsCount) && !specialParams.contains(parameter->addr())) {
-                    element->setName(tempElement->name());
+                    if (element->name() != tempElement->name()) {
+                        element->setName(tempElement->name());
+                        TRACE_ELEM(element, QString("name changed: %1").arg(element->name()));
+                    }
                     continue;
                 }
 
                 // Для новых элементов и тех которые относятся к особым параметрам обновляем имя и значение, по шаблоному элементу.
-                element->update(tempElement->name(), tempElement->value());
+                if (element->name() != tempElement->name() || element->value() != tempElement->value()) {
+                    element->update(tempElement->name(), tempElement->value());
+                    TRACE_ELEM(element, QString("changed: name=%1, value=%2").arg(element->name(), element->value()));
+                }
             }
         }
     }
 
     // Удаление параметров которых нет в шаблоне
-    for(auto addr: paramsToRemove)
+    for(auto addr: paramsToRemove) {
+        auto param = contr->paramsRegistry().parameter(addr);
+        if (!param)
+            continue;
+
+        TRACE_PAR(param, "Removing");
         contr->paramsRegistry().remove(addr);
+    }
 
     // Добавлнеие параметров которые есть в шаблоне, но нету в конфигурации
     for(auto &[addr, tempParameter]: temp->paramsRegistry()) {
@@ -171,6 +267,7 @@ void ConfigLoader::updateParams(DcController *contr, DcController *temp)
         if (parameter)
             continue;
 
+        TRACE_PAR(tempParameter, "Adding");
         contr->paramsRegistry().add(tempParameter->clone());
     }
 }
@@ -295,15 +392,19 @@ void ConfigLoader::updateAlgs(DcController *contr, DcController *temp)
                 break;
             }
         }
-        if (!same)
+        if (!same) {
+            TRACE_ALG(c, "removing");
             contr->algs_internal()->remove(i);
+        }
         else {
             maxIndex = std::max(maxIndex, c->index());
             for (int j = c->ios()->size() - 1; j >= 0; j--) {
                 DcAlgIOInternal *cc = c->ios()->get(j);
                 DcAlgIOInternal *tt = same->ios()->getById(cc->index());
-                if (!tt)
+                if (!tt) {
+                    TRACE_ALG_IO(c, cc, "removing");
                     c->ios()->remove(j);
+                }
             }
         }
     }
@@ -323,6 +424,7 @@ void ConfigLoader::updateAlgs(DcController *contr, DcController *temp)
         if (!same) {
             same = new DcAlgInternal(maxIndex++, t->position(), t->name(), t->properties().toJson(), contr);
             contr->algs_internal()->add(same, false);
+            TRACE_ALG(same, "adding");
         }
 
         for (size_t j = 0; j < t->ios()->size(); j++) {
@@ -330,6 +432,7 @@ void ConfigLoader::updateAlgs(DcController *contr, DcController *temp)
             if (!same->ios()->getById(tt->index())) {
                 DcAlgIOInternal *cc = new DcAlgIOInternal(tt->index(), same->index(), tt->pin(), tt->direction(), tt->name(), contr);
                 same->ios()->add(cc, false);
+                TRACE_ALG_IO(same, cc, "adding");
             }
         }
     }
@@ -346,5 +449,115 @@ void ConfigLoader::updateSettings(DcController *contr, DcController *temp)
         // Добавляем только новые и обновялем которые в списке settingsToUpdateList
         if (!contr->setting(tempSetting->name()) || settingsToUpdateList.contains(tempSetting->name()))
             contr->setSetting(tempSetting->name(), tempSetting->value());
+    }
+}
+
+void ConfigLoader::outputsToParams(DcController *config)
+{
+    //  Очистка списка привязок дискретных выходов
+    setParam(config, SP_CROSSTABLEDOUT, QString::number(0xFFFF));
+
+    //  Заполнение списка привязок дискретных выходов
+    for (uint32_t i = 0; i < config->matrix_signals()->size(); i++) {
+        DcMatrixElementSignal *matrix = config->matrix_signals()->get(i);
+        DcSignal *input = config->getSignal(matrix->src());
+        DcSignal *output = config->getSignal(matrix->dst());
+        if (!input || !output)
+            continue;
+
+        auto param = config->paramsRegistry().element(SP_CROSSTABLEDOUT, output->internalId());
+        param->updateValue(QString::number(input->internalId()));
+    }
+}
+
+void ConfigLoader::algsToParams(DcController *config)
+{
+    //  Очистка списка привязок встроенных алгоритмов
+    for (uint32_t i = 0; i < config->algs_internal()->size(); i++) {
+        DcAlgInternal *alg = config->algs_internal()->get(i);
+        uint32_t address = alg->property("addr").toUInt(nullptr, 16);
+        if (!address)
+            continue;
+
+        setParam(config, address, QString::number(0xFFFF));
+        setParam(config, address + 1, QString::number(0xFFFF));
+    }
+
+    //  Заполнение списка привязок встроенных алгоритмов
+    for (uint32_t i = 0; i < config->matrix_alg()->size(); i++) {
+        DcMatrixElementAlg* element = config->matrix_alg()->get(i);
+        if (!element)
+            continue;
+
+        DcAlgInternal *internal_alg = getAlgByIO(config, element->src());
+        if (!internal_alg)
+            continue;
+
+        ParameterElement *param = nullptr;
+        DcAlgIOInternal *pios = internal_alg->ios()->getById(element->src());
+        uint32_t address = internal_alg->property("addr").toUInt(nullptr, 16);
+        if (!address) {
+            int32_t pos = internal_alg->position() * PROFILE_SIZE + pios->pin();
+            param = config->paramsRegistry().element(SP_CROSSTABLE, pos);
+        }
+        else {
+            param = config->paramsRegistry().element(address + pios->direction() - 1, pios->pin());
+        }
+
+        if (!param)
+            continue;
+
+        DcSignal *psignal = config->getSignal(element->dst());
+        if (!psignal)
+            continue;
+
+        param->updateValue(QString::number(psignal->internalId()));
+    }
+}
+
+void ConfigLoader::cfcAlgsToParams(DcController *config)
+{
+    //  Проверка наличия параметров гибкой логики
+    auto param = config->paramsRegistry().parameter(SP_FLEXLGCROSSTABLE);
+    if (!param)
+        return;
+
+    //  Очистка списка привязок гибкой логики
+    setParam(config, SP_FLEXLGCROSSTABLE, QString::number(0xFFFF));
+
+    //  Подготовка к работе с гибкой логикой
+    CfcParser parser;
+
+    //  Анализ файлов гибкой логики
+    for (uint16_t i = 0; i < param->profilesCount(); i++) {
+        QString graph_name = DcFlexLogicFileManager(config).localGraphFileName(i + 1);
+        if (!QFile::exists(graph_name)) {
+            continue;
+        }
+        if (!parser.loadData(graph_name)) {
+            emit error(QString("Не удалось загрузить и распарсить файлу: %1").arg(graph_name));
+            continue;
+        }
+
+        //  Назначение сигналов алгоритмов гибкой логики
+        auto nodes = parser.nodes();
+        int nodes_count = nodes.count();
+        for (int ii = 0; ii < nodes_count; ii++) {
+            auto* node = nodes.at(ii);
+            if (node->name() != "BI" && node->name() != "BO")
+                continue;
+
+            int signal_id = node->param("signal").value.toInt();
+            int pin = node->param("alg_pin").value.toInt() - 1;
+            if (signal_id < 0 || pin < 0)
+                continue;
+
+            int global_io = node->param("io_id").value.toInt();
+            if (node->name() == "BO")
+                signal_id = getVirtualID(config, i, global_io);
+
+            auto element = param->element(i, pin);
+            element->updateValue(QString::number(signal_id));
+        }
     }
 }

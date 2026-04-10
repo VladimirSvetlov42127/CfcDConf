@@ -43,11 +43,9 @@ public:
 	DefSignalDirection direction();
 	DefSignalType type();
 	DefSignalSubType subtype();
-	QString name();
-    QString property(QString name) const;
+    QString name();
 	bool updateProperty(const QString &name, const QString &value);
 	bool updateName(const QString &newname);
-	bool isFixed() const;
 	bool isCloningEnabled() const;
     const DcProperties& properties() const;
 

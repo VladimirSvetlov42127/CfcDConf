@@ -1,28 +1,17 @@
 #include "cfc_scene.h"
+#include <cmath>
 
-
-//===================================================================================================================================================
-//	Подключение сторонних библиотек
-//===================================================================================================================================================
-#include <dpc/gui/dialogs/msg_box/MsgBox.h>
-
-//===================================================================================================================================================
-//	Подключение библиотек QT
-//===================================================================================================================================================
 #include <QDebug>
-
 #include <QColor>
 #include <QMimeData>
 #include <QByteArray>
 #include <QSizeF>
+#include <QGraphicsView>
+#include <QCursor>
+#include <dpc/gui/dialogs/msg_box/MsgBox.h>
 
-
-//===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
 #include "service_manager/services/alg_cfc/cfc_service_input.h"
 #include "service_manager/services/alg_cfc/cfc_service_output.h"
-#include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
 #include "gui/forms/algorithms/custom/cfc_nodes/cfc_bi.h"
 #include "gui/forms/algorithms/custom/cfc_nodes/cfc_bo.h"
 #include "gui/dialogs/params_dialog.h"
@@ -32,31 +21,36 @@
 //===================================================================================================================================================
 //	список переменных
 //===================================================================================================================================================
-namespace {
-    uint8_t grid_step = 50;
-    uint8_t grid_small_step = 10;
-    QColor grid_color = QColor(200, 200, 255, 125);
-}
+// namespace {
+//     uint8_t grid_step = 50;
+//     uint8_t grid_small_step = 10;
+//     QColor grid_color = QColor(200, 200, 255, 125);
+// }
 
 
 //===================================================================================================================================================
 //	Конструктор класса
 //===================================================================================================================================================
-CfcScene::CfcScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent) : CfcBasicScene(service, service_manager, parent)
+CfcScene::CfcScene(CfcAlgService* service, SignalManager *signalManager, QGraphicsScene* parent)
+    : CfcBasicScene(service, parent)
+    , _signal_manager{signalManager}
+    , _new_link { nullptr }
+    , _last_socket { nullptr }
 {
-    //  Свойства класса
-    _new_link = nullptr;
-    //_menu_point = QPointF();
-    //_basic_point = QPointF();
-    _grid_enable = true;
+    //  Параметры сетки
+    CfcNamespace::grid_enable = true;
 
     //  Параметры меню
-    _action_bi = new QAction("Привязка", this);
-    _action_bo = new QAction("Привязка", this);
+    _action_bi = new QAction("Привязать сигнал", this);
+    _action_bo = new QAction("Привязать сигнал", this);
+    _action_remove_bi = new QAction("Отвязать сигнал", this);
+    _action_remove_bo = new QAction("Отвязать сигнал", this);
     _action_param = new QAction("Параметры", this);
 
     connect(_action_bi, &QAction::triggered, this, &CfcScene::onActionBI);
     connect(_action_bo, &QAction::triggered, this, &CfcScene::onActionBO);
+    connect(_action_remove_bi, &QAction::triggered, this, &CfcScene::onActionRemoveBI);
+    connect(_action_remove_bo, &QAction::triggered, this, &CfcScene::onActionRemoveBO);
     connect(_action_param, &QAction::triggered, this, &CfcScene::onActionParam);
 }
 
@@ -70,11 +64,11 @@ void CfcScene::onActionBI()
     if (!bi_node)
         return;
 
-    BindingDialog dialog(BindingDialog::TYPE_INPUT, serviceManager());
+    BindingDialog dialog(BindingDialog::TYPE_INPUT, signalManager());
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    InputSignal* input_signal = dialog.selectedSignal();
+    auto input_signal = dialog.selectedSignal();
     if (!input_signal)
         return;
 
@@ -92,11 +86,11 @@ void CfcScene::onActionBO()
     if (!bo_node)
         return;
 
-    BindingDialog dialog(BindingDialog::TYPE_OUTPUT, serviceManager());
+    BindingDialog dialog(BindingDialog::TYPE_OUTPUT, signalManager());
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    VirtualInputSignal* output_signal = dynamic_cast<VirtualInputSignal*>(dialog.selectedSignal());
+    auto output_signal = dynamic_cast<DinVirtualSignal*>(dialog.selectedSignal());
     if (!output_signal)
         return;
 
@@ -107,6 +101,35 @@ void CfcScene::onActionBO()
 
     return;
 }
+
+void CfcScene::onActionRemoveBI()
+{
+    CfcBI* bi_node = dynamic_cast<CfcBI*>(itemAt(menuPoint(), QTransform()));
+    if (!bi_node)
+        return;
+    if (!bi_node->cfcInput())
+        return;
+
+    bi_node->cfcInput()->setSource(nullptr);
+    update();
+
+    return;
+}
+
+void CfcScene::onActionRemoveBO()
+{
+    CfcBO* bo_node = dynamic_cast<CfcBO*>(itemAt(menuPoint(), QTransform()));
+    if (!bo_node)
+        return;
+    if (!bo_node->cfcOutput())
+        return;
+
+    bo_node->cfcOutput()->setTarget(nullptr);
+    update();
+
+    return;
+}
+
 
 void CfcScene::onActionParam()
 {
@@ -126,6 +149,8 @@ void CfcScene::onActionParam()
 }
 
 
+
+
 //===================================================================================================================================================
 //	Перегружаемые методы класса
 //===================================================================================================================================================
@@ -133,24 +158,25 @@ void CfcScene::drawBackground(QPainter* painter, const QRectF& rect)
 {
     if (!gridEnabled()) return;
 
-    //  Определение переменных
-    int left = int(rect.left());
-    int right = int(rect.right());
-    int top = int(rect.top());
-    int bottom = int(rect.bottom());
-
-    int first_top = top - top % grid_step;
-    int first_left = left - left % grid_step;
-
     //  Крупная сетка
-    painter->setPen(QPen(grid_color, 2));
-    for (int x = first_left; x <= right; x = x + grid_step) painter->drawLine(x, top, x, bottom);
-    for (int y = first_top; y <= bottom; y = y + grid_step) painter->drawLine(left, y, right, y);
+    QPen(QColor(CfcNamespace::grid_color), 2, Qt::SolidLine);
+    painter->setPen(QPen(QColor(CfcNamespace::grid_color), 2, Qt::SolidLine));
+    qreal left = std::floor(rect.left() / CfcNamespace::grid_step) * CfcNamespace::grid_step;
+    qreal top = std::floor(rect.top() / CfcNamespace::grid_step) * CfcNamespace::grid_step;
+
+    for (int x = left; x < rect.right(); x += CfcNamespace::grid_step)
+        painter->drawLine(QPointF(x, rect.top()), QPointF(x, rect.bottom()));
+    for (int y = top; y < rect.bottom(); y += CfcNamespace::grid_step)
+        painter->drawLine(QPointF(rect.left(), y), QPointF(rect.right(), y));
 
     //  Мелкая сетка
-    painter->setPen(QPen(grid_color, 1));
-    for (int y = first_top; y <= bottom; y = y + grid_small_step) painter->drawLine(left, y, right, y);
-    for (int x = first_left; x <= right; x = x + grid_small_step) painter->drawLine(x, top, x, bottom);
+    painter->setPen(QPen(QColor(CfcNamespace::grid_color), 1, Qt::SolidLine));
+    left = std::floor(rect.left() / CfcNamespace::grid_small_step) * CfcNamespace::grid_small_step;
+    top = std::floor(rect.top() / CfcNamespace::grid_small_step) * CfcNamespace::grid_small_step;
+    for (int x = left; x < rect.right(); x += CfcNamespace::grid_small_step)
+        painter->drawLine(QPointF(x, rect.top()), QPointF(x, rect.bottom()));
+    for (int y = top; y < rect.bottom(); y += CfcNamespace::grid_small_step)
+        painter->drawLine(QPointF(rect.left(), y), QPointF(rect.right(), y));
     update();
 
     return;
@@ -182,6 +208,8 @@ void CfcScene::dropEvent(QGraphicsSceneDragDropEvent* event)
 
     QSizeF size = node->size();
     QPointF position = QPointF(event->scenePos().x() - size.width() / 2, event->scenePos().y() - size.height() / 2);
+    if (CfcNamespace::grid_enable)
+        position = CfcNamespace::gridPoint(position);
     node->setPos(position);
     node->setSelected(false);
     addItem(node);
@@ -191,21 +219,6 @@ void CfcScene::dropEvent(QGraphicsSceneDragDropEvent* event)
 
 void CfcScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    //  Вывод меню изменения связи
-    QPointF position = QPointF(event->scenePos().x(), event->scenePos().y());
-    CfcLink* link = dynamic_cast<CfcLink*>(itemAt(position, QTransform()));
-    CfcTitleItem* title = dynamic_cast<CfcTitleItem*>(itemAt(position, QTransform()));
-    if (link && event->button() == Qt::RightButton) {
-        link->mousePressEvent(event);
-        event->accept();
-        return;
-    }
-    if (title && event->button() == Qt::RightButton) {
-        title->mousePressEvent(event);
-        event->accept();
-        return;
-    }
-
     //  Костыль для вывода контекстного меню
     if (event->button() == Qt::RightButton) {
         event->accept();
@@ -213,7 +226,7 @@ void CfcScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
 
     //  Начало рисования нового соединения
-    CfcSocket* socket = dynamic_cast<CfcSocket*>(itemAt(position, QTransform()));
+    CfcSocket* socket = dynamic_cast<CfcSocket*>(itemAt(event->scenePos(), QTransform()));
     if ((event->buttons() & Qt::LeftButton) && socket) {
         if (socket->socketType() == CfcSocket::INPUT_SOCKET && socket->links().count() > 0) {
             Dpc::Gui::MsgBox::error(QString("Данный вход уже используется."));
@@ -223,10 +236,12 @@ void CfcScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         //  Добавление новой связи
         clearSelection();
-        _new_link = new CfcNewLink(socket/*, position*/);
+        _new_link = new CfcNewLink(socket);
+        _last_socket = socket;
         addItem(_new_link);
+        _last_socket = socket;
+        _last_socket->setHighLight(true);
         event->accept();
-
         return;
     }
     QGraphicsScene::mousePressEvent(event);
@@ -237,8 +252,16 @@ void CfcScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     //  Рисование нового соединения
     if (_new_link && (event->buttons() & Qt::LeftButton)) {
         _new_link->mouseMoveEvent(event);
-        QGraphicsScene::mouseMoveEvent(event);
-        return;
+        CfcSocket* socket = dynamic_cast<CfcSocket*>(itemAt(event->scenePos(), QTransform()));
+        if (socket == nullptr && _last_socket != nullptr) {
+            _last_socket->setHighLight(false);
+            _last_socket = nullptr;
+        }
+        if (socket != nullptr && _last_socket == nullptr) {
+            _last_socket = socket;
+            _last_socket->setHighLight(true);
+        }
+        event->accept();
     }
     QGraphicsScene::mouseMoveEvent(event);
 }
@@ -248,7 +271,6 @@ void CfcScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     //  Завершение отрисовки новой связи между элементами
     if (_new_link && event->button() == Qt::LeftButton) {
         _new_link->mouseReleaseEvent(event);
-
         if (_new_link->source() && _new_link->target()) {
             CfcLink* link = new CfcLink(QString(), _new_link->points());
             link->setSource(_new_link->source());
@@ -261,11 +283,13 @@ void CfcScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         removeItem(_new_link);
         delete _new_link;
         _new_link = nullptr;
+        if (_last_socket)
+            _last_socket->setHighLight(false);
+        _last_socket = nullptr;
         event->accept();
     }
 
     QGraphicsScene::mouseReleaseEvent(event);
-
 }
 
 void CfcScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
@@ -285,10 +309,18 @@ void CfcScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     QMenu menu;
     if (node) {
         if (node->name() == "BI") {
+            CfcBI* bi_node = dynamic_cast<CfcBI*>(itemAt(menuPoint(), QTransform()));
+            if (!bi_node->cfcInput())
+                return;
+            if (bi_node->cfcInput()->source()) menu.addAction(_action_remove_bi);
             menu.addAction(_action_bi);
             menu.addSeparator();
         }
         if (node->name() == "BO") {
+            CfcBO* bo_node = dynamic_cast<CfcBO*>(itemAt(menuPoint(), QTransform()));
+            if (!bo_node->cfcOutput())
+                return;
+            if (bo_node->cfcOutput()->target()) menu.addAction(_action_remove_bo);
             menu.addAction(_action_bo);
             menu.addSeparator();
         }
@@ -305,7 +337,6 @@ void CfcScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
     return;
 }
-
 
 
 

@@ -15,7 +15,7 @@ public:
     virtual ~AlgServiceInput() = default;
 
 protected:
-    void onSourceChanged(InputSignal *newSource, InputSignal *prevSource) override;
+    void onSourceChanged(DinSignal *newSource, DinSignal *prevSource) override;
 };
 
 #endif // INTERNALSERVICEINPUT_H

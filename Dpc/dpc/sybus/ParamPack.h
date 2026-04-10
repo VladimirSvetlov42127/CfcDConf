@@ -118,6 +118,9 @@ namespace Dpc::Sybus
 		// вывести все элементы массива в строке
         QString toString() const;
 
+        // Размер типа данных в байтах для типа type
+        static uint8_t typeSize(uint8_t type);
+
 	private:
         // Переводит массив байт закодированых Windows-1251, в строку с кодировкой Unicode
         static QString toUnicode(const QByteArray &win1251_data);

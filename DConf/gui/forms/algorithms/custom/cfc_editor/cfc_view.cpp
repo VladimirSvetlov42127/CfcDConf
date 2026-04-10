@@ -19,6 +19,7 @@ CfcView::CfcView(QGraphicsScene *scene) : QGraphicsView(scene)
     setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    setMouseTracking(true);
 
     //  Параметры сцены
     setContentsMargins(5, 5, 5, 5);

@@ -7,6 +7,15 @@ namespace Dpc::Sybus
 	{
 	}
 
+    ParamDimension::ParamDimension(uint16_t dimension, ParamAttribute attr)
+    {
+        if (!dimension)
+            return;
+
+        m_profileCount = attr[ParamAttribute::_2D] ? (dimension >> 8) : 1;
+        m_subProfileCount = attr[ParamAttribute::_2D] ? dimension & 0xFF : dimension;
+    }
+
 	bool ParamDimension::is2D() const
 	{
 		return m_profileCount > 1;

@@ -1,43 +1,80 @@
-#include <gui/forms/input_output/inputs/dins_physical_form.h>
+#include "dins_physical_form.h"
 
-//===================================================================================================================================================
-//	Подключение стандартных библиотек
-//===================================================================================================================================================
+#include <QTableWidget>
+#include <QLabel>
 
-//===================================================================================================================================================
-//	Подключение сторонних библиотек
-//===================================================================================================================================================
 #include <dpc/gui/widgets/TableView.h>
 #include <dpc/gui/delegates/SpinBoxDelegate.h>
 
-//===================================================================================================================================================
-//	Подключение библиотек QT
-//===================================================================================================================================================
-#include <QHash>
-#include <QDebug>
-#include <QTableWidget>
+#include "gui/models/din_model.h"
+#include "service_manager/signals/din_physical_signal.h"
 
-//===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
-#include <gui/forms/input_output/inputs/dins_board_widget.h>
+#include "gui/editors/EditorsManager.h"
 
-
-//===================================================================================================================================================
-//	Коструктор и деструктор класса
-//===================================================================================================================================================
-DinsPhysicalForm::DinsPhysicalForm(DcController* controller) : DcForm(controller,  "Настройки физических дискретных входов", false)
-{
-	//	Свойства класса
-    int boards_count = controller->boards().size();
-	boards_count > 0 ? MultiBoardForm(controller) : OneBoardForm(controller);
-
+namespace {
+    const QString widget_style = "QGroupBox {border: 2px solid darkgrey; border-radius: 4px; background-color: %1;}";
+    const ListEditorContainer amperage_list = { "DC", "AC" };
 }
 
+DinsPhysicalForm::DinsPhysicalForm(DcController* controller)
+    : DcForm(controller,  "Настройки физических дискретных входов", false)
+{
+    QVBoxLayout* layout = new QVBoxLayout(centralWidget());
+    if (!controller->boards().size()) {
+        layout->addWidget(makeTableView(controller));
+        return;
+    }
 
-//===================================================================================================================================================
-//	Открытые методы класса
-//===================================================================================================================================================
+    QTableWidget* table_widget = new QTableWidget(this);
+    table_widget->setColumnCount(1);
+    table_widget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    table_widget->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    table_widget->horizontalHeader()->hide();
+    table_widget->verticalHeader()->hide();
+    layout->addWidget(table_widget);
+
+    size_t boardWidgetCount = 0;
+    for (auto &board: controller->boards()) {
+        if (!board->DinsCount())
+            continue;
+
+        //	Формирование виджета
+        QGroupBox* boardWidget = new QGroupBox;
+        QString color = palette().color(QPalette::Window).name();
+        boardWidget->setStyleSheet(widget_style.arg(color));
+
+        QVBoxLayout* main_layout = new QVBoxLayout(boardWidget);
+
+        //	Заголовок формы
+        auto boardTitle = board->type();
+        if (board->ToBoard())
+            boardTitle.append(QString(" (%1)").arg(board->slot()));
+        QLabel* title_label = new QLabel(boardTitle);
+        QFont font = title_label->font();
+        font.setBold(true);
+        title_label->setFont(font);
+        main_layout->addWidget(title_label, 0, Qt::AlignCenter);
+
+        auto param = board->paramsRegistry().element(SP_DIN_ALG, 0);
+        if (param) {
+            QGridLayout* grid_layout = new QGridLayout;
+            EditorsManager* editors = new EditorsManager(controller, grid_layout, this);
+            editors->addListEditor(param, "Оперативный ток", amperage_list);
+            editors->addStretch();
+            main_layout->addLayout(grid_layout);
+        }
+
+        auto tableView = makeTableView(controller, board.get());
+        tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        main_layout->addWidget(tableView);
+
+        table_widget->insertRow(boardWidgetCount);
+        table_widget->setCellWidget(boardWidgetCount, 0, boardWidget);
+        ++boardWidgetCount;
+    }
+}
+
 bool DinsPhysicalForm::isAvailableFor(DcController* controller)
 {
 	static QList<Param> params = {
@@ -60,107 +97,56 @@ void DinsPhysicalForm::fillReport(DcIConfigReport* report)
 {
 }
 
-
-//===================================================================================================================================================
-//	Вспомогательные методы класса
-//===================================================================================================================================================
-QList<DinsItem> DinsPhysicalForm::GetOneBoardItems(DcController* controller)
+Dpc::Gui::TableView *DinsPhysicalForm::makeTableView(DcController *controller, DcBoard *board)
 {
-	QList<DinsItem> items;
-	int count = 0;
-	for (auto signal : controller->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_PHIS)) {
-		DinsItem item = { signal, QVariantList(), -1 };
-		item.subTypeIdx = count++;
-		item.data.append(signal->internalId());
-		item.data.append(signal->name());
-		item.data.append(controller->getBitValue(SP_DIN_DINOSCMASK, signal->internalId()));
-		item.data.append(controller->getBitValue(SP_TREND_INITIALISE, signal->internalId()));
-		item.data.append(controller->getBitValue(SP_DIN_CASH_REQMASK, signal->internalId()));
+    std::vector<DinSignal*> boardPhysicalDins;
+    for(auto din: controller->signalManager().getSignals<DinPhysicalSignal>())
+        if (din->board() == board)
+            boardPhysicalDins.emplace_back(din);
 
-		item.data.append(controller->getValue(SP_DIN_INT_CNT, item.subTypeIdx).toInt());
-		item.data.append(controller->getValue(SP_DIN_DEBPARS_DOUBLE, item.subTypeIdx).toInt());
-		item.data.append(controller->getValue(SP_DIN_INT_WDT, item.subTypeIdx).toInt());
-		item.data.append(controller->getValue(SP_DIN_NOISE_WDT, item.subTypeIdx).toInt());
-		
-		QVariant inversionState = controller->getValue(SP_DIN_INVERS, item.subTypeIdx);
-		if (inversionState.toBool()) inversionState = Qt::Checked;
-		item.data.append(inversionState);
+    auto  model = new DinModel(boardPhysicalDins, this);
+    auto tableView = new Dpc::Gui::TableView(model, this);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    tableView->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked | QAbstractItemView::CurrentChanged);
 
-		item.data.append(QVariant());
-		item.data.append(QVariant());
-		item.data.append(controller->getBitValue(SP_DIN_DPSREPRESENT, signal->internalId()));
-		items.append(item);	}
+    tableView->horizontalHeader()->setStretchLastSection(false);
+    tableView->horizontalHeader()->setHighlightSections(false);
+    tableView->horizontalHeader()->setFixedHeight(45);
+    tableView->horizontalHeader()->setHighlightSections(false);
 
-	return items;
-}
+    QList<int> visibleColumns;
+    visibleColumns << DinModel::Column::Number;
+    visibleColumns << DinModel::Column::Name;
+    visibleColumns << DinModel::Column::Oscill;
+    visibleColumns << DinModel::Column::Journal;
+    visibleColumns << DinModel::Column::Archive;
+    visibleColumns << DinModel::Column::Drebezg;
+    visibleColumns << DinModel::Column::DrebezgRatio;
+    visibleColumns << DinModel::Column::DrebezgTimer;
+    visibleColumns << DinModel::Column::DrebezgNoise;
+    visibleColumns << DinModel::Column::Inversion;
+    visibleColumns << DinModel::Column::DP;
+    tableView->setOnlyVisibleColumns(visibleColumns);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Number, 25);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Name, 200);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Oscill, 150);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Journal, 80);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Archive, 70);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Drebezg, 160);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::DrebezgRatio, 160);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::DrebezgTimer, 160);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::DrebezgNoise, 160);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::Inversion, 80);
+    tableView->horizontalHeader()->resizeSection(DinModel::Column::DP, 50);            
 
-void DinsPhysicalForm::OneBoardForm(DcController* controller)
-{
-	DinsModel* model = new DinsModel(controller, nullptr, this);
-	model->SetItems(GetOneBoardItems(controller));
-	Dpc::Gui::TableView* tableView = new Dpc::Gui::TableView(model, this);
-
-	tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-	tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-	tableView->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked | QAbstractItemView::CurrentChanged);
-
-	tableView->horizontalHeader()->setStretchLastSection(false);
-	tableView->horizontalHeader()->setHighlightSections(false);
-	tableView->horizontalHeader()->setFixedHeight(45);
-	tableView->horizontalHeader()->setHighlightSections(false);
-
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::NumberColumn, 25);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::NameColumn, 200);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::OscillColumn, 150);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::JournalColumn, 80);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::ArhciveColumn, 70);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::DrebezgColumn, 160);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::DrebezgRatio, 160);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::TimerColumn, 160);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::InterferenceColumn, 160);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::InversionColumn, 80);
-	tableView->horizontalHeader()->resizeSection(DinsModel::Columns::DPColumn, 50);
-
-	tableView->horizontalHeader()->hideSection(DinsModel::Columns::SaveColumn);
-	tableView->horizontalHeader()->hideSection(DinsModel::Columns::Fix1Column);
-
-	tableView->setItemDelegateForColumn(DinsModel::Columns::DrebezgColumn, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
-	tableView->setItemDelegateForColumn(DinsModel::Columns::DrebezgRatio, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
-	tableView->setItemDelegateForColumn(DinsModel::Columns::TimerColumn, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
-	tableView->setItemDelegateForColumn(DinsModel::Columns::InterferenceColumn, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
+    tableView->setItemDelegateForColumn(DinModel::Column::Drebezg, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
+    tableView->setItemDelegateForColumn(DinModel::Column::DrebezgRatio, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
+    tableView->setItemDelegateForColumn(DinModel::Column::DrebezgTimer, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
+    tableView->setItemDelegateForColumn(DinModel::Column::DrebezgNoise, new Dpc::Gui::IntSpinBoxDelegate(0, UCHAR_MAX, this));
 
     connect(tableView, &Dpc::Gui::TableView::itemsCheckStateAboutToChange, controller, &DcController::beginTransaction);
     connect(tableView, &Dpc::Gui::TableView::itemsCheckStateChanged, controller, &DcController::endTransaction);
 
-	QVBoxLayout* layout = new QVBoxLayout(centralWidget());
-	layout->addWidget(tableView);
-
-	return;
+    return tableView;
 }
-
-void DinsPhysicalForm::MultiBoardForm(DcController* controller)
-{
-	QTableWidget* table_widget = new QTableWidget(this);
-	table_widget->setColumnCount(1);
-	table_widget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	table_widget->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-	table_widget->horizontalHeader()->hide();
-	table_widget->verticalHeader()->hide();
-
-	int widget_count = 0;
-	int start_signal = 0;
-    for (auto &board: controller->boards()) {
-        if (board->DinsCount() < 1)
-            continue;
-
-		table_widget->insertRow(widget_count);
-        table_widget->setCellWidget(widget_count, 0, new DinsBoardWidget(controller, board.get(), start_signal, this));
-        start_signal = start_signal + board->DinsCount();
-		widget_count++;	}
-
-	QVBoxLayout* layout = new QVBoxLayout(centralWidget());
-	layout->addWidget(table_widget);
-
-	return;
-}
-

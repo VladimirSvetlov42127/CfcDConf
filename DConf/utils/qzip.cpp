@@ -346,21 +346,21 @@ struct FileHeader
 	QByteArray file_comment;
 };
 
-QZipReader::FileInfo::FileInfo()
+MyZipReader::FileInfo::FileInfo()
 	: isDir(false), isFile(true), isSymLink(false), /*crc32(0),*/ size(0)
 {
 }
 
-QZipReader::FileInfo::~FileInfo()
+MyZipReader::FileInfo::~FileInfo()
 {
 }
 
-QZipReader::FileInfo::FileInfo(const FileInfo &other)
+MyZipReader::FileInfo::FileInfo(const FileInfo &other)
 {
 	operator=(other);
 }
 
-QZipReader::FileInfo& QZipReader::FileInfo::operator=(const FileInfo &other)
+MyZipReader::FileInfo& MyZipReader::FileInfo::operator=(const FileInfo &other)
 {
 	filePath = other.filePath;
 	isDir = other.isDir;
@@ -386,7 +386,7 @@ public:
 			delete device;
 	}
 
-	void fillFileInfo(int index, QZipReader::FileInfo &fileInfo) const;
+    void fillFileInfo(int index, MyZipReader::FileInfo &fileInfo) const;
 
 	QIODevice *device;
 	bool ownDevice;
@@ -396,7 +396,7 @@ public:
 	uint start_of_directory;
 };
 
-void QZipPrivate::fillFileInfo(int index, QZipReader::FileInfo &fileInfo) const
+void QZipPrivate::fillFileInfo(int index, MyZipReader::FileInfo &fileInfo) const
 {
 	FileHeader header = fileHeaders.at(index);
 	fileInfo.filePath = QString::fromLocal8Bit(header.file_name);
@@ -413,13 +413,13 @@ class QZipReaderPrivate : public QZipPrivate
 {
 public:
 	QZipReaderPrivate(QIODevice *device, bool ownDev)
-		: QZipPrivate(device, ownDev), status(QZipReader::NoError)
+        : QZipPrivate(device, ownDev), status(MyZipReader::NoError)
 	{
 	}
 
 	void scanFiles();
 
-	QZipReader::Status status;
+    MyZipReader::Status status;
 };
 
 class QZipWriterPrivate : public QZipPrivate
@@ -427,15 +427,15 @@ class QZipWriterPrivate : public QZipPrivate
 public:
 	QZipWriterPrivate(QIODevice *device, bool ownDev)
 		: QZipPrivate(device, ownDev),
-		status(QZipWriter::NoError),
+        status(MyZipWriter::NoError),
 		permissions(QFile::ReadOwner | QFile::WriteOwner),
-		compressionPolicy(QZipWriter::AlwaysCompress)
+        compressionPolicy(MyZipWriter::AlwaysCompress)
 	{
 	}
 
-	QZipWriter::Status status;
+    MyZipWriter::Status status;
 	QFile::Permissions permissions;
-	QZipWriter::CompressionPolicy compressionPolicy;
+    MyZipWriter::CompressionPolicy compressionPolicy;
 
 	enum EntryType { Directory, File, Symlink };
 
@@ -464,12 +464,12 @@ void QZipReaderPrivate::scanFiles()
 		return;
 
 	if (!(device->isOpen() || device->open(QIODevice::ReadOnly))) {
-		status = QZipReader::FileOpenError;
+        status = MyZipReader::FileOpenError;
 		return;
 	}
 
 	if ((device->openMode() & QIODevice::ReadOnly) == 0) { // only read the index from readable files.
-		status = QZipReader::FileReadError;
+        status = MyZipReader::FileReadError;
 		return;
 	}
 
@@ -558,18 +558,18 @@ void QZipWriterPrivate::addEntry(EntryType type, const QString &fileName, const 
 #endif
 
 	if (!(device->isOpen() || device->open(QIODevice::WriteOnly))) {
-		status = QZipWriter::FileOpenError;
+        status = MyZipWriter::FileOpenError;
 		return;
 	}
 	device->seek(start_of_directory);
 
 	// don't compress small files
-	QZipWriter::CompressionPolicy compression = compressionPolicy;
-	if (compressionPolicy == QZipWriter::AutoCompress) {
+    MyZipWriter::CompressionPolicy compression = compressionPolicy;
+    if (compressionPolicy == MyZipWriter::AutoCompress) {
 		if (contents.length() < 64)
-			compression = QZipWriter::NeverCompress;
+            compression = MyZipWriter::NeverCompress;
 		else
-			compression = QZipWriter::AlwaysCompress;
+            compression = MyZipWriter::AlwaysCompress;
 	}
 
 	FileHeader header;
@@ -580,7 +580,7 @@ void QZipWriterPrivate::addEntry(EntryType type, const QString &fileName, const 
 	writeUInt(header.h.uncompressed_size, contents.length());
 	writeMSDosDate(header.h.last_mod_file, QDateTime::currentDateTime());
 	QByteArray data = contents;
-	if (compression == QZipWriter::AlwaysCompress) {
+    if (compression == MyZipWriter::AlwaysCompress) {
 		writeUShort(header.h.compression_method, 8);
 
 		ulong len = contents.length();
@@ -708,11 +708,11 @@ files in the archive using extractAll()
 Create a new zip archive that operates on the \a fileName.  The file will be
 opened with the \a mode.
 */
-QZipReader::QZipReader(const QString &archive, QIODevice::OpenMode mode)
+MyZipReader::MyZipReader(const QString &archive, QIODevice::OpenMode mode)
 {
 	QScopedPointer<QFile> f(new QFile(archive));
 	f->open(mode);
-	QZipReader::Status status;
+    MyZipReader::Status status;
 	if (f->error() == QFile::NoError)
 		status = NoError;
 	else {
@@ -736,7 +736,7 @@ Create a new zip archive that operates on the archive found in \a device.
 You have to open the device previous to calling the constructor and only a
 device that is readable will be scanned for zip filecontent.
 */
-QZipReader::QZipReader(QIODevice *device)
+MyZipReader::MyZipReader(QIODevice *device)
 	: d(new QZipReaderPrivate(device, /*ownDevice=*/false))
 {
 	Q_ASSERT(device);
@@ -745,7 +745,7 @@ QZipReader::QZipReader(QIODevice *device)
 /*!
 Desctructor
 */
-QZipReader::~QZipReader()
+MyZipReader::~MyZipReader()
 {
 	close();
 	delete d;
@@ -754,7 +754,7 @@ QZipReader::~QZipReader()
 /*!
 Returns true if the user can read the file; otherwise returns false.
 */
-bool QZipReader::isReadable() const
+bool MyZipReader::isReadable() const
 {
 	return d->device->isReadable();
 }
@@ -762,7 +762,7 @@ bool QZipReader::isReadable() const
 /*!
 Returns true if the file exists; otherwise returns false.
 */
-bool QZipReader::exists() const
+bool MyZipReader::exists() const
 {
 	QFile *f = qobject_cast<QFile*> (d->device);
 	if (f == 0)
@@ -773,12 +773,12 @@ bool QZipReader::exists() const
 /*!
 Returns the list of files the archive contains.
 */
-QList<QZipReader::FileInfo> QZipReader::fileInfoList() const
+QList<MyZipReader::FileInfo> MyZipReader::fileInfoList() const
 {
 	d->scanFiles();
-	QList<QZipReader::FileInfo> files;
+    QList<MyZipReader::FileInfo> files;
 	for (int i = 0; i < d->fileHeaders.size(); ++i) {
-		QZipReader::FileInfo fi;
+        MyZipReader::FileInfo fi;
 		d->fillFileInfo(i, fi);
 		files.append(fi);
 	}
@@ -789,7 +789,7 @@ QList<QZipReader::FileInfo> QZipReader::fileInfoList() const
 /*!
 Return the number of items in the zip archive.
 */
-int QZipReader::count() const
+int MyZipReader::count() const
 {
 	d->scanFiles();
 	return d->fileHeaders.count();
@@ -800,10 +800,10 @@ Returns a FileInfo of an entry in the zipfile.
 The \a index is the index into the directoy listing of the zipfile.
 \sa fileInfoList()
 */
-QZipReader::FileInfo QZipReader::entryInfoAt(int index) const
+MyZipReader::FileInfo MyZipReader::entryInfoAt(int index) const
 {
 	d->scanFiles();
-	QZipReader::FileInfo fi;
+    MyZipReader::FileInfo fi;
 	d->fillFileInfo(index, fi);
 	return fi;
 }
@@ -811,7 +811,7 @@ QZipReader::FileInfo QZipReader::entryInfoAt(int index) const
 /*!
 Fetch the file contents from the zip archive and return the uncompressed bytes.
 */
-QByteArray QZipReader::fileData(const QString &fileName) const
+QByteArray MyZipReader::fileData(const QString &fileName) const
 {
 	d->scanFiles();
 	int i;
@@ -884,7 +884,7 @@ Extracts the full contents of the zip file into \a destinationDir on
 the local filesystem.
 In case writing or linking a file fails, the extraction will be aborted.
 */
-bool QZipReader::extractAll(const QString &destinationDir) const
+bool MyZipReader::extractAll(const QString &destinationDir) const
 {
 	QDir baseDir(destinationDir);
 
@@ -948,7 +948,7 @@ The following status values are possible:
 Returns a status code indicating the first error that was met by QZipReader,
 or QZipReader::NoError if no error occurred.
 */
-QZipReader::Status QZipReader::status() const
+MyZipReader::Status MyZipReader::status() const
 {
 	return d->status;
 }
@@ -956,7 +956,7 @@ QZipReader::Status QZipReader::status() const
 /*!
 Close the zip file.
 */
-void QZipReader::close()
+void MyZipReader::close()
 {
 	d->device->close();
 }
@@ -979,22 +979,22 @@ Create a new zip archive that operates on the \a archive filename.  The file wil
 be opened with the \a mode.
 \sa isValid()
 */
-QZipWriter::QZipWriter(const QString &fileName, QIODevice::OpenMode mode)
+MyZipWriter::MyZipWriter(const QString &fileName, QIODevice::OpenMode mode)
 {
 	QScopedPointer<QFile> f(new QFile(fileName));
 	f->open(mode);
-	QZipWriter::Status status;
+    MyZipWriter::Status status;
 	if (f->error() == QFile::NoError)
-		status = QZipWriter::NoError;
+        status = MyZipWriter::NoError;
 	else {
 		if (f->error() == QFile::WriteError)
-			status = QZipWriter::FileWriteError;
+            status = MyZipWriter::FileWriteError;
 		else if (f->error() == QFile::OpenError)
-			status = QZipWriter::FileOpenError;
+            status = MyZipWriter::FileOpenError;
 		else if (f->error() == QFile::PermissionsError)
-			status = QZipWriter::FilePermissionsError;
+            status = MyZipWriter::FilePermissionsError;
 		else
-			status = QZipWriter::FileError;
+            status = MyZipWriter::FileError;
 	}
 
 	d = new QZipWriterPrivate(f.data(), /*ownDevice=*/true);
@@ -1007,13 +1007,13 @@ Create a new zip archive that operates on the archive found in \a device.
 You have to open the device previous to calling the constructor and
 only a device that is readable will be scanned for zip filecontent.
 */
-QZipWriter::QZipWriter(QIODevice *device)
+MyZipWriter::MyZipWriter(QIODevice *device)
 	: d(new QZipWriterPrivate(device, /*ownDevice=*/false))
 {
 	Q_ASSERT(device);
 }
 
-QZipWriter::~QZipWriter()
+MyZipWriter::~MyZipWriter()
 {
 	close();
 	delete d;
@@ -1022,7 +1022,7 @@ QZipWriter::~QZipWriter()
 /*!
 Returns true if the user can write to the archive; otherwise returns false.
 */
-bool QZipWriter::isWritable() const
+bool MyZipWriter::isWritable() const
 {
 	return d->device->isWritable();
 }
@@ -1030,7 +1030,7 @@ bool QZipWriter::isWritable() const
 /*!
 Returns true if the file exists; otherwise returns false.
 */
-bool QZipWriter::exists() const
+bool MyZipWriter::exists() const
 {
 	QFile *f = qobject_cast<QFile*> (d->device);
 	if (f == 0)
@@ -1052,7 +1052,7 @@ The following status values are possible:
 Returns a status code indicating the first error that was met by QZipWriter,
 or QZipWriter::NoError if no error occurred.
 */
-QZipWriter::Status QZipWriter::status() const
+MyZipWriter::Status MyZipWriter::status() const
 {
 	return d->status;
 }
@@ -1070,7 +1070,7 @@ Sets the policy for compressing newly added files to the new \a policy.
 \sa compressionPolicy()
 \sa addFile()
 */
-void QZipWriter::setCompressionPolicy(CompressionPolicy policy)
+void MyZipWriter::setCompressionPolicy(CompressionPolicy policy)
 {
 	d->compressionPolicy = policy;
 }
@@ -1080,7 +1080,7 @@ Returns the currently set compression policy.
 \sa setCompressionPolicy()
 \sa addFile()
 */
-QZipWriter::CompressionPolicy QZipWriter::compressionPolicy() const
+MyZipWriter::CompressionPolicy MyZipWriter::compressionPolicy() const
 {
 	return d->compressionPolicy;
 }
@@ -1091,7 +1091,7 @@ Sets the permissions that will be used for newly added files.
 \sa creationPermissions()
 \sa addFile()
 */
-void QZipWriter::setCreationPermissions(QFile::Permissions permissions)
+void MyZipWriter::setCreationPermissions(QFile::Permissions permissions)
 {
 	d->permissions = permissions;
 }
@@ -1101,7 +1101,7 @@ Returns the currently set creation permissions.
 \sa setCreationPermissions()
 \sa addFile()
 */
-QFile::Permissions QZipWriter::creationPermissions() const
+QFile::Permissions MyZipWriter::creationPermissions() const
 {
 	return d->permissions;
 }
@@ -1116,7 +1116,7 @@ based on the current compression policy.
 \sa setCreationPermissions()
 \sa setCompressionPolicy()
 */
-void QZipWriter::addFile(const QString &fileName, const QByteArray &data)
+void MyZipWriter::addFile(const QString &fileName, const QByteArray &data)
 {
 	d->addEntry(QZipWriterPrivate::File, fileName, data);
 }
@@ -1128,7 +1128,7 @@ filedata.
 The file will be stored in the archive using the \a fileName which
 includes the full path in the archive.
 */
-void QZipWriter::addFile(const QString &fileName, QIODevice *device)
+void MyZipWriter::addFile(const QString &fileName, QIODevice *device)
 {
 	Q_ASSERT(device);
 	QIODevice::OpenMode mode = device->openMode();
@@ -1149,7 +1149,7 @@ void QZipWriter::addFile(const QString &fileName, QIODevice *device)
 Create a new directory in the archive with the specified \a dirName and
 the \a permissions;
 */
-void QZipWriter::addDirectory(const QString &dirName)
+void MyZipWriter::addDirectory(const QString &dirName)
 {
 	QString name = dirName;
 	// separator is mandatory
@@ -1163,7 +1163,7 @@ Create a new symbolic link in the archive with the specified \a dirName
 and the \a permissions;
 A symbolic link contains the destination (relative) path and name.
 */
-void QZipWriter::addSymLink(const QString &fileName, const QString &destination)
+void MyZipWriter::addSymLink(const QString &fileName, const QString &destination)
 {
 	d->addEntry(QZipWriterPrivate::Symlink, fileName, QFile::encodeName(destination));
 }
@@ -1171,7 +1171,7 @@ void QZipWriter::addSymLink(const QString &fileName, const QString &destination)
 /*!
 Closes the zip file.
 */
-void QZipWriter::close()
+void MyZipWriter::close()
 {
 	if (!(d->device->openMode() & QIODevice::WriteOnly)) {
 		d->device->close();

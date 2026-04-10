@@ -48,6 +48,18 @@ public:
     // Возвращает элемент параметра с адресом addr в позиции position, или nullptr если такого элемента нет в реестере.
     ParameterElement* element(uint16_t addr, uint16_t position) const;
 
+    // Возвращает элемент параметра с адресом addr в профиле с индексом profileIdx и инедксом idx элемента в профиле,
+    // или nullptr если такого элемента нет в реестере.
+    ParameterElement* element(uint16_t addr, uint8_t profileIdx, uint16_t idx) const;
+
+    // Возвращает структуру с элементом параметра и бита в нём соответствующую
+    // биту parameterBit в профиле profileIdx параметра addr.
+    ElementBit elementBit(uint16_t addr,uint32_t parameterBit, uint8_t profileIdx = 0) const;
+
+    // Возвращает структуру с элементом параметра и бита в нём соответствующую
+    // биту в элементе параметра с индексом idx в профиле с индексом profileIdx параметра addr.
+    ElementBit elementBit(uint16_t addr, uint16_t bit, uint8_t profileIdx, uint16_t idx);
+
     // Отладка
     bool isEqual(ParameterRegistry *other) const;
 

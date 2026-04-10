@@ -20,7 +20,7 @@ public:
     QString text() const;
 
 protected:
-    void onSourceChanged(InputSignal *newSource, InputSignal *prevSource) override;
+    void onSourceChanged(DinSignal *newSource, DinSignal *prevSource) override;
 
 private:
     uint8_t _alg_id;

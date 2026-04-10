@@ -98,13 +98,13 @@ bool ConfigWriteOperation::packConfigArchive()
 	addInfo("Упаковка конфигурационного архива...");
 
 	QString fileName = m_tempDir->filePath(QFileInfo(configArchiveDevicePath()).fileName());
-	QZipWriter zip(fileName);
-	if (zip.status() != QZipWriter::NoError) {
+    MyZipWriter zip(fileName);
+    if (zip.status() != MyZipWriter::NoError) {
 		addError(QString("Не удалось создать файл конфигурационного архива %1: %2").arg(fileName).arg(zip.status()));
 		return false;
 	}
 
-	zip.setCompressionPolicy(QZipWriter::AutoCompress);
+    zip.setCompressionPolicy(MyZipWriter::AutoCompress);
     QDir dir(QFileInfo(config()->path()).absolutePath());
 	dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 	QDirIterator it(dir, QDirIterator::Subdirectories);
@@ -116,7 +116,7 @@ bool ConfigWriteOperation::packConfigArchive()
 		if (fi.isDir()) {
 			zip.setCreationPermissions(QFile::permissions(path));
 			zip.addDirectory(relativePath);
-			if (zip.status() != QZipWriter::NoError) {
+            if (zip.status() != MyZipWriter::NoError) {
 				addError(QString("Не удалось создать папку %1 в конфигурационном архиве: %2").arg(relativePath).arg(zip.status()));
 				return false;
 			}
@@ -130,7 +130,7 @@ bool ConfigWriteOperation::packConfigArchive()
                 continue;
 
 			zip.addFile(relativePath, &file);
-			if (zip.status() != QZipWriter::NoError) {
+            if (zip.status() != MyZipWriter::NoError) {
 				addError(QString("Не удалось упаковать файл %1 в конфигурационный архив: %2").arg(path).arg(zip.status()));
 				return false;
 			}

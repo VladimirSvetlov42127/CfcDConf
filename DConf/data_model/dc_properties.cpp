@@ -3,8 +3,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-DcProperties::DcProperties()
+DcProperties::DcProperties(const QString &jsonString)
 {
+    fromJson(jsonString);
 }
 
 bool DcProperties::operator!=(const DcProperties & other) const

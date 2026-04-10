@@ -52,8 +52,8 @@ private:
     void setCurrentPath(const QString& path);
     void getInfo();
     void changeDirTo(const QString&dir);
-    void addNode(const QString& text, NodeType type);
-    QString makePath(const QString& text);
+    void addNode(const QString& nodeName, NodeType type);
+    QString makePath(const QString& nodeName);
 
     QString currentPath() const { return m_currentPath; }
 

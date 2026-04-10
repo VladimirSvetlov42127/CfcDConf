@@ -14,13 +14,12 @@ using namespace Dpc::Gui;
 namespace {
     const ListEditorContainer g_FullMemoryMode = { "Перезапись", "Остановка" };
 
-    ComboBoxDelegate* g_signalsDelegate(DcController *controller, DefSignalType type, DefSignalSubType subType = DEF_SIG_SUBTYPE_UNDEF, QObject *parent = nullptr)
+    ComboBoxDelegate* g_analogsDelegate(DcController *controller, QObject *parent = nullptr)
     {
         ComboBoxDelegate* result = new ComboBoxDelegate(parent);
         result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-        for (auto signal : controller->getSignalList(type, subType)) {
-            result->append({QString("(%1) %2").arg(static_cast<uint>(signal->internalId())).arg(signal->name())
-                            , static_cast<uint>(signal->internalId()) });
+        for (auto signal : controller->signalManager().getSignals<AinSignal>()) {
+            result->append({ signal->text(), signal->internalID() });
         }
     return result;
     }
@@ -155,7 +154,7 @@ QWidget *DcOscillographyForm::createAnalogTab()
     if(!param)
         return nullptr;
 
-    Dpc::Gui::ComboBoxDelegate* analogsDelegate = g_signalsDelegate(controller(), DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_UNDEF, this);
+    Dpc::Gui::ComboBoxDelegate* analogsDelegate = g_analogsDelegate(controller(), this);
 
     auto view = new TableView(new AnalogsModel(controller(), this), this);
 

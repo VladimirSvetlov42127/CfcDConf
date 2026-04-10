@@ -62,13 +62,13 @@ QT_BEGIN_NAMESPACE
 
 class QZipReaderPrivate;
 
-class Q_AUTOTEST_EXPORT QZipReader
+class Q_AUTOTEST_EXPORT MyZipReader
 {
 public:
-	QZipReader(const QString &fileName, QIODevice::OpenMode mode = QIODevice::ReadOnly);
+    MyZipReader(const QString &fileName, QIODevice::OpenMode mode = QIODevice::ReadOnly);
 
-	explicit QZipReader(QIODevice *device);
-	~QZipReader();
+    explicit MyZipReader(QIODevice *device);
+    ~MyZipReader();
 
 	bool isReadable() const;
 	bool exists() const;
@@ -110,7 +110,7 @@ public:
 
 private:
 	QZipReaderPrivate * d;
-	Q_DISABLE_COPY(QZipReader)
+    Q_DISABLE_COPY(MyZipReader)
 };
 
 QT_END_NAMESPACE

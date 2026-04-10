@@ -6,12 +6,9 @@ namespace {
 	ALG_ADDRS_FUNC(SP_AVR_VNR_WORDIN_PARAM);
 
 	ListEditorContainer analogList(DcController *device) {
-		ListEditorContainer res = { {"Не используется", 0xFFFF} };
-		for (auto signal: device->getSignalList(DEF_SIG_TYPE_ANALOG)) {
-			int value = signal->internalId();
-			QString text = QString("(%1) %2").arg(value).arg(signal->name());
-			res.append({ text, value });
-		}
+        ListEditorContainer res = { {"Не используется", std::numeric_limits<uint16_t>::max() } };
+        for (auto ain: device->signalManager().getSignals<AinSignal>())
+            res.append({ ain->text(), ain->internalID() });
 
 		return res;
 	}

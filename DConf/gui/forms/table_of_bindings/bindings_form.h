@@ -16,7 +16,6 @@
 //===================================================================================================================================================
 #include "gui/forms/DcFormFactory.h"
 #include "data_model/dc_controller.h"
-#include "service_manager/service_manager.h"
 
 
 //===================================================================================================================================================
@@ -60,7 +59,7 @@ private:
     DcController* controller() { return _controller; }
     bool getAlgModel(QStandardItemModel* model);
     bool getOutputModel(QStandardItemModel* model);
-    bool isUsedInCfc(VirtualInputSignal *vdin) const;
+    bool isUsedInCfc(DinVirtualSignal *vdin) const;
 
 	//===============================================================================================================================================
 	//	Свойства класса

@@ -322,8 +322,8 @@ bool ConfigReadOperation::unpackConfigArchive()
 	addInfo("Распаковка конфигурационного архива...");
 
 	// Распаковка и копирование нескачаных файлов в проект.
-	QZipReader unzip(m_configArchiveFile, QIODevice::ReadOnly);
-	if (QZipReader::NoError != unzip.status()) {
+    MyZipReader unzip(m_configArchiveFile, QIODevice::ReadOnly);
+    if (MyZipReader::NoError != unzip.status()) {
 		addError(QString("Не удалось распаковать конфигурационный архив: %1").arg(unzip.status()));
 		return false;
 	}
@@ -388,7 +388,7 @@ bool ConfigReadOperation::clearBindings()
 {
     addInfo("Очистка текущих привязок сигналов к сервисам...");
     config()->beginTransaction();
-    config()->serviceManager()->clearBindings();
+    config()->clearBindings();
     config()->endTransaction();
     return true;
 }
@@ -397,7 +397,7 @@ bool ConfigReadOperation::configureBindings()
 {
     addInfo("Настройка привязок сигналов к сервисам...");
     config()->beginTransaction();
-    auto res = config()->serviceManager()->rebind();
+    auto res = config()->rebind();
     config()->endTransaction();
     return res;
 }

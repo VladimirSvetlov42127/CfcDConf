@@ -34,6 +34,10 @@ public:
     const ServiceInputList& inputs() const;
     const ServiceOutputList& outputs() const;
 
+    // Нужно ли фиксировать изменения в таблицах привязки, по умолчанию true.
+    bool fillTables() const;
+    void setFillTables(bool fill);
+
     void print() const;
 
 protected:
@@ -49,6 +53,7 @@ private:
     QString m_name;
     ServiceInputList m_inputs;
     ServiceOutputList m_outputs;
+    bool m_fillTables = true;
 };
 
 #endif // SERVICE_H

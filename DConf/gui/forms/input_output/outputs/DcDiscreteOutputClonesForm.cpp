@@ -5,6 +5,8 @@
 #include <dpc/gui/widgets/TableView.h>
 #include <dpc/gui/delegates/ComboBoxDelegate.h>
 
+#include "service_manager/signals/dout_physical_signal.h"
+
 using namespace Dpc::Gui;
 
 namespace {
@@ -31,21 +33,21 @@ namespace {
 	}
 
 	struct Item {
-		DcSignal *signal;
+        DoutPhysicalSignal *signal;
 		QVariantList data;
 	};
 
 	std::vector<Item> getItems(DcController *contr)
 	{
 		std::vector<Item> result;
-		for (auto signal: contr->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_PHIS, DEF_SIG_DIRECTION_OUTPUT)) {
+        for (auto signal: contr->signalManager().getSignals<DoutPhysicalSignal>()) {
 			if (!signal->isCloningEnabled())
 				continue;
 
 			Item d = { signal, QVariantList() };
-			d.data.append(signal->internalId());
+            d.data.append(signal->internalID());
 			d.data.append(signal->name());
-			d.data.append(contr->getValue(SP_DOUT_CLONE, signal->internalId()).toUInt());
+            d.data.append(contr->getValue(SP_DOUT_CLONE, signal->internalID()).toUInt());
 			result.push_back(d);
 		}
 
@@ -56,11 +58,11 @@ namespace {
 	{
 		auto delegate = new ComboBoxDelegate(parent);
 		delegate->append(NotUseText, NotUseValue);
-		for (auto signal : device->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_PHIS, DEF_SIG_DIRECTION_OUTPUT)) {
+        for (auto signal : device->signalManager().getSignals<DoutPhysicalSignal>()) {
 			if (!signal->isCloningEnabled())
 				continue;
 			
-			delegate->append(signal->name(), signal->internalId());
+            delegate->append(signal->name(), signal->internalID());
 		}
 
 		return delegate;
@@ -123,7 +125,7 @@ namespace {
 
 				if (Qt::DisplayRole == role || Qt::EditRole == role) {
 					if (col == Columns::CloneColumn) {
-						auto signalId = d.signal->internalId();
+                        auto signalId = d.signal->internalID();
 						auto val = d.data.value(col).toUInt();
 						return val == signalId ? NotUseValue : val;
 					}
@@ -144,21 +146,21 @@ namespace {
 			int col = index.column();
 			if (col == Columns::CloneColumn) {
 				auto oldVal = d.data[col];
-				auto newVal = value.toUInt() == NotUseValue ? d.signal->internalId() : value;
+                auto newVal = value.toUInt() == NotUseValue ? d.signal->internalID() : value;
 				if (oldVal == newVal)
 					return true;
 
 				d.data[col] = newVal;
 				if (col == Columns::CloneColumn)
-					m_contr->setValue(SP_DOUT_CLONE, d.signal->internalId(), newVal);
+                    m_contr->setValue(SP_DOUT_CLONE, d.signal->internalID(), newVal);
 
 				emit dataChanged(index, index);
 
-				if (oldVal != d.signal->internalId())
+                if (oldVal != d.signal->internalID())
 					setData(indexOf(oldVal.toUInt(), Columns::CloneColumn), NotUseValue);
 
-				if (newVal != d.signal->internalId())
-					setData(indexOf(newVal.toUInt(), Columns::CloneColumn), d.signal->internalId());
+                if (newVal != d.signal->internalID())
+                    setData(indexOf(newVal.toUInt(), Columns::CloneColumn), d.signal->internalID());
 
 				return true;
 			}
@@ -169,7 +171,7 @@ namespace {
 		QModelIndex indexOf(int32_t signalInternalId, int column)
 		{
 			for (size_t i = 0; i < m_items.size(); i++)
-				if (m_items[i].signal->internalId() == signalInternalId)
+                if (m_items[i].signal->internalID() == signalInternalId)
 					return this->index(i, column);
 
 			return QModelIndex();
@@ -215,7 +217,7 @@ void DcDiscreteOutputClonesForm::fillReport(DcIConfigReport * report)
 		for (size_t col = 0; col < it.data.size(); col++) {
 			if (col == Columns::CloneColumn) {
 				auto value = it.data[col].toUInt();
-				values << signalsDelegate->textFor(value == it.signal->internalId() ? NotUseValue : value).toString();
+                values << signalsDelegate->textFor(value == it.signal->internalID() ? NotUseValue : value).toString();
 			}
 			else
 				values << it.data[col].toString();

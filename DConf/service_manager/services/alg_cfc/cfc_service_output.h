@@ -20,7 +20,7 @@ public:
     QString text() const;
 
 protected:
-    void onTargetChanged(VirtualInputSignal *newTarget, VirtualInputSignal *prevTarget) override;
+    void onTargetChanged(DinVirtualSignal *newTarget, DinVirtualSignal *prevTarget) override;
 
 private:
     uint8_t _alg_id;

@@ -21,6 +21,7 @@ CommonDataTab::CommonDataTab(DcController *device, QWidget *parent)
     elementList.append({SP_SERNUM, 0});
     elementList.append({SP_IP4_ADDR, 0});
     elementList.append({SP_NEWPROFILE, 0});
+    elementList.append({SP_ALTERNATE_MODE, 0});
     elementList.append({SP_INTTEMP, 0});
     elementList.append({SP_SM_ENTITY_STATUS, 7});
     elementList.append({SP_SM_ENTITY_STATUS, 8});

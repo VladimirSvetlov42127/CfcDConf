@@ -15,6 +15,8 @@
 
 #define gDbManager DcDbManager::getInstance()
 
+class SignalFactory;
+
 class DcDbManager : public QObject
 {
     Q_OBJECT

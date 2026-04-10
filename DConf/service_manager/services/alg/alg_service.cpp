@@ -17,6 +17,16 @@ uint16_t AlgService::addr() const
     return m_addr;
 }
 
+uint8_t AlgService::profile() const
+{
+    return m_profile;
+}
+
+void AlgService::setProfile(uint8_t profile)
+{
+    m_profile = profile;
+}
+
 uint16_t AlgService::id() const
 {
     return m_id;

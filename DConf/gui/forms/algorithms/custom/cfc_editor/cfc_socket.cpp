@@ -6,6 +6,7 @@
 //===================================================================================================================================================
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_basic_node.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_link.h"
+#include <QDebug>
 
 //===================================================================================================================================================
 //	Конструктор класса
@@ -20,16 +21,22 @@ CfcSocket::CfcSocket(uint8_t index, CfcBasicNode* node, QGraphicsItem* parent) :
     setAcceptDrops(true);
 }
 
+
 //===================================================================================================================================================
 //	Базовые методы класса
 //===================================================================================================================================================
+void CfcSocket::setHighLight(bool flag)
+{
+    _highlight = flag;
+    update();
+}
+
 void CfcSocket::appendLink(CfcLink* link)
 {
     if (!link)
         return;
     _links.append(link);
 }
-
 
 void CfcSocket::removeLink(CfcLink* link)
 {
@@ -44,6 +51,7 @@ void CfcSocket::removeLink(CfcLink* link)
     return;
 }
 
+
 //===================================================================================================================================================
 //	Перегружаемые методы класса
 //===================================================================================================================================================
@@ -55,13 +63,13 @@ QRectF CfcSocket::boundingRect() const
 void CfcSocket::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     _highlight = true;
+    update();
     QGraphicsItem::hoverEnterEvent(event);
 }
 
 void CfcSocket::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     _highlight = false;
+    update();
     QGraphicsItem::hoverLeaveEvent(event);
 }
-
-

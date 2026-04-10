@@ -1,62 +1,65 @@
-#ifndef __AIN_SIGNAL_H__
-#define __AIN_SIGNAL_H__
+#ifndef AINSIGNAL_H
+#define AINSIGNAL_H
 
+#include <memory>
 
-//===================================================================================================================================================
-//	Подключение библиотек QT
-//===================================================================================================================================================
-#include <QString>
-
-//===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
-#include "data_model/dc_controller.h"
 #include "service_manager/signals/signal.h"
+#include "data_model/parameters/parameter_element.h"
 
-
-//===================================================================================================================================================
-//	Описание класса
-//===================================================================================================================================================
-//	Базовый класс аналогов
-//  Базовые параметры:
-//  - Тип апертуры (_aperture_type)
-//  - Значение апертура (_aperture_value)
-//  - Порог чувствительности (_aperture_sens)
-//  - Порог логической единицы (_aperture_high) - выводится в QString т.к. доступно не для всех сигналов
-//  - Порог логического нуля (_aperture_low) - выводится в QString т.к. доступно не для всех сигналов
-//===================================================================================================================================================
 class AinSignal : public Signal
 {
 public:
-    //===============================================================================================================================================
-    //	Конструктор класса
-    //===============================================================================================================================================
-    AinSignal(DcController* controller, int32_t id, int32_t internalid, uint8_t direction, uint8_t type, uint8_t subtype, const QString &name, uint16_t subtypeID = 0);
+    using UPtr = std::unique_ptr<AinSignal>;
 
-    //===============================================================================================================================================
-    //	Открытые методы класса
-    //===============================================================================================================================================
-    uint8_t apertureType() const { return _aperture_type->value().toInt(); }
-    float apertureValue() const { return _aperture_value->value().toFloat(); }
-    float apertureSens() const { return _aperture_sens->value().toFloat(); }
-    QString apertureHigh() const { return _aperture_high ? _aperture_high->value() : QString(); }
-    QString apertureLow() const { return _aperture_low ? _aperture_low->value() : QString(); }
+    AinSignal(const Config &config);
+    virtual ~AinSignal() = default;
 
-    void setApertureType(uint8_t value) { _aperture_type->updateValue(QString::number(value)); }
-    void setApertureValue(float value) { _aperture_value->updateValue(QString::number(value)); }
-    void setSpertureSens(float value) { _aperture_sens->updateValue(QString::number(value)); }
-    void setApertureHigh(const QString value) { if (_aperture_high) _aperture_high->updateValue(value); }
-    void setApertureLow(const QString value) { if (_aperture_low) _aperture_low->updateValue(value); }
+    Signal::Type type() const override { return Signal::Type::Ain; }
+    Signal::Subtype subtype() const override { return Signal::Subtype::Undef; }
+    bool init(DcController* config) override;
+
+    auto iec101SelectFlag() const { return m_iec101SelectFlag.value(); }
+    void setIec101SelectFlag(bool flag)  { m_iec101SelectFlag.setValue(flag); }
+
+    auto iec101Group1Flag() const { return m_iec101Group1Flag.value(); }
+    void setIec101Group1Flag(bool flag)  { m_iec101Group1Flag.setValue(flag); }
+
+    auto iec101Group2Flag() const { return m_iec101Group2Flag.value(); }
+    void setIec101Group2Flag(bool flag)  { m_iec101Group2Flag.setValue(flag); }
+
+    auto iec101BackgroundFlag() const { return m_iec101BackgroundFlag.value(); }
+    void setIec101BackgroundFlag(bool flag)  { m_iec101BackgroundFlag.setValue(flag); }
+
+    auto spodesSelectFlag() const { return m_spodesSelectFlag.value(); }
+    void setSpodes101SelectFlag(bool flag)  { m_spodesSelectFlag.setValue(flag); }
+
+    std::optional<uint8_t> apertureType() const;
+    void setApertureType(uint8_t value);
+
+    std::optional<double> apertureVal() const;
+    void setApertureVal(double value);
+
+    std::optional<double> thresholdSensibility() const;
+    void setThresholdSensibility(double value);
+
+    std::optional<double> threshold0() const;
+    void setThreshold0(double value);
+
+    std::optional<double> threshold1() const;
+    void setThreshold1(double value);
 
 private:
-    //===============================================================================================================================================
-    //	Свойства класса
-    //===============================================================================================================================================
-    ParameterElement* _aperture_type;
-    ParameterElement* _aperture_value;
-    ParameterElement* _aperture_sens;
-    ParameterElement* _aperture_high;
-    ParameterElement* _aperture_low;
+    ElementBit m_iec101SelectFlag;
+    ElementBit m_iec101Group1Flag;
+    ElementBit m_iec101Group2Flag;
+    ElementBit m_iec101BackgroundFlag;
+    ElementBit m_spodesSelectFlag;
+
+    ParameterElement* m_apertureType = nullptr;
+    ParameterElement* m_apertureVal = nullptr;
+    ParameterElement* m_thresholdSensibility = nullptr;
+    ParameterElement* m_threshold0 = nullptr;
+    ParameterElement* m_threshold1 = nullptr;
 };
 
-#endif // __AIN_SIGNAL_H__
+#endif // AINSIGNAL_H

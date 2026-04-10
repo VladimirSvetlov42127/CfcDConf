@@ -25,13 +25,12 @@ namespace {
 //===================================================================================================================================================
 //	Конструктор класса
 //===================================================================================================================================================
-CfcBasicScene::CfcBasicScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent) : QGraphicsScene(parent)
+CfcBasicScene::CfcBasicScene(CfcAlgService* service, QGraphicsScene* parent) : QGraphicsScene(parent)
 {
     _menu_point = QPointF();
     _basic_point = QPointF();
     _buffer_nodes.clear();
     _buffer_links.clear();
-    _service_manager = service_manager;
     _service = service;
 
     setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -179,14 +178,20 @@ void CfcBasicScene::copySelected()
     //  Привязка источников связи
     for (int i = 0; i < _buffer_links.count(); i++) {
         CfcLink* link = _buffer_links.at(i);
+        if (!link)
+            continue;
         bool found = false;
         QPointF source_pos = link->points().at(0);
         for (int ii = 0; ii < _buffer_nodes.count(); ii++) {
             if (found)
                 break;
             CfcNode* node = _buffer_nodes.at(ii);
+            if (!node)
+                continue;
             for (int iii = 0; iii < node->sockets().count(); iii++) {
                 CfcSocket* socket = node->sockets().at(iii);
+                if (!socket)
+                    continue;
                 QPointF socket_pos = socket->scenePos();
                 QLineF check_line(source_pos, socket_pos);
                 if (check_line.length() > select_shape)
@@ -300,15 +305,6 @@ void CfcBasicScene::removeLink(CfcLink* link)
     if (source_node->sockets().at(source_index))
         source_node->sockets().at(source_index)->removeLink(link);
 
-    //  Отвязывание сигнала
-    if (source_node->name() == "BI"){
-        CfcBI* bi_node = static_cast<CfcBI*>(source_node);
-        if (bi_node->cfcInput())
-            bi_node->cfcInput()->setSource(nullptr);
-        bi_node->setParam("signal", -1);
-        bi_node->setParam("name", QString());
-    }
-
     //  Удаление приемника чигнала
     QString target_id = link->targetID();
     uint8_t target_index = link->targetIndex();
@@ -316,14 +312,6 @@ void CfcBasicScene::removeLink(CfcLink* link)
     if (target_node->sockets().at(target_index))
         target_node->sockets().at(target_index)->removeLink(link);
 
-    //  Отвязывание сигнала
-    if (target_node->name() == "BO"){
-        CfcBO* bo_node = static_cast<CfcBO*>(target_node);
-        if (bo_node->cfcOutput())
-            bo_node->cfcOutput()->setTarget(nullptr);
-        bo_node->setParam("signal", -1);
-        bo_node->setParam("name", QString());
-    }
     removeItem(link);
     delete link;
     update();
@@ -406,20 +394,6 @@ CfcNode* CfcBasicScene::copyNode(CfcNode* source)
     }
 
     return node;
-}
-
-bool CfcBasicScene::CheckCfc(QList<TargetElement*> targets) const
-{
-    if (targets.isEmpty())
-        return true;
-    for (int i = 0; i < targets.count(); i++) {
-        if (!targets.at(i))
-            continue;
-        CfcServiceInput* target = static_cast<CfcServiceInput*>(targets.at(i));
-        if (target)
-            return false;
-    }
-    return true;
 }
 
 

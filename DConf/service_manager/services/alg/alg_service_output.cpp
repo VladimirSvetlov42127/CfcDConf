@@ -3,15 +3,18 @@
 #include <QDebug>
 
 #include "db/dc_db_manager.h"
-#include "service_manager/signals/virtual_input_signal.h"
+#include "service_manager/signals/din_virtual_signal.h"
 
 AlgServiceOutput::AlgServiceOutput(uint16_t id, uint8_t pin, ParameterElement *bindElement, Service *service)
     : ServiceOutput{id, pin, bindElement, service}
 {
 }
 
-void AlgServiceOutput::onTargetChanged(VirtualInputSignal *newTarget, VirtualInputSignal *prevTarget)
+void AlgServiceOutput::onTargetChanged(DinVirtualSignal *newTarget, DinVirtualSignal *prevTarget)
 {
+    if (!service()->fillTables())
+        return;
+
     auto uid = bindElement()->uid();
     if (!uid)
         return;

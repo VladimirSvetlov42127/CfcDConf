@@ -53,7 +53,7 @@ FlexEditorForm::FlexEditorForm(DcController* device, CfcAlgService *cfcAlg, QWid
     setWindowTitle(QString("Контроллер: %1, Алгоритм: %2").arg(device->name(), cfcAlg->name()));
 
 	//	Формирование графической области
-    _scene = new CfcScene(this->cfcAlg(), device->serviceManager());
+    _scene = new CfcScene(this->cfcAlg(), &device->signalManager());
     _graph_view = new CfcView(_scene);
     connect(scene(), &CfcScene::selectionChanged, this, &FlexEditorForm::buttonsChange);
     connect(scene(), &CfcScene::sceneRectChanged, graphView(), &CfcView::SceneChanged);
@@ -167,7 +167,7 @@ void FlexEditorForm::createToolbar()
 
     //	Кнопки панели инструментов
     tool_bar->addSeparator();
-    QAction* _grid_action = new QAction(QIcon(":/icons/grid.svg"), "Сетка", tool_bar);
+    _grid_action = new QAction(QIcon(":/icons/grid.svg"), "Сетка", tool_bar);
     _grid_action->setCheckable(true);
     _grid_action->setChecked(true);
     tool_bar->addAction(_grid_action);
@@ -301,8 +301,10 @@ void FlexEditorForm::treeClicked(const QModelIndex& index)
 
 void FlexEditorForm::setGridEnable(bool enable)
 {
-    if (scene())
-        scene()->setGrid(enable);
+    if (!scene())
+        return;
+    scene()->setGrid(enable);
+    scene()->update();
 }
 
 void FlexEditorForm::addInputs()
@@ -333,9 +335,9 @@ void FlexEditorForm::keyPressEvent(QKeyEvent* event)
 {
     //  Ctrl G Включение/выключение сетки
     if (event->key() == Qt::Key_G && (event->modifiers() & Qt::ControlModifier)) {
-        scene()->setGrid(!scene()->gridEnabled());
-        _grid_action->setChecked(scene()->gridEnabled());
-        scene()->update();
+        bool enable = !scene()->gridEnabled();
+        setGridEnable(enable);
+        _grid_action->setChecked(enable);
     }
 
     //	Ctrl +/- Увеличение/уменьшение масштаба

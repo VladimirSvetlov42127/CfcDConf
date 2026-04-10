@@ -12,6 +12,7 @@
 #include <QAction>
 #include <QTimer>
 #include <QScreen>
+#include <QSet>
 
 #include <dpc/gui/dialogs/msg_box/MsgBox.h>
 #include <dpc/dep_about_box.h>
@@ -39,7 +40,7 @@ constexpr const char* HELP_FILE = "../dconf_res/help/result/dconf.chm";
 constexpr const char* HELP_FILE = "dconf.chm";
 #endif    
 
-#define VER_PRE "pre.3"
+#define VER_PRE "pre.6"
 #ifdef VER_PRE
 constexpr const char* VERSION = DCONF_VERSION_STRING "-" VER_PRE;
 #else
@@ -52,6 +53,7 @@ constexpr const char* APPLICATION_COMPANY = "DEP";
 constexpr const char* DEFAULT_IMPORT_DIR = "/home";
 constexpr const char* SETTING_IMPORT_DIR = "importDir";
 constexpr const char* SETTING_GEOMETRY = "importDir";
+constexpr const char* SETTING_LASTPROJECTS = "lastProjects";
 
 constexpr const char* disclaimer = "		ВНИМАНИЕ!!!\n"
 		"	В связи с изменением структуры встроенных алгоритмов в устройствах (DEPROTEC, DEPRTU-LT-XX)"
@@ -73,7 +75,7 @@ DConf::DConf(QWidget *parent)
 {
     ui.setupUi(this);
 
-    setWindowIcon(QIcon(":/icons/dconf.svg"));
+    setWindowIcon(QIcon(":/icons/dconf_w.svg"));
 	QApplication::setWindowIcon(windowIcon());
 
     auto palette = qApp->palette();
@@ -82,8 +84,25 @@ DConf::DConf(QWidget *parent)
     palette.setColor(QPalette::Highlight, color);
     qApp->setPalette(palette);
 
+    auto projectsTitleFrame = new QFrame;
+    projectsTitleFrame->setFrameShape(QFrame::StyledPanel);
+    projectsTitleFrame->setFrameShadow(QFrame::Plain);
+    projectsTitleFrame->setLineWidth(0);
+    projectsTitleFrame->setMidLineWidth(0);
+    auto projectsFrameLayout = new QHBoxLayout(projectsTitleFrame);
+    projectsFrameLayout->setContentsMargins(0, 2, 0, 2);
+
+    auto projectsTitleLabel = new QLabel("Проекты", this);
+    auto font = projectsTitleLabel->font();
+    font.setPointSize(11);
+    projectsTitleLabel->setFont(font);
+    projectsFrameLayout->addWidget(projectsTitleLabel, 0, Qt::AlignCenter);
+
     auto layout = new QVBoxLayout(centralWidget());
+    layout->setSpacing(0);
+    layout->addWidget(projectsTitleFrame);
     layout->addWidget(m_projectsWidget);
+    connect(m_projectsWidget, &DcProjModel::appended, this, &DConf::onNodeAppended);
     connect(m_projectsWidget, &DcProjModel::activate, this, &DConf::onNodeActivate);
     connect(m_projectsWidget, &DcProjModel::aboutToClose, this, &DConf::onNodeAboutToClose);
 
@@ -92,10 +111,11 @@ DConf::DConf(QWidget *parent)
     connect(m_statusBarTimer, &QTimer::timeout, this, &DConf::cleanStatusBar);
 
 	ui.mainToolBar->setIconSize(QSize(32, 32));    
+    ui.mainToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     auto createProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/proj_add.svg"), "Cоздать проект", this, &DConf::onCreateProjectAction);
-    auto openProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/proj.svg"), "Открыть проект", this, &DConf::onOpenProjectAction);
-    auto importProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/bd_out.svg"), "Импорт", this, &DConf::onImportProjectAction);
-    auto exportProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/bd_in.svg"), "Экспорт", this, &DConf::onExportProjectAction);
+    auto openProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/proj.svg"), "Открыть проект", this, &DConf::onOpenProjectAction);    
+    auto exportProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/bd_in.svg"), "Экспорт проекта", this, &DConf::onExportProjectAction);
+    auto importProjectAction = ui.mainToolBar->addAction(QIcon(":/icons/bd_out.svg"), "Импорт проекта", this, &DConf::onImportProjectAction);
 
     auto exitAction = new QAction("Выход", this);
     exitAction->setShortcut(QKeySequence::Quit);
@@ -141,6 +161,7 @@ DConf::DConf(QWidget *parent)
     m_projectsManager.load();
 
     QMetaObject::invokeMethod(m_updater, &DcUpdater::checkUpdates, Qt::QueuedConnection);
+//    openLastProjects();
 }
 
 DConf::~DConf()
@@ -190,7 +211,7 @@ void DConf::onImportProjectAction()
         return;
 
     QString proj_path = newProject->path();
-    QZipReader zip_reader(filename);
+    MyZipReader zip_reader(filename);
     if (zip_reader.exists()) {
         // распаковка архива по указанному пути
         if (!zip_reader.extractAll(proj_path)) {
@@ -229,11 +250,11 @@ void DConf::onExportProjectAction()
     m_importDir = QFileInfo(filename).dir().absolutePath();
     auto projPath = project->path();
 
-    QZipWriter zip(filename);
-    if (zip.status() != QZipWriter::NoError)
+    MyZipWriter zip(filename);
+    if (zip.status() != MyZipWriter::NoError)
         return;
 
-    zip.setCompressionPolicy(QZipWriter::AutoCompress);
+    zip.setCompressionPolicy(MyZipWriter::AutoCompress);
     QDirIterator it(projPath, QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
     while (it.hasNext()) {
         QString file_path = it.next();
@@ -325,6 +346,20 @@ void DConf::onUpdaterState(bool hasUpdates)
 
 	QThread::msleep(100);
     qApp->exit(0);
+}
+
+void DConf::onNodeAppended(DcNode *node)
+{
+    if (node->type() == DcNode::DeviceType) {
+        auto device_node = static_cast<DcDeviceNode*>(node);
+        if (!device_node->config()) {
+            auto config = m_configLoader->load(device_node->configFilePath(), device_node->name(), true);
+            if (!config)
+                return;
+
+            device_node->setConfig(std::move(config));
+        }
+    }
 }
 
 void DConf::onNodeActivate(DcNode *node)
@@ -423,9 +458,14 @@ void DConf::openHelp([[maybe_unused]] const QString &context)
 
 void DConf::saveSettings() const
 {
+    QStringList openedProjectsPath;
+    for(auto* project: m_projectsWidget->projects())
+        openedProjectsPath << project->path();
+
     QSettings settings;
     settings.setValue(SETTING_IMPORT_DIR, m_importDir);
     settings.setValue(SETTING_GEOMETRY, geometry());
+    settings.setValue(SETTING_LASTPROJECTS, openedProjectsPath);
 }
 
 void DConf::loadSettings()
@@ -438,8 +478,10 @@ void DConf::loadSettings()
     int x = screenGeometry.x() + (screenGeometry.width() - windowSize.width()) / 2;
     int y = screenGeometry.y() + (screenGeometry.height() - windowSize.height()) / 2;
     auto defaultGeometry = QRect(QPoint(x, y), windowSize.toSize());
-    auto geometry = settings.value(SETTING_GEOMETRY, defaultGeometry);
-    setGeometry(geometry.value<QRect>());
+    auto geometry = settings.value(SETTING_GEOMETRY, defaultGeometry).value<QRect>();
+//    qDebug() << windowSize << geometry;
+
+    setGeometry(geometry);
 }
 
 void DConf::setStatusBarMsg(const QString& text, const QIcon& icon)
@@ -513,21 +555,30 @@ void DConf::removeNodeWindow(DcNode *node)
     }
 
     if (node->type() == DcNode::DeviceType) {
+        auto deviceNode = static_cast<DcDeviceNode*>(node);
         auto deviceWindowIt = m_deviceWindows.find(node);
-        if (deviceWindowIt == m_deviceWindows.end())
-            return;
+        if (deviceWindowIt != m_deviceWindows.end()) {
+            auto deviceWindow = deviceWindowIt->second;
 
-        auto deviceWindow = deviceWindowIt->second;
-        auto deviceNode = deviceWindow->node();
-
-        // Закрытие и удаление окна конфигурации
-        if (deviceWindow == m_lastOpenedWindow)
-            m_lastOpenedWindow = nullptr;
-        deviceWindow->close();
-        deviceWindow->deleteLater();
-        m_deviceWindows.erase(deviceWindowIt);
+            // Закрытие и удаление окна конфигурации
+            if (deviceWindow == m_lastOpenedWindow)
+                m_lastOpenedWindow = nullptr;
+            deviceWindow->close();
+            deviceWindow->deleteLater();
+            m_deviceWindows.erase(deviceWindowIt);
+        }
 
         // Удаление конфигурации
         deviceNode->setConfig(DcController::UPtr());
     }
+}
+
+void DConf::openLastProjects()
+{
+    QSettings settings;
+    QStringList lastOpenedList = settings.value(SETTING_LASTPROJECTS).value<QStringList>();
+    QSet<QString> lastOpenedSet(lastOpenedList.begin(), lastOpenedList.end());
+    for(auto& project: m_projectsManager.projects())
+        if (lastOpenedSet.contains(project->path()))
+            initProject(project.get());
 }

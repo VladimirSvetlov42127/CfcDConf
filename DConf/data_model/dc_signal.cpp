@@ -3,7 +3,6 @@
 
 namespace {
 
-constexpr const char* PROPERTY_FIXED = "fixed";
 constexpr const char* PROPERTY_DISABLE_CLONING = "disable_cloning";
 
 } // namespace
@@ -45,10 +44,6 @@ QString DcSignal::name(){
 	return m_name;
 }
 
-QString DcSignal::property(QString name) const {
-	return m_properties.get(name);
-}
-
 bool DcSignal::updateProperty(const QString &name, const QString &value) {
 	if (name.isEmpty())
 		return false;
@@ -69,14 +64,9 @@ bool DcSignal::updateName(const QString & newname)
 	return true;
 }
 
-bool DcSignal::isFixed() const
-{
-	return property(PROPERTY_FIXED).toInt();
-}
-
 bool DcSignal::isCloningEnabled() const
 {
-    return !property(PROPERTY_DISABLE_CLONING).toUInt();
+    return !m_properties.get(PROPERTY_DISABLE_CLONING).toUInt();
 }
 
 const DcProperties &DcSignal::properties() const

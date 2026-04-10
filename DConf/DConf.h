@@ -38,6 +38,7 @@ protected:
 private slots:
     void onUpdaterError(const QString& errorMsg);
     void onUpdaterState(bool hasUpdates);
+    void onNodeAppended(DcNode* node);
     void onNodeActivate(DcNode* node);
     void onNodeAboutToClose(DcNode* node);
     void onDbError(const QString &msg, const QString &filePath, DcController *device);
@@ -55,6 +56,7 @@ private:
     void cleanStatusBar();
     void openNodeWindow(DcNode* node);
     void removeNodeWindow(DcNode* node);
+    void openLastProjects();
 
 private:
     Ui::dconfClass ui;

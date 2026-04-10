@@ -14,7 +14,7 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "service_manager/signals/virtual_input_signal.h"
+#include "service_manager/signals/din_virtual_signal.h"
 
 
 //===================================================================================================================================================
@@ -24,7 +24,7 @@ namespace {
     int socket_radius = 3;
     QColor shape_color = QColor(70, 100, 120);
     QColor shape_bkcolor = QColor(245, 245, 245);
-    QColor notbinded_bkcolor = QColor(255, 222, 222);
+    QColor shape_bkcolor_binded = QColor(255, 168, 87);
 
     int shape_width = 2;
     QFont CHANNEL_TEXT_FONT = QFont("Arial", 10);
@@ -107,10 +107,10 @@ void CfcBI::paintElement(QPainter* painter)
     path.lineTo(rectangle.x(), rectangle.y() + rectangle.height());
     path.closeSubpath();
 
-    QColor fill_color = notbinded_bkcolor;
+    QColor fill_color = shape_bkcolor;
     if (cfcInput()->source()) {
-        fill_color = shape_bkcolor;
-        auto vdin = cfcInput()->source()->to<VirtualInputSignal>();
+        fill_color = shape_bkcolor_binded;
+        auto vdin = cfcInput()->source()->to<DinVirtualSignal>();
         if (vdin && !vdin->source())
             fill_color = Qt::yellow;
     }

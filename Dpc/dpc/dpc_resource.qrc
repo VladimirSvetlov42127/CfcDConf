@@ -57,7 +57,6 @@
 		<file alias="icons/dep_p-sci.svg">../../dconf_res/icons/ICO_svg/dep_p-sci.svg</file>
 		<file alias="icons/dep_rtu.svg">../../dconf_res/icons/ICO_svg/dep_rtu.svg</file>
 		<file alias="icons/dep_rtu3-m.svg">../../dconf_res/icons/ICO_svg/dep_rtu3-m.svg</file>
-		<file alias="icons/dep_rtu3-m1.svg">../../dconf_res/icons/ICO_svg/dep_rtu3-m1.svg</file>
 		<file alias="icons/dep_t-module.svg">../../dconf_res/icons/ICO_svg/dep_t-module.svg</file>
 		<file alias="icons/device_add.svg">../../dconf_res/icons/ICO_svg/device_add.svg</file>
 		<file alias="icons/dialog.svg">../../dconf_res/icons/ICO_svg/dialog.svg</file>
@@ -216,11 +215,27 @@
 		<file alias="icons/dep_logo_o.svg">../../dconf_res/icons/ICO_svg/dep_logo_o.svg</file>
 		<file alias="icons/dep_logo_g.svg">../../dconf_res/icons/ICO_svg/dep_logo_g.svg</file>
 		<file alias="icons/dep_logo_gr.svg">../../dconf_res/icons/ICO_svg/dep_logo_gr.svg</file>
-		<file alias="icons/dep_logo_b.svg">../../dconf_res/icons/ICO_svg/dep_logo_b.svg</file>		
-		<file alias="icons/D_S.svg">../../dconf_res/icons/ICO_svg/D_S.svg</file>
-		<file alias="icons/D_O.svg">../../dconf_res/icons/ICO_svg/D_O.svg</file>
-		<file alias="icons/D_A.svg">../../dconf_res/icons/ICO_svg/D_A.svg</file>
-		<file alias="icons/G_S.svg">../../dconf_res/icons/ICO_svg/G_S.svg</file>		
+		<file alias="icons/dep_logo_b.svg">../../dconf_res/icons/ICO_svg/dep_logo_b.svg</file>
+
+		<file alias="icons/dep_deprotec_mini.svg">../../dconf_res/icons/ICO_svg/dep_deprotec_mini.svg</file>				
+		<file alias="icons/fs_file.svg">../../dconf_res/icons/ICO_svg/fs_file.svg</file>		
+		<file alias="icons/fs_file_zip.svg">../../dconf_res/icons/ICO_svg/fs_file_zip.svg</file>			
+		<file alias="icons/sos.svg">../../dconf_res/icons/ICO_svg/sos.svg</file>
+		<file alias="icons/bd_g.svg">../../dconf_res/icons/ICO_svg/bd_g.svg</file>
+		<file alias="icons/bd_o.svg">../../dconf_res/icons/ICO_svg/bd_o.svg</file>
+		
+		<file alias="icons/dconf_w.svg">../../dconf_res/icons/ICO_svg/dconf_w.svg</file>
+		<file alias="icons/dview_w.svg">../../dconf_res/icons/ICO_svg/dview_w.svg</file>
+		
+		<file alias="icons/circle_green.svg">../../dconf_res/icons/ICO_svg/circle_green.svg</file>				
+		<file alias="icons/circle_red.svg">../../dconf_res/icons/ICO_svg/circle_red.svg</file>		
+		<file alias="icons/line_dashed.svg">../../dconf_res/icons/ICO_svg/line_dashed.svg</file>			
+		<file alias="icons/line_dash_dot.svg">../../dconf_res/icons/ICO_svg/line_dash_dot.svg</file>
+		<file alias="icons/line_dash_dot_dot.svg">../../dconf_res/icons/ICO_svg/line_dash_dot_dot.svg</file>
+		<file alias="icons/line_dotted.svg">../../dconf_res/icons/ICO_svg/line_dotted.svg</file>
+		<file alias="icons/line_solid.svg">../../dconf_res/icons/ICO_svg/line_solid.svg</file>
+		
+		<file alias="icons/fs_file_dat.svg">../../dconf_res/icons/ICO_svg/fs_file_dat.svg</file>
 		
 	</qresource>
 </RCC>

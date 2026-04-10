@@ -1,10 +1,12 @@
 #include "cfc_node.h"
 
-#include <QDebug>
+
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
+#include "gui/forms/algorithms/custom/cfc_editor/cfc_namespace.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_link.h"
+
 
 //===================================================================================================================================================
 //	список переменных
@@ -66,7 +68,8 @@ void CfcNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     setCursor(QCursor(Qt::ArrowCursor));
     QGraphicsItem::mouseReleaseEvent(event);
-    if (!shape().contains(event->pos())) event->setAccepted(false);
+    if (!shape().contains(event->pos()))
+        event->setAccepted(false);
 
     return;
 }
@@ -74,6 +77,10 @@ void CfcNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 QVariant CfcNode::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {
+        QPointF position = value.toPointF();
+        if (CfcNamespace::grid_enable)
+            position = CfcNamespace::gridPoint(value.toPointF());
+
         for (int i = 0; i < sockets().count(); i++) {
             CfcSocket* socket = sockets().at(i);
             for (int ii = 0; ii < socket->links().count(); ii++)
@@ -81,6 +88,7 @@ QVariant CfcNode::itemChange(GraphicsItemChange change, const QVariant &value)
                     socket->links().at(ii)->move();
             update();
         }
+        return position;
     }
     return QGraphicsItem::itemChange(change, value);
 }

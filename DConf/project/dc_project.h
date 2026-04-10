@@ -15,6 +15,8 @@
 
 class DcProject : public DcNode
 {
+    Q_OBJECT
+
 public:
     using UPtr = std::unique_ptr<DcProject>;
     using UPtrVector = std::vector<UPtr>;
@@ -36,15 +38,15 @@ public:
 
     // Объект проекта
     QString object() const { return m_object; }
-    void setObject(const QString &obj) { m_object = obj; }
+    void setObject(const QString &obj);
 
     // Автор проекта
     QString author() const { return m_author; }
-    void setAuthor(const QString &author) { m_author = author; }
+    void setAuthor(const QString &author);
 
     // Описание проекта
     QString desc() const { return m_desc; }
-    void setDesc(const QString &desc) { m_desc = desc; }
+    void setDesc(const QString &desc);
 
     // Время создания и изменения проекта
     QDateTime createdTime() const { return m_createdTime; }
@@ -65,6 +67,9 @@ public:
     // Удаление данных узла node из проекта.
     // Если тип узла - конфигурация устройства, удаляется папка узла из файловой системы.
     bool removeNodeData(DcNode *node);
+
+signals:
+    void infoChanged();
 
 private:
     QString m_path;

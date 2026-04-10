@@ -8,6 +8,11 @@ const uint16_t g_NoSignal = 0xFFFF;
 
 } // namespace
 
+TargetElement::TargetElement()
+{
+
+}
+
 TargetElement::TargetElement(ParameterElement *bindElement, Service* service)
     : m_service{service}
     , m_bindElement{bindElement}
@@ -19,7 +24,7 @@ const Service *TargetElement::service() const
     return m_service;
 }
 
-void TargetElement::setSource(InputSignal *newSource)
+void TargetElement::setSource(DinSignal *newSource)
 {
     if (source() == newSource)
         return;
@@ -32,13 +37,15 @@ void TargetElement::setSource(InputSignal *newSource)
     if (newSource)
         newSource->addTarget(this);
 
-    auto singalInternalId = newSource ? newSource->internalID() : g_NoSignal;
-    m_bindElement->updateValue(QString::number(singalInternalId));
+    if (bindElement()) {
+        auto singalInternalId = newSource ? newSource->internalID() : g_NoSignal;
+        bindElement()->updateValue(QString::number(singalInternalId));
+    }
 
     onSourceChanged(newSource, prevSource);
 }
 
-InputSignal *TargetElement::source() const
+DinSignal *TargetElement::source() const
 {
     return m_source;
 }
@@ -53,7 +60,12 @@ ParameterElement *TargetElement::bindElement()
     return m_bindElement;
 }
 
-void TargetElement::onSourceChanged(InputSignal *, InputSignal *)
+void TargetElement::setBindElement(ParameterElement *bindElement)
+{
+    m_bindElement = bindElement;
+}
+
+void TargetElement::onSourceChanged(DinSignal *, DinSignal *)
 {
 }
 

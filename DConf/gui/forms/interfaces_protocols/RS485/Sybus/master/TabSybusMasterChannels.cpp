@@ -79,20 +79,18 @@ static const QVector<QString> vectorChBoxNames { "Чтение аналогов�
 												};		// Вектор из допустимых скоростей
 
 /*const*/ struct channelDataMin_s{
-	channelType_t channelType;
-	DefSignalDirection direction;
-	DefSignalType type;
-
+    channelType_t channelType;
+    Signal::Type type;
 };
 
 
-static const QVector<channelDataMin_s> vecChannelsInfo {	{MIN_CHANNEL_TYPE + 0, DEF_SIG_DIRECTION_INPUT, DEF_SIG_TYPE_ANALOG},
-															{MIN_CHANNEL_TYPE + 1, DEF_SIG_DIRECTION_INPUT, DEF_SIG_TYPE_DISCRETE},
-															{MIN_CHANNEL_TYPE + 2, DEF_SIG_DIRECTION_INPUT, DEF_SIG_TYPE_COUNTER},
-															{MIN_CHANNEL_TYPE + 3, DEF_SIG_DIRECTION_OUTPUT, DEF_SIG_TYPE_ANALOG},
-															{MIN_CHANNEL_TYPE + 4, DEF_SIG_DIRECTION_OUTPUT, DEF_SIG_TYPE_DISCRETE},
-															{MIN_CHANNEL_TYPE + 5, DEF_SIG_DIRECTION_OUTPUT, DEF_SIG_TYPE_UNDEF},			// Не уверена какой тип! 
-															{MIN_CHANNEL_TYPE + 6, DEF_SIG_DIRECTION_OUTPUT, DEF_SIG_TYPE_UNDEF},			// Не уверена какой тип! 	
+static const QVector<channelDataMin_s> vecChannelsInfo {	{MIN_CHANNEL_TYPE + 0, Signal::Type::Ain},
+                                                            {MIN_CHANNEL_TYPE + 1, Signal::Type::Din},
+                                                            {MIN_CHANNEL_TYPE + 2, Signal::Type::Cin},
+                                                            {MIN_CHANNEL_TYPE + 3, Signal::Type::None},
+                                                            {MIN_CHANNEL_TYPE + 4, Signal::Type::Dout},
+                                                            {MIN_CHANNEL_TYPE + 5, Signal::Type::None},			// Не уверена какой тип!
+                                                            {MIN_CHANNEL_TYPE + 6, Signal::Type::None},			// Не уверена какой тип!
 
 };
 
@@ -876,13 +874,26 @@ void TabSybusMasterChannels::showErrorExceedMaxChannelCount(channelType_t type) 
 }
 
 
-unsigned int TabSybusMasterChannels::getMaxChannelCount(channelType_t channelType) {
-	
-	unsigned int max = 0;
-	DefSignalDirection direction = vecChannelsInfo[channelType].direction;
-	DefSignalType signalType = vecChannelsInfo[channelType].type;
-	
-	return m_controller->getSignalList(signalType, DEF_SIG_SUBTYPE_UNDEF, direction).size();
+unsigned int TabSybusMasterChannels::getMaxChannelCount(channelType_t channelType)
+{
+    switch(vecChannelsInfo[channelType].type) {
+    case Signal::Type::Din:
+        return m_controller->signalManager().dinSize();
+        break;
+    case Signal::Type::Ain:
+        return m_controller->signalManager().ainSize();
+        break;
+    case Signal::Type::Cin:
+        return m_controller->signalManager().cinSize();
+        break;
+    case Signal::Type::Dout:
+        return m_controller->signalManager().doutSize();
+        break;
+    default:
+        break;
+    }
+
+    return 0;
 }
 
 int TabSybusMasterChannels::getParameterCount(int address) {

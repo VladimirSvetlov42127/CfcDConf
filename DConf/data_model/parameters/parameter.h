@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <optional>
 
 #include "data_model/parameters/parameter_element.h"
 
@@ -94,6 +95,14 @@ public:
     // Возвращает элемент параметра с индексом idx в профиле c индексом profileIdx
     ParameterElement* element(uint8_t profileIdx, uint16_t idx);
     const ParameterElement* element(uint8_t profileIdx, uint16_t idx) const;
+
+    // Возвращает структуру с элементом параметра и бита в нём соответствующую
+    // биту параметра parameterBit в профиле profileIdx.
+    ElementBit elementBit(uint32_t parameterBit, uint8_t profileIdx = 0) const;
+
+    // Возвращает структуру с элементом параметра и бита в нём соответствующую
+    // биту в элементе параметра с индексом idx в профиле с индексом profileIdx.
+    ElementBit elementBit(uint16_t bit, uint8_t profileIdx, uint16_t idx);
 
     // Методы для работы с базой.    
     // Если установлен uid, также добавятся все элементы в базу данных.

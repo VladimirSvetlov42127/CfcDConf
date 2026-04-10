@@ -3,9 +3,9 @@
 #include <qstring.h>
 
 #include <dpc/dpc_global.h>
+#include <QDateTime>
 
 namespace Dpc::Sybus {
-
 	template<typename T>
 	struct Restorer
 	{
@@ -26,4 +26,9 @@ namespace Dpc::Sybus {
 
 
 	DPC_EXPORT uint16_t crc16(uint8_t * ptr, uint32_t size, uint16_t init);
+
+    QDateTime DPC_EXPORT fromStrictTime(uint64_t value);
+    QDateTime DPC_EXPORT fromTime61850(uint64_t value);
+    QDateTime DPC_EXPORT fromUtcTime(uint64_t value);
+    QDateTime DPC_EXPORT fromSecondsTime(uint32_t value);
 } // namespace

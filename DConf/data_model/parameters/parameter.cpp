@@ -1,5 +1,7 @@
 #include "parameter.h"
 
+#include <dpc/sybus/ParamPack.h>
+
 #include "db/dc_db_manager.h"
 
 using Dpc::Sybus::ParamAttribute;
@@ -269,6 +271,31 @@ const ParameterElement *Parameter::element(uint8_t profileIdx, uint16_t idx) con
         return nullptr;
 
     return pr->at(idx).get();
+}
+
+ElementBit Parameter::elementBit(uint32_t parameterBit, uint8_t profileIdx) const
+{
+    ElementBit result;
+    auto elementBitSize = Dpc::Sybus::ParamPack::typeSize(type()) * 8u;
+    if (parameterBit < elementBitSize * elementsCount()) {
+        auto elementIdx = parameterBit / elementBitSize;
+        result.element = const_cast<ParameterElement*>(element(profileIdx, elementIdx));
+        result.bit = parameterBit % elementBitSize;
+    }
+
+    return result;
+}
+
+ElementBit Parameter::elementBit(uint16_t bit, uint8_t profileIdx, uint16_t idx)
+{
+    ElementBit result;
+    auto elementBitSize = Dpc::Sybus::ParamPack::typeSize(type()) * 8u;
+    if (bit < elementBitSize) {
+        result.bit = bit;
+        result.element = element(profileIdx, idx);
+    }
+
+    return result;
 }
 
 void Parameter::insert()

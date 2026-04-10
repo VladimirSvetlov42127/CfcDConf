@@ -23,8 +23,16 @@ namespace Dpc::Gui
 
 	CheckableHeaderView* TableView::horizontalHeader() const
 	{
-		return m_headerView;
-	}
+        return m_headerView;
+    }
+
+    void TableView::setOnlyVisibleColumns(const QList<int> &columns)
+    {
+        QSet<int> columnSet(columns.begin(), columns.end());
+        for(int i = 0; i < horizontalHeader()->count(); ++i) {
+            horizontalHeader()->setSectionHidden(i, !columnSet.contains(i));
+        }
+    }
 
 	void TableView::init()
 	{

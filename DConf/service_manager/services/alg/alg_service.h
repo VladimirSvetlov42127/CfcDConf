@@ -18,6 +18,11 @@ public:
     // Адрес встроенного алгоритма. Для идентификации сервиса.
     uint16_t addr() const;
 
+    // Профиль алгоритма в рамках SP_CROSSTABLE. Для обратной совместимости с древними конфигурациями
+    // когда все привязки хранились в параметре SP_CROSSTABLE. В данный момент акутально только LT-P-GSM.
+    uint8_t profile() const;
+    void setProfile(uint8_t profile);
+
     // ID алгоритма для табилц привязки. Для обратной совместимости
     uint16_t id() const;
 
@@ -29,6 +34,7 @@ public:
 private:
     uint16_t m_addr;
     uint16_t m_id;
+    uint8_t m_profile = 0;
 };
 
 #endif // ALGSERVICE_H

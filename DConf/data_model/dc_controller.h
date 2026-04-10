@@ -20,10 +20,10 @@
 #include <data_model/dc_matrix_element_alg_cfc.h>
 #include <data_model/dc_matrix_element_signal.h>
 
-#include "service_manager/service_manager.h"
-
-//	Добавление менеджера сервисов
-class ServiceManager;
+#include "service_manager/signals/signal_manager.h"
+#include "service_manager/services/alg/alg_manager.h"
+#include "service_manager/services/alg_cfc/cfc_alg_manager.h"
+#include "service_manager/services/func/func_service.h"
 
 //	Класс DcController
 class DcController : public QObject
@@ -69,27 +69,6 @@ public:
 		AllParam,
 		BaseParam, 
 		UpdatableParam
-	};
-
-	enum VirtualFunctionType {
-		NOTUSE = 0,				// "Не используется";
-		TEST_CNTRL,				// "Пуск теста цепей управления";				
-		OSCILL_START,			// "Пуск осциллографирования";				
-		VDIN_CONTROL,			// "Управление виртуальным входом";	
-		XCBR_CNTRL,				// "Управление выключателем";				
-		XCBR_RZA_CNTRL,			// "Управление выключателем c РЗА";			
-		QUIT_CMD,				// "Квитация событий";							
-		FIX_VDIN,				// "Фиксация входа";	
-		VDOUT_CONFIRM,			// "Квитация события";
-		VDIN_EVENT,				// "Событие в виртуальном входе";
-		EXEC_EMBEDED_ALG,		// "Запуск встроенного алгоритма";	
-		NETWUSE,				// "Штатное управление";
-		CHANGE_SIM,				// "Смена СИМ карты";					
-		BLOCK_TU,				// "Запретить ТУ";
-		CONTROL_SV = 15,		// "Управление SV потоком"
-		ACTIVE_GROUP,			// "Активная группа уставок"
-
-		UNKNOWN
 	};
 
     enum TimeSyncProtocols {
@@ -159,29 +138,35 @@ public:
 	uint rs485SlavesMax() const;
 
 	QVariant getValue(int32_t addr, uint16_t index) const;
-	bool setValue(int32_t addr, uint16_t index, const QVariant &value);
-	QVariant getBitValue(int32_t addr, uint16_t bit, int profile = 0, int32_t addrIndex = -1) const;
-	bool setBitValue(int32_t addr, uint16_t bit, const QVariant &value, int profile = 0, int32_t addrIndex = -1);
+    bool setValue(int32_t addr, uint16_t index, const QVariant &value);
 
 	static QSet<uint16_t> specialParams(DcController::SpecialParamType type = AllParam);
 
-	std::vector<std::pair<uint, QString>> virtualFunctionList() const;
-	VirtualFunctionType virtualFunctionType(int functionIndex) const;
-	bool isConnectionDiscret(DcSignal * signal) const;
-	bool isVirtualFunctionParamValue(VirtualFunctionType funcType, int value) const;
-	int virtualDiscreteIndex(DcSignal *virtualSignal) const;
-
-	QVariant getTimeOffset() const;
+//	QVariant getTimeOffset() const;
 
 	// Сигналы
 	bool addSignal(DcSignal* signal, bool fromDb);
 	bool removeSignal(int32_t internalId, DefSignalType type, DefSignalDirection direction = DEF_SIG_DIRECTION_INPUT);	
-	DcSignal* getSignal(int32_t index) const;
-	DcSignal* getSignal(int32_t internalId, DefSignalType type, DefSignalDirection direction = DEF_SIG_DIRECTION_INPUT) const;
-	QList<DcSignal*> getSignalList() const;
-	QList<DcSignal*> getSignalList(DefSignalType type, DefSignalSubType subType = DEF_SIG_SUBTYPE_UNDEF, DefSignalDirection direction = DEF_SIG_DIRECTION_INPUT) const;
+    DcSignal* getSignal(int32_t index) const;
+    QList<DcSignal*> getSignalList() const;
 
     DcController* clone() const;
+
+    bool initBindings();
+    bool clearBindings();
+    bool rebind();
+
+    SignalManager& signalManager() { return m_signalManager; }
+    const SignalManager& signalManager() const { return m_signalManager; }
+
+    AlgManager& algManager() { return m_algManager; }
+    const AlgManager& algManager() const { return m_algManager; }
+
+    CfcAlgManager& cfcManager() { return m_cfcManager; }
+    const CfcAlgManager& cfcManager() const { return m_cfcManager; }
+
+    FuncService& funcService() { return m_funcService; }
+    const FuncService& funcService() const { return m_funcService; }
 
 public slots:
     // Для быстрого изменения большого количества параметров, в рамках транзакции. !!!КОСТЫЛЬ ДЛЯ ОПТИМИЗАЦИИ!!!
@@ -194,9 +179,6 @@ signals:
 private:
 	using SignalContainer = std::map<int32_t, DcSignal*>;
 	SignalContainer* getContainer(DefSignalType type, DefSignalDirection direction = DEF_SIG_DIRECTION_INPUT) const;
-
-	// Возвращает пару, искомый параметр и номер бита в нём
-    std::pair<ParameterElement*, int> getParamForBit(int addr, int bit, int profile, int addrIndex) const;
 
 private:
     int32_t m_uid;
@@ -218,20 +200,9 @@ private:
 	SignalContainer m_inCounters;
 	SignalContainer m_outDiscrets;
 
-public:
-	//===============================================================================================================================================
-	//	Дополнительные методы класса
-	//===============================================================================================================================================
-	const SignalContainer& inDiscrets() { return m_inDiscrets; }
-	const SignalContainer& outDiscrets() { return m_outDiscrets; }
-	void loadServiceManager();
-    ServiceManager* serviceManager() const { return _service_manager; }
-
-private:
-	//===============================================================================================================================================
-	//	Свойства класса
-	//===============================================================================================================================================
-    ServiceManager* _service_manager = nullptr;
-
+    SignalManager m_signalManager;
+    AlgManager m_algManager;
+    CfcAlgManager m_cfcManager;
+    FuncService m_funcService;
 };
 

@@ -20,6 +20,8 @@ namespace Dpc::Gui
 
 		CheckableHeaderView* horizontalHeader() const;
 
+        void setOnlyVisibleColumns(const QList<int>& columns);
+
 	signals:
 		void itemsCheckStateAboutToChange(int column);
 		void itemsCheckStateChanged(int column);

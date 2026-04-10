@@ -18,6 +18,7 @@
 #include <QSettings>
 #include <QLabel>
 #include <QProgressBar>
+#include <QProcess>
 
 #include <dpc/gui/widgets/journal/JournalWidget.h>
 #include <dpc/gui/dialogs/channel/ChannelsDialog.h>
@@ -34,8 +35,10 @@
 #include "device_operations/config_write_operation.h"
 #include "device_operations/config_passport_operation.h"
 #include "device_operations/information_operation.h"
+#include "device_operations/report_operation/report_operation.h"
 
 #include "gui/dc_device_view.h"
+#include "gui/dialogs/restart_dialog.h"
 #include "gui/forms/DcFormFactory.h"
 #include "gui/forms/default/DcDefaultForm.h"
 #include "gui/forms/main/main_form.h"
@@ -48,7 +51,10 @@ using namespace Dpc::Sybus;
 
 namespace {
 
-constexpr const char *SETTING_CHANNEL = "channel";
+constexpr const char* SETTING_CHANNEL = "channel";
+constexpr const char* DVIEW_PATH = "dview.exe";
+constexpr const char* KEY_REPORT_PATH = "report/lastPath";
+constexpr const char* DIR_REPORT = "report";
 
 class ReportDialog : public QDialog
 {
@@ -160,25 +166,28 @@ DcDeviceWindow::DcDeviceWindow(DcDeviceNode *device_node, QWidget *parent)
     auto toolBar = new QToolBar(this);
     toolBar->setMovable(false);
     toolBar->setFloatable(false);
-//    toolBar->setIconSize(QSize(32, 32));
+    toolBar->setIconSize(QSize(32, 32));
     toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
     toolBar->setAllowedAreas(Qt::TopToolBarArea);
     addToolBar(Qt::TopToolBarArea, toolBar);
     createActions();
 
     toolBar->addAction(m_connectAction);
+    toolBar->addAction(m_reloadInfoAction);
     toolBar->addAction(m_disconnectAction);
     toolBar->addSeparator();
-    toolBar->addAction(m_reloadInfoAction);
-    toolBar->addAction(m_restartAction);
-    toolBar->addSeparator();
     toolBar->addAction(m_readConifAction);
-    toolBar->addAction(m_resetAction);
+    toolBar->addAction(m_restartAction);
     toolBar->addAction(m_writeConfigAction);
+    toolBar->addSeparator();    
+    toolBar->addAction(m_resetAction);
+    toolBar->addAction(m_firmwareUpdateAction);
     toolBar->addSeparator();
     toolBar->addAction(m_filesystemAction);
-    toolBar->addAction(m_firmwareUpdateAction);
+    toolBar->addSeparator();
     toolBar->addAction(m_passportAction);
+    toolBar->addAction(m_reportAction);
+    toolBar->addAction(QIcon(":/icons/dview.svg"), "Открыть DView", this, &DcDeviceWindow::onDViewAction);
 
     auto journalViewAction = new QAction("Журанл соединения", this);
     journalViewAction->setCheckable(true);
@@ -214,6 +223,7 @@ DcDeviceWindow::DcDeviceWindow(DcDeviceNode *device_node, QWidget *parent)
     deviceMenu->addSeparator();
     deviceMenu->addAction(m_filesystemAction);
     deviceMenu->addAction(m_firmwareUpdateAction);
+    deviceMenu->addAction(m_reportAction);
     deviceConfigMenu->addAction(m_readConifAction);
     deviceConfigMenu->addAction(m_writeConfigAction);
     deviceConfigMenu->addAction(m_resetAction);
@@ -224,12 +234,13 @@ DcDeviceWindow::DcDeviceWindow(DcDeviceNode *device_node, QWidget *parent)
     m_undoAction->setEnabled(false);
     m_redoAction->setEnabled(false);
 
-    setDeviceActionsEnabled(false);
+    setDeviceActionsEnabled(false, false);
     setCurrentForm(m_mainForm);
 }
 
 DcDeviceWindow::~DcDeviceWindow()
 {
+//    qDebug() << "~DcDeviceWindow";
 }
 
 DcDeviceNode *DcDeviceWindow::node() const
@@ -279,53 +290,6 @@ void DcDeviceWindow::onConnectAction()
     channelSettings[PasswordSetting] = QString();
     config()->setSetting(SETTING_CHANNEL, settingsToString(channelSettings));
 
-    //	27.02.2024	//	Соединение с контроллером
-//    config()->channel()->connect(true);
-//    uint8_t rtu_mode = 255;
-//    Dpc::Sybus::ParamPackPtr pack = config()->channel()->param(SP_ALTERNATE_MODE);
-//    if (pack)
-//        rtu_mode = pack->value<uint8_t>();
-//    if (rtu_mode == 0) {
-//        QString message = "Контроллер работает в режиме RTU-3M. Режим RTU-3M не поддерживается текущей версией DConf. Вы хотите перевести устройство в режим depRTU?";
-//        bool ask = MsgBox::question(message);
-//        if (!ask) {
-//            config()->channel()->disconnect();
-//            config()->setChannel(ChannelPtr());
-
-//            return;
-//        }
-
-//        //	Перевод контроллера в режим depRTU
-//        QGuiApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-//        auto pItem = ParamPack::create(T_BYTE, 0x0FE3, 0);
-//        pItem->appendValue(0);
-//        auto res = config()->channel()->setParam(pItem);
-
-//        pItem = ParamPack::create(T_BYTE, SP_ALTERNATE_MODE, 0);
-//        pItem->appendValue(1);
-//        res = config()->channel()->setParam(pItem);
-
-//        pItem = ParamPack::create(T_BYTE, SP_SAVECFG, 0);
-//        pItem->appendValue(1);
-//        res = config()->channel()->setParam(pItem);
-//        QThread::sleep(20);
-
-//        pItem = ParamPack::create(T_BYTE, SP_RESET_DEVICE, 0);
-//        pItem->appendValue(1);
-//        res = config()->channel()->setParam(pItem);
-//        QThread::sleep(10);
-//    }
-//    QGuiApplication::restoreOverrideCursor();
-//    config()->channel()->disconnect();
-//    //	27.02.2024	//	Отключение от контроллера
-
-//    for (int i = 1; i < m_tabWidget->count(); i++) {
-//        m_tabWidget->setTabVisible(i, true);
-//    }
-
-//    updateInfo();
-
-
     m_mainForm->setTabsActive(true);
     setDeviceActionsEnabled(true);
 
@@ -336,7 +300,7 @@ void DcDeviceWindow::onConnectAction()
 void DcDeviceWindow::onDisconnectAction()
 {
     m_mainForm->setTabsActive(false);
-    setDeviceActionsEnabled(false);
+    setDeviceActionsEnabled(false, false);
 
     m_operationHeandler->setChannel(ChannelPtr());    
 }
@@ -383,7 +347,11 @@ void DcDeviceWindow::onWriteConfigAction()
 
 void DcDeviceWindow::onRestartAction()
 {
-    auto op = std::make_shared<RestartOperation>(Channel::HardReset);
+    RestartDialog dlg(m_hasT2Compatibility, this);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+
+    auto op = std::make_shared<RestartOperation>(dlg.mode(), dlg.workMode(), dlg.decontMode());
     execOperation(op);
 }
 
@@ -395,6 +363,45 @@ void DcDeviceWindow::onResetAction()
 
     auto op = std::make_shared<ResetOperation>();
     execOperation(op);
+}
+
+void DcDeviceWindow::onReportAction()
+{
+    if(!MsgBox::question(QString("Вы уверены что хотите продолжить? "
+                                  "Создание отчёта займет некоторое время")))
+        return;
+
+    QSettings setting;
+    QString lastPath = setting.value(KEY_REPORT_PATH, QDir::homePath()).toString();
+    QString parentPath = QFileDialog::getExistingDirectory(
+        this,
+        "Выберите папку для сохранения отчёта",
+        lastPath,
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks
+        );
+
+    if (parentPath.isEmpty())
+        return;
+
+    setting.setValue(KEY_REPORT_PATH, parentPath);
+
+    QString reportDirPath = QDir(parentPath).absoluteFilePath(DIR_REPORT);
+    if (!QDir().mkpath(reportDirPath)) {
+        MsgBox::error(QString("Не удалось создать папку: %1").arg(reportDirPath));
+        return;
+    }
+
+    QDir reportDir(reportDirPath);
+    QStringList entries = reportDir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot);
+    if (!entries.isEmpty()) {
+        QString warningMessage = QString("Папка \"%1\" содержит файлы. Все текущие файлы будут удалены! Продолжить?").arg(reportDirPath);
+        if (!MsgBox::question(warningMessage))
+            return;
+    }
+
+    auto op = std::make_shared<ReportOperation>(reportDirPath);
+    execOperation(op);
+
 }
 
 void DcDeviceWindow::onPassportAction()
@@ -438,6 +445,14 @@ void DcDeviceWindow::onFirmwareUpdateAction()
 
     auto op = std::make_shared<SoftUpdateOperation>(fileName);
     execOperation(op);
+}
+
+void DcDeviceWindow::onDViewAction()
+{
+    if (!QProcess::startDetached(DVIEW_PATH, QStringList())) {
+        MsgBox::error(QString("Не удалось запустить %1").arg(DVIEW_PATH));
+        return;
+    }
 }
 
 void DcDeviceWindow::onViewItemSelected(const QString &itemIdx, bool isConfigItem)
@@ -579,16 +594,20 @@ void DcDeviceWindow::createActions()
     m_filesystemAction->setToolTip("Просмотр файловой системы устройства");
     connect(m_filesystemAction, &QAction::triggered, this, &DcDeviceWindow::onFilesystemAction);
 
-    m_firmwareUpdateAction = new QAction(QIcon(":/icons/setting.svg"), "Обновление", this);
+    m_firmwareUpdateAction = new QAction(QIcon(":/icons/idea.svg"), "Обновление", this);
     m_firmwareUpdateAction->setToolTip("Обновление системы устройства");
     connect(m_firmwareUpdateAction, &QAction::triggered, this, &DcDeviceWindow::onFirmwareUpdateAction);
 
     m_passportAction = new QAction(QIcon(":/icons/list.svg"), "Паспорт", this);
-    m_passportAction->setToolTip("Создание отчёта об конфигурации устройства");
+    m_passportAction->setToolTip("Генерация паспорта конфигурации устройства");
     connect(m_passportAction, &QAction::triggered, this, &DcDeviceWindow::onPassportAction);
+
+    m_reportAction = new QAction(QIcon(":/icons/sos.svg"), "Отчёт", this);
+    m_reportAction->setToolTip("Создание полного отчёта о состоянии устройства");
+    connect(m_reportAction, &QAction::triggered, this, &DcDeviceWindow::onReportAction);
 }
 
-void DcDeviceWindow::setDeviceActionsEnabled(bool enabled)
+void DcDeviceWindow::setDeviceActionsEnabled(bool enabled, bool full)
 {
     m_disconnectAction->setEnabled(enabled);
     m_writeConfigAction->setEnabled(enabled);
@@ -599,11 +618,38 @@ void DcDeviceWindow::setDeviceActionsEnabled(bool enabled)
     m_filesystemAction->setEnabled(enabled);
     m_firmwareUpdateAction->setEnabled(enabled);
     m_passportAction->setEnabled(enabled);
+    m_reportAction->setEnabled(enabled);
+    if (full)
+        m_connectAction->setEnabled(enabled);
 }
 
 void DcDeviceWindow::operationFinished(AbstractOperation *operation)
 {
     m_mainForm->operationFinished(operation);
+
+    if (auto infoOp = dynamic_cast<InformationOperation*>(operation); infoOp) {
+        auto decontModeIt = infoOp->params().find(SP_ALTERNATE_MODE);
+        m_hasT2Compatibility = decontModeIt != infoOp->params().end();
+        if (m_hasT2Compatibility) {
+            auto& elements = decontModeIt->second.at(0);
+            auto decontModeElementIt = elements.find(0);
+            if (decontModeElementIt != elements.end() && !decontModeElementIt->second.value.toUInt()) {
+                if (MsgBox::question("Контроллер работает в режиме RTU-3M. "
+                                     "Режим RTU-3M не поддерживается текущей версией DConf. "
+                                     "Вы хотите перевести устройство в режим depRTU?")) {
+                    auto op = std::make_shared<RestartOperation>(Channel::HardReset,
+                                                                 RestartOperation::WorkMode(),
+                                                                 RestartOperation::DecontMode(Channel::DecontT2));
+                    execOperation(op);
+                }
+                else {
+                    onDisconnectAction();
+                }
+
+                return;
+            }
+        }
+    }
 
     if (operation->flags() & AbstractOperation::Filesystem) {
         m_filesystemDialog->operationFinished(operation);

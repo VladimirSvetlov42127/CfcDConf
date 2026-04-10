@@ -20,8 +20,8 @@ Service::Type FuncService::type() const
 
 bool FuncService::init()
 {
-    for(auto vdin: config()->serviceManager()->vdins())
-        m_vdins.emplace(vdin->subTypeID(), vdin);
+    for(auto vdin: config()->signalManager().getSignals<DinVirtualSignal>())
+        m_vdins.emplace(vdin->subtypeID(), vdin);
 
     auto vfListParam = config()->paramsRegistry().parameter(SP_DOUT_FUNCLIST);
     if (!vfListParam)
@@ -51,10 +51,9 @@ bool FuncService::init()
         return true;
 
     // Список виртуальных выходов.
-    std::unordered_map<uint8_t, VirtualOutputSignal*> vdouts;
-    for(auto dout: config()->serviceManager()->douts())
-        if (auto vout = dynamic_cast<VirtualOutputSignal*>(dout); vout)
-            vdouts[vout->subTypeID()] = vout;
+    std::unordered_map<uint8_t, DoutVirtualSignal*> vdouts;
+    for(auto vdout: config()->signalManager().getSignals<DoutVirtualSignal>())
+        vdouts[vdout->subtypeID()] = vdout;
 
     // Создание вирутальных функций.
     for (uint8_t i = 0; i < funcParam->profilesCount(); ++i) {
@@ -166,7 +165,7 @@ DcController *FuncService::config() const
     return m_config;
 }
 
-VirtualInputSignal *FuncService::vdin(uint16_t vdinSubTypeID) const
+DinVirtualSignal *FuncService::vdin(uint16_t vdinSubTypeID) const
 {
     if (auto vdinIt = m_vdins.find(vdinSubTypeID); vdinIt != m_vdins.end())
         return vdinIt->second;

@@ -4,15 +4,50 @@
 
 using namespace Dpc::Sybus;
 
-RestartOperation::RestartOperation(int mode, QObject * parent) :
-    AbstractOperation("Перезагрузка устройства", 0, parent),
-	m_mode(mode)
+RestartOperation::RestartOperation(RestartMode mode, WorkMode workMode, DecontMode decontMode, QObject * parent)
+    : AbstractOperation("Перезагрузка устройства", 0, parent)
+    , m_mode(mode)
+    , m_workMode{workMode}
+    , m_decontMode{decontMode}
 {
 }
 
 bool RestartOperation::exec()
 {
-	if (!channel()->restartDevice((Channel::ResetMode) m_mode)) {
+    if (m_workMode) {
+        auto p = ParamPack::create(T_BYTE, SP_NEWPROFILE);
+        p->appendValue(m_workMode.value());
+        if (!channel()->setParam(p)) {
+            addError(QString("Не удалось сменить режим работы устройства: %1")
+                     .arg(channel()->errorMsg()));
+            return false;
+        }
+    }
+
+    // Пока переводим только в режим совместимости DecontT2(depRTU)
+    if (m_decontMode && m_decontMode.value() == Channel::DecontT2) {
+        auto errorMsg = QString("Не удалось сменить режим совместимости устройства: %1");
+        auto pItem = ParamPack::create(T_BYTE, SP_SETALTCFGTEMPLATE, 0);
+        pItem->appendValue(0);
+        if (!channel()->setParam(pItem)) {
+            addError(errorMsg.arg(channel()->errorMsg()));
+            return false;
+        }
+
+        pItem = ParamPack::create(T_BYTE, SP_ALTERNATE_MODE, 0);
+        pItem->appendValue(m_decontMode.value());
+        if (!channel()->setParam(pItem)) {
+            addError(errorMsg.arg(channel()->errorMsg()));
+            return false;
+        }
+
+        if (!channel()->saveConfig()) {
+            addError(errorMsg.arg(channel()->errorMsg()));
+            return false;
+        }
+    }
+
+    if (!channel()->restartDevice(m_mode)) {
 		QString msg("Не удалось перезагрузить устройство");
 		if (m_mode == Channel::MinimalModeReset)
 			msg.append(" в минимальный режим");

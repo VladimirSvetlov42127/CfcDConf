@@ -19,6 +19,7 @@ namespace {
     QColor shape_color = QColor(70, 100, 120);
     QColor shape_bkcolor = QColor(245, 245, 245);
     QColor notbinded_bkcolor = QColor(255, 222, 222);
+    QColor shape_bkcolor_binded = QColor(255, 168, 87);
 
     int shape_width = 2;
     QFont CHANNEL_TEXT_FONT = QFont("Arial", 10);
@@ -105,7 +106,7 @@ void CfcBO::paintElement(QPainter* painter)
     painter->setPen(QPen(shape_color, shape_width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->setRenderHint(QPainter::Antialiasing);
     painter->drawPath(path);
-    painter->fillPath(path, cfcOutput()->target() ? shape_bkcolor : notbinded_bkcolor);
+    painter->fillPath(path, cfcOutput()->target() ? shape_bkcolor_binded : shape_bkcolor);
 
     //  Вывод названия сигнала
     QString text = cfcOutput()->text();

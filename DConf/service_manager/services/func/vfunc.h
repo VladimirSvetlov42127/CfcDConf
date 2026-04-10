@@ -3,7 +3,7 @@
 
 #include <QString>
 
-#include "service_manager/signals/virtual_output_signal.h"
+#include "service_manager/signals/dout_virtual_signal.h"
 
 class ParameterElement;
 class FuncService;
@@ -48,7 +48,7 @@ public:
     using UPtrVector = std::vector<VFunc::UPtr>;
 
     // vdout - Виртуальный дискретный выход, на который установлена функция.
-    VFunc(VirtualOutputSignal *vdout, ParameterElement* typeElement, ParameterElement* argElement, FuncService *service);
+    VFunc(DoutVirtualSignal *vdout, ParameterElement* typeElement, ParameterElement* argElement, FuncService *service);
     virtual ~VFunc();
 
     // Имя функции
@@ -90,7 +90,7 @@ private:
     FuncServiceOutput* output() const;
 
 private:
-    VirtualOutputSignal* m_vdout;
+    DoutVirtualSignal* m_vdout;
     ParameterElement* m_typeElement;
     ParameterElement* m_argElement;
     FuncService* m_service;

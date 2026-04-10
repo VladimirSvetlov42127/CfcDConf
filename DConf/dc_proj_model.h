@@ -1,18 +1,14 @@
 #pragma once
 
-#include <map>
-#include <list>
+#include <QWidget>
 
-#include <QObject>
-#include <QTreeView>
-#include <QProcess>
-#include <QStandardItemModel>
+#include "project/dc_node.h"
 
-class DcNode;
+class QTreeView;
+class QStandardItemModel;
+class QStandardItem;
+
 class DcProject;
-class DcMenu;
-
-class DcController;
 
 class DcProjModel : public QWidget
 {
@@ -23,9 +19,11 @@ public:
     ~DcProjModel();
 
     bool contains(DcProject *project) const;
+    const QList<DcProject*>& projects() const;
     DcNode* selectedNode() const;
 
 signals:
+    void appended(DcNode* node);
     void activate(DcNode* node);
     void aboutToClose(DcNode* node);
 
@@ -35,10 +33,12 @@ public slots:
     void closeAll();
 
 private slots:
-    void onItemChanged(QStandardItem* view_item);
     void onCustomContextMenu(const QPoint &point);
+    void onItemChanged(QStandardItem* view_item);
 //    void onTreeSelection(const QItemSelection &, const QItemSelection &);
-    void onProjectNameChanged(const QString &name);
+    void onProjectInfoChanged();
+    void onSettingsAction();
+    void onTreeDoubleClicked(const QModelIndex& index);
 
     void slotAddFolder();
     void slotAddController();
@@ -48,21 +48,17 @@ private slots:
     void slotExportController();
     void slotImportController();
     void slotPasteController();
-    void slotOpenDView();
     void slotCloseProject();
-    void onSettingsAction();
-
-private slots:
-    void onTreeDoubleClicked(const QModelIndex& index);
 
 private:
     QStandardItem* makeViewItem(DcNode* node, QStandardItem* parent_view_item);
+    DcNode* makeNode(const QString &name, DcNode::Type type, DcNode* parent_node);
     DcNode* getNode(QStandardItem* view_item, bool checkParent = false) const;
     void fillProjTreeItem(DcNode* node, QStandardItem* parent_view_item);
     void addFolder(QStandardItem *parent_view_item);
     void addDevice(QStandardItem *parent_view_item);
+    void append(DcNode* node, QStandardItem* parent_view_item);
     void close(QStandardItem *view_item, bool remove);
-    DcNode* createDeviceNode(const QString &nameTemplate, DcNode *parent_node);
 
 private:
     QTreeView* m_tree;
@@ -78,9 +74,6 @@ private:
     QAction* m_importController;
     QAction* m_pasteController;
     QAction* m_closeAction;
-    QAction* m_openDView;
-
-    QProcess* m_processDView;
 
     QList<DcProject*> m_openedProjects;
     DcNode* m_nodeToCopy;   // контроллера для копирования

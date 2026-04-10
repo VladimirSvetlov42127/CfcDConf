@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QList>
 #include <QDebug>
+#include "gui/forms/algorithms/custom/cfc_editor/cfc_namespace.h"
 
 //===================================================================================================================================================
 //	список переменных
@@ -175,13 +176,16 @@ void CfcLink::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     //  Проверка нажатой кнопки мышки
     QPointF position = QPointF((int)event->pos().x(), (int)event->pos().y());
     int selected_line = selectedLine(position);
+    if (CfcNamespace::grid_enable)
+        position = CfcNamespace::gridPoint(position);
     if (!(event->buttons() & Qt::LeftButton) || selected_line < 0 || !_is_moving) {
         QGraphicsItem::mouseMoveEvent(event);
         return;
     }
 
     prepareGeometryChange();
-    if (moveLine(selected_line, position)) needUpdate();
+    if (moveLine(selected_line, position))
+        needUpdate();
     QGraphicsItem::mouseMoveEvent(event);
 
     return;
@@ -257,18 +261,23 @@ QPainterPath CfcLink::path()
         QList<QPointF> intersections;
         for (int j = 0; j < under_lines.count(); j++) {
             QPointF ipoint;
-            if (line.intersects(under_lines.at(j), ipoint)) intersections.append(ipoint);
+            if (line.intersects(under_lines.at(j), ipoint))
+                intersections.append(ipoint);
         }
         sortOnLine(line, intersections);
 
         qreal sa = 180;
-        if (line.type() == CfcLine::HORIZONTAL)  sa = line.begin().x() >= line.end().x() ? 0 : 180;
-        if (line.type() == CfcLine::VERTICAL)    sa = line.begin().y() >= line.end().y() ? 270 : 90;
+        if (line.type() == CfcLine::HORIZONTAL)
+            sa = line.begin().x() >= line.end().x() ? 0 : 180;
+        if (line.type() == CfcLine::VERTICAL)
+            sa = line.begin().y() >= line.end().y() ? 270 : 90;
         qreal la = (sa == 0 || sa == 90) ? 180 : -180;
+
         for (int j = 0; j < intersections.count(); j++) {
             QPointF ip = intersections.at(j);
-            int sw = intersection_radius;
-            _path.arcTo(QRectF(ip, ip).adjusted(-sw, -sw, sw, sw), sa, la); }
+            QRectF rectangle = QRectF(ip, ip).adjusted(-intersection_radius, -intersection_radius, intersection_radius, intersection_radius);
+            _path.arcTo(rectangle, sa, la);
+        }
         _path.lineTo(line.end());
         under_lines.append(line);
     }

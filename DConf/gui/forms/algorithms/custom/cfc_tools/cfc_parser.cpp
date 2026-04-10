@@ -122,6 +122,20 @@ bool CfcParser::saveData(const QString& file_name)
 bool CfcParser::validate()
 {
     bool error = true;
+    //  Проверка наличия элементов на сцене
+    if (nodes().isEmpty()) {
+        QString message = "Критическая ошибка. Отсутствие элементов на сцене.";
+        emit errorToLog(message);
+        error = false;
+    }
+
+    //  Проверка наличия связей на сцене
+    if (links().isEmpty()) {
+        QString message = "Критическая ошибка. Отсутствие связей на сцене.";
+        emit errorToLog(message);
+        error = false;
+    }
+
 
     //  Проверка состояния элементов BI/BO
     QString error_text_1 = QString("Элемент %1 ID= %2. - Отстутствие сервиса.");
@@ -228,7 +242,8 @@ bool CfcParser::deserialize(QDomDocument xml)
             continue;
 
         CfcNode* node = CfcParser::newNode(nodes_list.at(i));
-        _nodes.append(node);
+        if(node)
+            _nodes.append(node);
     }
 
     //	Загрузка списка соединений

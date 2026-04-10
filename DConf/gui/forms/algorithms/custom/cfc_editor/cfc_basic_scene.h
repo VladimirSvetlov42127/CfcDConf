@@ -17,11 +17,9 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "service_manager/service_manager.h"
 #include "service_manager/services/alg_cfc/cfc_alg_service.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_node.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_link.h"
-#include "gui/forms/algorithms/custom/cfc_editor/cfc_title_item.h"
 
 
 //===================================================================================================================================================
@@ -38,13 +36,12 @@ public:
     //===============================================================================================================================================
     //	Конструктор класса
     //===============================================================================================================================================
-    CfcBasicScene(CfcAlgService* service, ServiceManager* service_manager, QGraphicsScene* parent = nullptr);
+    CfcBasicScene(CfcAlgService* service, QGraphicsScene* parent = nullptr);
 
     //===============================================================================================================================================
     //	Открытые методы класса
     //===============================================================================================================================================
     CfcAlgService* service() const { return _service; }
-    ServiceManager* serviceManager() const { return _service_manager; }
     QList<CfcNode*> bufferNodes() const { return _buffer_nodes; }
     QList<CfcLink*> bufferLinks() const { return _buffer_links; }
     uint16_t bufferCount() { return _buffer_nodes.count() + _buffer_links.count(); }
@@ -75,23 +72,11 @@ private:
     void removeLink(CfcLink* link);
     void removeNode(CfcNode* node);
     CfcNode* copyNode(CfcNode* source);
-    bool CheckCfc(QList<TargetElement*> targets) const;
 
-signals:
-    //===============================================================================================================================================
-    //	Сигналы парсера
-    //===============================================================================================================================================
-    void infoToLog(const QString& message);
-    void warningToLog(const QString& message);
-    void errorToLog(const QString& message);
-
-private:
     //===============================================================================================================================================
     //	Свойства класса
     //===============================================================================================================================================
-    ServiceManager* _service_manager;           //  Менеджер сервисов
     CfcAlgService* _service;                    //  Сервис алгоритма гибкой логикиж
-    CfcTitleItem* _title_item;                  //  Объект заголовка окна
     QList<CfcNode*> _buffer_nodes;              //  Список узлов для копирования
     QList<CfcLink*> _buffer_links;              //  Список связей для копирования
     QPointF _basic_point;                       //  Базовая точка для копирования и вставки

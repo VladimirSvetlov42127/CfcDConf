@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#include "service_manager/signals/input_signal.h"
+#include "service_manager/signals/din_signal.h"
 #include "service_manager/services/alg_cfc/cfc_alg_service.h"
 #include "db/dc_db_manager.h"
 
@@ -22,7 +22,7 @@ QString CfcServiceInput::text() const
     return source() ? source()->text() : name();
 }
 
-void CfcServiceInput::onSourceChanged(InputSignal *newSource, InputSignal *prevSource)
+void CfcServiceInput::onSourceChanged(DinSignal *newSource, DinSignal *prevSource)
 {
     auto uid = bindElement()->uid();
     if (!uid)

@@ -4,7 +4,7 @@
 #include <gui/forms/interfaces_protocols/RS485/DcRs485PortWidget.h>
 
 namespace {
-	const ListEditorContainer g_RepeaterModeList = { "Прозрачный", "Резервирование", "Независимый" };
+    const ListEditorContainer g_RepeaterModeList = { "Равноправный", "Резервированный", "Независимый" };
 	const QString g_RepeaterModeDescription = "Режим 'Независимый' возможен только в устройствах с кодами ПО 525 и 527";
 
 	const uint32_t PARAM_REPEATER_MODE = 0x5930;

@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#include "service_manager/signals/virtual_input_signal.h"
+#include "service_manager/signals/din_virtual_signal.h"
 #include "service_manager/services/alg_cfc/cfc_alg_service.h"
 #include "db/dc_db_manager.h"
 
@@ -22,7 +22,7 @@ QString CfcServiceOutput::text() const
     return target() ? target()->text() : name();
 }
 
-void CfcServiceOutput::onTargetChanged(VirtualInputSignal *newTarget, VirtualInputSignal *prevTarget)
+void CfcServiceOutput::onTargetChanged(DinVirtualSignal *newTarget, DinVirtualSignal *prevTarget)
 {
     auto uid = bindElement()->uid();
     if (!uid)

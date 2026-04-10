@@ -151,7 +151,7 @@ bool CfcAlgService::save()
 bool CfcAlgService::hasInvalidInput() const
 {
     for(auto &input: inputs()) {
-        auto vdin = input->source()->to<VirtualInputSignal>();
+        auto vdin = input->source()->to<DinVirtualSignal>();
         if (vdin && !vdin->source())
             return true;
     }
@@ -264,13 +264,13 @@ CfcAlgService::UPtr CfcAlgService::load(uint8_t position, CfcAlgManager *manager
         uint16_t bindValue = bindElement->value().toUInt();
         if (node->name() == "BI") {
             auto input = alg->makeInput(io_id, io_pin);
-            input->setSource(manager->config()->serviceManager()->din(bindValue));
+            input->setSource(manager->config()->signalManager().getSignal<DinSignal>(bindValue));
             static_cast<CfcBI*>(node)->setCfcInput(input);
         }
 
         if (node->name() == "BO") {
             auto output = alg->makeOutput(io_id, io_pin);
-            output->setTarget(manager->config()->serviceManager()->vdin(bindValue));
+            output->setTarget(manager->config()->signalManager().getSignal<DinVirtualSignal>(bindValue));
             static_cast<CfcBO*>(node)->setCfcOutput(output);
         }
     }

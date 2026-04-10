@@ -66,7 +66,7 @@ private:
     DcController* config() const;
 
     // Возвращает vdin с subTypeId = vdinSubTypeID, или nullptr если нет такого.
-    VirtualInputSignal* vdin(uint16_t vdinSubTypeID) const;
+    DinVirtualSignal* vdin(uint16_t vdinSubTypeID) const;
 
     // Создание выходa сервиса для функции func.
     // Если будет найден vdin c subTypeId равным значению аргумента функции, и этот vdin будет свободен,
@@ -83,7 +83,7 @@ private:
 
 private:
     DcController *m_config;
-    std::unordered_map<uint8_t, VirtualInputSignal*> m_vdins;
+    std::unordered_map<uint16_t, DinVirtualSignal*> m_vdins;
     std::map<uint8_t, VFuncInfo> m_vfuncsInfo;
     VFunc::UPtrVector m_vfuncList;
 };

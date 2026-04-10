@@ -62,8 +62,20 @@ QList<IFileManagerPtr>& fileManagersList();
 template<typename T>
 class AutoReg {
 public:
-	AutoReg() { fileManagersList().append(std::make_shared<T>()); }
+    AutoReg()
+    {
+        if (m_registered++)
+            return;
+
+        fileManagersList().append(std::make_shared<T>());
+    }
+
+private:
+    static uint8_t m_registered;
 };
+
+template<typename T>
+uint8_t AutoReg<T>::m_registered = 0;
 
 #define FILE_MANAGER_REGISTER(TYPE) \
 namespace { AutoReg<TYPE> __var; };

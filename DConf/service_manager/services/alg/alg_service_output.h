@@ -15,7 +15,7 @@ public:
     virtual ~AlgServiceOutput() = default;
 
 protected:
-    void onTargetChanged(VirtualInputSignal *newTarget, VirtualInputSignal *prevTarget) override;
+    void onTargetChanged(DinVirtualSignal *newTarget, DinVirtualSignal *prevTarget) override;
 };
 
 #endif // INTERNALSERVICEOUTPUT_H

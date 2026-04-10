@@ -1,5 +1,7 @@
 #include "service.h"
 
+#include <QDebug>
+
 Service::Service(const QString &name)
     : m_name{ name }
 {
@@ -28,6 +30,16 @@ const ServiceInputList &Service::inputs() const
 const ServiceOutputList &Service::outputs() const
 {
     return m_outputs;
+}
+
+bool Service::fillTables() const
+{
+    return m_fillTables;
+}
+
+void Service::setFillTables(bool fill)
+{
+    m_fillTables = fill;
 }
 
 void Service::addInput(ServiceInputPtr input)

@@ -52,6 +52,16 @@ public:
 
     void update(const QString &name, const QString &value);
 
+    // Получение значение бита bit из значения элемента
+    // При работе с битами, значение элемента приводится к чилсловому.
+    // Если тип элемента не числовой - в значении окажется мусор.
+    bool bitValue(uint8_t bit) const;
+
+    // Установка бита bit значачения элемента в состояние value
+    // При работе с битами, значение элемента приводится к чилсловому.
+    // Если тип элемента не числовой - в значении окажется мусор.
+    void setBitValue(uint8_t bit, bool value);
+
     // Данные методы возвращают те же данные что и у параметра.
     uint8_t type() const;
     uint16_t addr() const;
@@ -92,6 +102,24 @@ private:
     bool m_hasChanged;
 
     __Helper m_helper;
+};
+
+// Структура для описания элемента и бита в нём. Используется для битовых операций с элементами параметров.
+struct ElementBit
+{
+    ParameterElement* element = nullptr;
+    uint8_t bit = 0;
+
+    std::optional<bool> value() const {
+        if (element)
+            return element->bitValue(bit);
+        return {};
+    }
+
+    void setValue(bool value) {
+        if (element)
+            element->setBitValue(bit, value);
+    }
 };
 
 #endif // PARAMETERELEMENT_H

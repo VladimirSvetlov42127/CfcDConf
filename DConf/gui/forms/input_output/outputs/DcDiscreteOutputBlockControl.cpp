@@ -20,8 +20,8 @@ namespace {
 	ListEditorContainer getDiscretList(DcController *device)
 	{
 		ListEditorContainer discreteList = { {"Не используется", 0xFF} };
-		for (auto signal: device->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_PHIS)) {
-			discreteList.append({ signal->name(), signal->internalId() });
+        for (auto signal: device->signalManager().getSignals<DinSignal>(Signal::Subtype::Physical)) {
+            discreteList.append({ signal->name(), signal->internalID() });
 		}
 
 		return discreteList;

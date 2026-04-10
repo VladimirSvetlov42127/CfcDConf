@@ -42,7 +42,7 @@ void AlgsDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
         auto service_data = Dpc::toPtr<ServiceInput>(index.data(SERVICE_DATA));
         if (service_data->source()) {
             name = service_data->source()->fullText();
-            auto vdin = service_data->source()->to<VirtualInputSignal>();
+            auto vdin = service_data->source()->to<DinVirtualSignal>();
             if (vdin && !vdin->source())
                 hasWarning = true;
         }

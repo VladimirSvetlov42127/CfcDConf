@@ -6,6 +6,7 @@
 //===================================================================================================================================================
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QDebug>
 
 
 //===================================================================================================================================================
@@ -20,13 +21,13 @@ namespace {
 //===================================================================================================================================================
 //	Конструктор класса
 //===================================================================================================================================================
-CfcNewLink::CfcNewLink(CfcSocket* socket, QGraphicsItem* parent) : QGraphicsObject(parent)
+CfcNewLink::CfcNewLink(CfcSocket* socket, QGraphicsItem* parent)
+    : QGraphicsObject(parent)
+    , _current_socket { socket }
+    , _source_socket { nullptr }
+    , _target_socket { nullptr }
+    , _mouse_point { socket->scenePos() }
 {
-    _released = false;
-    _current_socket = socket;
-    _source_socket = nullptr;
-    _target_socket = nullptr;
-    _mouse_point = socket->scenePos();
 }
 
 
@@ -62,25 +63,36 @@ QPainterPath CfcNewLink::shape() const
     return ps.createStroke(path());
 }
 
+bool CfcNewLink::checkSocket(CfcSocket* socket) const
+{
+    if (!socket)
+        return false;
+    if (socket == currentSocket())
+        return false;
+    if (socket->socketType() == currentSocket()->socketType())
+        return false;
+    if (socket->socketType() == CfcSocket::INPUT_SOCKET && socket->links().count() > 0)
+        return false;
+
+    return true;
+}
+
 
 //===================================================================================================================================================
 //	Виртуальные методы класса
 //===================================================================================================================================================
 void CfcNewLink::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-    //  Настройка вывода
+    //  Вывод ломаной линии
     painter->save();
     painter->setPen(QPen(select_color, 1, Qt::DotLine));
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setBrush(QBrush());
-
-    //  Вывод ломаной линии
     painter->drawPath(path());
 
     //	Вывод точек
     painter->setPen(QPen(select_color, 0));
     painter->setBrush(QBrush(Qt::white));
-
     QList<QPointF> cfc_points = points();
     for (int i = 0; i < cfc_points.count(); i++)
         painter->drawEllipse(cfc_points.at(i), select_shape / 2, select_shape / 2);
@@ -89,15 +101,19 @@ void CfcNewLink::paint(QPainter* painter, const QStyleOptionGraphicsItem* option
     return;
 }
 
+void CfcNewLink::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    setCursor(Qt::CrossCursor);
+}
+
 void CfcNewLink::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     scene()->views().at(0)->setCursor(QCursor(Qt::ArrowCursor));
-    _released = true;
     _mouse_point = event->scenePos();
     CfcSocket* socket = dynamic_cast<CfcSocket*>(scene()->itemAt(_mouse_point, QTransform()));
     if (!socket)
         return;
-    if (socket->socketType() == _current_socket->socketType())
+    if (!checkSocket(socket))
         return;
 
     //  Определение источника и приемника сигнала
@@ -109,22 +125,15 @@ void CfcNewLink::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void CfcNewLink::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (_released)
-        return;
-
     _mouse_point = event->scenePos();
     CfcSocket* socket = dynamic_cast<CfcSocket*>(scene()->itemAt(_mouse_point, QTransform()));
-    if (!socket && scene()->views().at(0)->cursor() != Qt::CrossCursor)
-        scene()->views().at(0)->setCursor(Qt::CrossCursor);
-
-    // if (socket && (socket->socketType() == _current_socket->socketType())) scene()->views().at(0)->setCursor(Qt::ForbiddenCursor);
-    if (socket)
-        socket->socketType() == _current_socket->socketType() ? scene()->views().at(0)->setCursor(Qt::ForbiddenCursor) :
-        scene()->views().at(0)->setCursor(Qt::DragCopyCursor);
-
+    if (!socket) {
+        setCursor(Qt::CrossCursor);
+    } else {
+        checkSocket(socket) ? setCursor(Qt::DragCopyCursor) : setCursor(Qt::ForbiddenCursor);
+    }
     update();
     QGraphicsItem::mouseMoveEvent(event);
-
 }
 
 

@@ -30,7 +30,7 @@ VirtualFunctionsForm::VirtualFunctionsForm(DcController* controller) : DcForm(co
 {
     //  Создание делегата для списка функций
     Dpc::Gui::ComboBoxDelegate* func_delegate = new Dpc::Gui::ComboBoxDelegate(this);
-    auto types_list = controller->serviceManager()->funcService().supportedTypes();
+    auto types_list = controller->funcService().supportedTypes();
     for (auto& item : types_list) {
         func_delegate->append({ item.second.name, item.first });
     }
@@ -40,7 +40,7 @@ VirtualFunctionsForm::VirtualFunctionsForm(DcController* controller) : DcForm(co
 
     //  Таблица для вывода списка виртуальных функций
     Dpc::Gui::TableView* table_view = new Dpc::Gui::TableView();
-    VirtualFunctionsModel* model = new VirtualFunctionsModel(&controller->serviceManager()->funcService());
+    VirtualFunctionsModel* model = new VirtualFunctionsModel(&controller->funcService());
     table_view->setModel(model);
     table_view->horizontalHeader()->resizeSection(VirtualFunctionsModel::OUTPUT_COLUMN, 200);
     table_view->horizontalHeader()->resizeSection(VirtualFunctionsModel::FUNCTION_COLUMN, 350);

@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include <dpc/gui/widgets/SpinBox.h>
-#include <gui/forms/interfaces_protocols/IEC-101/DcIEC101ChannelsForm.h>
+#include <gui/forms/interfaces_protocols/IEC-101/iec101_channels_form.h>
 #include <gui/forms/interfaces_protocols/IEC-101/DcIEC101SettingsForm.h>
 
 using namespace Dpc::Gui;
@@ -131,8 +131,8 @@ DcRs485Iec101SlaveProtocolWidget::DcRs485Iec101SlaveProtocolWidget(DcRs485Iec101
     DcIEC101SettingsForm iec101Form(device());
 	addTab(iec101Form.createProtocolAssingmentsTab(), Text::ParamAssignments);
 
-    DcIEC101ChannelsForm channelsForm(device());
-	addTab(channelsForm.createChannelsTable(DEF_SIG_TYPE_DISCRETE), Text::Discrets);
-	addTab(channelsForm.createChannelsTable(DEF_SIG_TYPE_ANALOG), Text::Analogs);
-	addTab(channelsForm.createChannelsTable(DEF_SIG_TYPE_COUNTER), Text::Counters);
+    Iec101ChannelsForm channelsForm(device());
+    addTab(channelsForm.createTableView(Signal::Type::Din), Text::Discrets);
+    addTab(channelsForm.createTableView(Signal::Type::Ain), Text::Analogs);
+    addTab(channelsForm.createTableView(Signal::Type::Cin), Text::Counters);
 }

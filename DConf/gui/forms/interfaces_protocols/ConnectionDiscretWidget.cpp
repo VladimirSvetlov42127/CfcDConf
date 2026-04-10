@@ -25,7 +25,7 @@ ConnectionDiscretWidget::ConnectionDiscretWidget(DcController *controller, int i
 	m_deviceName(deviceName),
 	m_comboBox(new QComboBox(this))
 {
-    m_connectionService = controller->serviceManager()->algManager().alg(SP_INDCON_WORDIN_PARAM);
+    m_connectionService = controller->algManager().alg(SP_INDCON_WORDIN_PARAM);
 	updateList();
 
 	connect(m_comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConnectionDiscretWidget::onComboBoxIndexChanged);
@@ -49,7 +49,7 @@ void ConnectionDiscretWidget::updateList()
         return;
 
     auto sp = subscriberProfile(m_interfaceIdx, m_deviceIdx);
-    VirtualInputSignal* currentVDin = nullptr;
+    DinVirtualSignal* currentVDin = nullptr;
     if (sp && sp.value() < m_connectionService->outputs().size())
         currentVDin = m_connectionService->outputs().at(sp.value())->target();
 
@@ -58,7 +58,7 @@ void ConnectionDiscretWidget::updateList()
     m_comboBox->clear();
     m_comboBox->addItem("Не установлено", QVariant());
 
-    for(auto vdin: m_controller->serviceManager()->vdins()) {
+    for(auto vdin: m_controller->signalManager().getSignals<DinVirtualSignal>()) {
         if (vdin->source() && vdin != currentVDin)
             continue;
 
@@ -80,7 +80,7 @@ void ConnectionDiscretWidget::onComboBoxIndexChanged(int idx)
 		return;
     }
 
-    auto vdin = Dpc::toPtr<VirtualInputSignal>(m_comboBox->itemData(idx));
+    auto vdin = Dpc::toPtr<DinVirtualSignal>(m_comboBox->itemData(idx));
     auto serviceOutput = m_connectionService->outputs().at(sp.value()).get();
     serviceOutput->setTarget(vdin);
 
@@ -88,7 +88,7 @@ void ConnectionDiscretWidget::onComboBoxIndexChanged(int idx)
     m_comboBox->setItemText(idx, vdin->text());
 
     // Обновить текст предыдущего
-    auto prevVdin = Dpc::toPtr<VirtualInputSignal>(m_comboBox->itemData(m_previousComboBoxIdx));
+    auto prevVdin = Dpc::toPtr<DinVirtualSignal>(m_comboBox->itemData(m_previousComboBoxIdx));
     if (prevVdin)
         m_comboBox->setItemText(m_previousComboBoxIdx, prevVdin->text());
     m_previousComboBoxIdx = idx;

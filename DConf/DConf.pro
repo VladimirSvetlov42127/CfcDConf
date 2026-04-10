@@ -8,8 +8,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/../DConf/header
 INCLUDEPATH += $$PWD/../Dpc $$[QT_INSTALL_PREFIX]/../Src/qtbase/include
 DEPENDPATH += $$PWD/../Dpc
+
+QXLSX_PARENTPATH=./
+QXLSX_HEADERPATH=./header/
+QXLSX_SOURCEPATH=./source/
+include(./QXlsx.pri)
 
 LIBS += -lDpc
 unix: LIBS += -lz -ldl
@@ -75,6 +81,7 @@ HEADERS += \
     device_operations/config_write_operation.h \
     device_operations/datetime_operation.h \
     device_operations/dc_operation_handler.h \
+    device_operations/report_operation/excel_zip_exporter.h \
     device_operations/filesystem_download_operation.h \
     device_operations/filesystem_format_operation.h \
     device_operations/filesystem_info_operation.h \
@@ -82,6 +89,7 @@ HEADERS += \
     device_operations/filesystem_new_operation.h \
     device_operations/filesystem_remove_operation.h \
     device_operations/filesystem_upload_operation.h \
+    device_operations/report_operation/report_operation.h \
     device_operations/reset_operation.h \
     device_operations/restart_operation.h \
     device_operations/soft_update_operation.h \
@@ -101,6 +109,7 @@ HEADERS += \
     gui/dialogs/config_deprotec.h \
     gui/dialogs/frmCreateProj.h \
     gui/dialogs/frmOpenProj.h \
+    gui/dialogs/restart_dialog.h \
     gui/editors/EditorsManager.h \
     gui/editors/types/CheckParamEditor.h \
     gui/editors/types/LineParamEditor.h \
@@ -110,20 +119,21 @@ HEADERS += \
     gui/forms/DcForm.h \
     gui/forms/DcFormFactory.h \
     gui/forms/DcMenu.h \
+    gui/forms/algorithms/custom/cfc_algs_model.h \
+    gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_link.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_node.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_scene.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_line.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_link.h \
+    gui/forms/algorithms/custom/cfc_editor/cfc_namespace.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_new_link.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_node.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_scene.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_socket.h \
-    gui/forms/algorithms/custom/cfc_editor/cfc_title_item.h \
     gui/forms/algorithms/custom/cfc_editor/cfc_view.h \
-    gui/forms/algorithms/custom/cfc_algs_model.h \
     gui/forms/algorithms/custom/cfc_nodes/cfc_and.h \
     gui/forms/algorithms/custom/cfc_nodes/cfc_bi.h \
     gui/forms/algorithms/custom/cfc_nodes/cfc_bo.h \
@@ -142,7 +152,6 @@ HEADERS += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.h \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.h \
-    gui/forms/algorithms/custom/DcCustomAlgorithmsForm.h \
     gui/forms/algorithms/embedded/AlgDataModel.h \
     gui/forms/algorithms/embedded/DcAlgDefines.h \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.h \
@@ -198,19 +207,18 @@ HEADERS += \
     gui/forms/functions/virtual_functions/virtual_functions_form.h \
     gui/forms/functions/virtual_functions/virtual_functions_model.h \
     gui/forms/information/information_form.h \
-    gui/forms/input_output/analog_inputs/DcAnalogChannelsSettings.h \
-    gui/forms/input_output/counter_inputs/counter_inputs_form.h \
-    gui/forms/input_output/counter_inputs/counter_model.h \
-    gui/forms/input_output/inputs/DcDiscreteInputACDSignalForm.h \
-    gui/forms/input_output/inputs/DcDiscreteInputTwoPositionedSignalsForm.h \
+    gui/forms/input_output/analog_inputs/ains_form.h \
+    gui/forms/input_output/counter_inputs/cins_form.h \
+    gui/forms/input_output/inputs/dins_acp_form.h \
+    gui/forms/input_output/inputs/dpins_form.h \
     gui/forms/input_output/outputs/DcDiscreteOutputBlockControl.h \
-    gui/forms/input_output/outputs/DcDiscreteOutputChannelForm.h \
     gui/forms/input_output/outputs/DcDiscreteOutputClonesForm.h \
+    gui/forms/input_output/outputs/douts_form.h \
     gui/forms/interfaces_protocols/ConnectionDiscretWidget.h \
-    gui/forms/interfaces_protocols/IEC-101/DcIEC101ChannelsForm.h \
     gui/forms/interfaces_protocols/IEC-101/DcIEC101SettingsForm.h \
-    gui/forms/interfaces_protocols/IEC-103/DcIEC103ChannelsForm.h \
+    gui/forms/interfaces_protocols/IEC-101/iec101_channels_form.h \
     gui/forms/interfaces_protocols/IEC-103/DcIEC103SettingsForm.h \
+    gui/forms/interfaces_protocols/IEC-103/iec103_channels_form.h \
     gui/forms/interfaces_protocols/IEC-61850/61850_defines.h \
     gui/forms/interfaces_protocols/IEC-61850/Communication.h \
     gui/forms/interfaces_protocols/IEC-61850/DataTypeTemplates.h \
@@ -296,8 +304,8 @@ HEADERS += \
     gui/forms/interfaces_protocols/RS485/common_slave_functions.h \
     gui/forms/interfaces_protocols/RS485/macrosCheckPointer.h \
     gui/forms/interfaces_protocols/SIM/DcSimForm.h \
-    gui/forms/interfaces_protocols/SPODES/DcSpodesChannelsForm.h \
     gui/forms/interfaces_protocols/SPODES/DcSpodesSettingsForm.h \
+    gui/forms/interfaces_protocols/SPODES/spodes_channels_form.h \
     gui/forms/interfaces_protocols/TCP/DcTcpForm.h \
     gui/forms/interfaces_protocols/TimeSync/DcTimeSyncForm.h \
     gui/forms/main/abstract_device_tab.h \
@@ -326,6 +334,11 @@ HEADERS += \
     gui/forms/thresholds_settings/DcPqiEventSettingsForm.h \
     gui/forms/thresholds_settings/DcPqiSettingsForm.h \
     gui/forms/thresholds_settings/DcThresholdsForm.h \
+    gui/models/ain_model.h \
+    gui/models/cin_model.h \
+    gui/models/din_model.h \
+    gui/models/dout_model.h \
+    gui/models/dpin_model.h \
     project/dc_config_loader.h \
     project/dc_device_node.h \
     project/dc_dir_node.h \
@@ -335,7 +348,6 @@ HEADERS += \
     report/DcIConfigReport.h \
     report/DcReportTable.h \
     report/DcTextDocumentConfigReport.h \
-    service_manager/service_manager.h \
     service_manager/services/alg/alg_manager.h \
     service_manager/services/alg/alg_service.h \
     service_manager/services/alg/alg_service_input.h \
@@ -351,26 +363,38 @@ HEADERS += \
     service_manager/services/service_input.h \
     service_manager/services/service_io.h \
     service_manager/services/service_output.h \
+    service_manager/signals/ain_acp_signal.h \
+    service_manager/signals/ain_physical_signal.h \
+    service_manager/signals/ain_remote_internal_signal.h \
+    service_manager/signals/ain_remote_signal.h \
     service_manager/signals/ain_signal.h \
-    service_manager/signals/ain_virtual.h \
+    service_manager/signals/ain_virtual_archive_signal.h \
+    service_manager/signals/ain_virtual_signal.h \
+    service_manager/signals/cin_physical_signal.h \
+    service_manager/signals/cin_remote_internal_signal.h \
+    service_manager/signals/cin_remote_signal.h \
     service_manager/signals/cin_signal.h \
-    service_manager/signals/cin_virtual.h \
-    service_manager/signals/din_adc.h \
-    service_manager/signals/din_logical.h \
-    service_manager/signals/din_physical.h \
-    service_manager/signals/din_remote.h \
+    service_manager/signals/cin_virtual_signal.h \
+    service_manager/signals/din_acp_signal.h \
+    service_manager/signals/din_logical_signal.h \
+    service_manager/signals/din_physical_signal.h \
+    service_manager/signals/din_remote_internal_signal.h \
+    service_manager/signals/din_remote_signal.h \
     service_manager/signals/din_signal.h \
-    service_manager/signals/din_virtual.h \
+    service_manager/signals/din_virtual_signal.h \
+    service_manager/signals/dout_led_signal.h \
+    service_manager/signals/dout_physical_signal.h \
+    service_manager/signals/dout_remote_internal_signal.h \
+    service_manager/signals/dout_remote_signal.h \
     service_manager/signals/dout_signal.h \
-    service_manager/signals/dout_virtual.h \
-    service_manager/signals/input_signal.h \
-    service_manager/signals/output_signal.h \
+    service_manager/signals/dout_virtual_signal.h \
+    service_manager/signals/dpin_signal.h \
     service_manager/signals/signal.h \
+    service_manager/signals/signal_factory.h \
+    service_manager/signals/signal_icustom_name.h \
+    service_manager/signals/signal_manager.h \
     service_manager/signals/target_element.h \
-    service_manager/signals/virtual_input_signal.h \
-    service_manager/signals/virtual_output_signal.h \
     updater/updater.h \
-    utils/bindings_update.h \
     utils/cfg_path.h \
     utils/qzipreader_p.h \
     utils/qzipwriter_p.h \
@@ -380,10 +404,8 @@ HEADERS += \
     gui/dialogs/params_dialog.h \
     gui/dialogs/scene_dialog.h \
     gui/forms/algorithms/custom/flex_editor_form.h \
-    gui/forms/input_output/inputs/dins_board_widget.h \
     gui/forms/input_output/inputs/dins_external_form.h \
     gui/forms/input_output/inputs/dins_logical_form.h \
-    gui/forms/input_output/inputs/dins_model.h \
     gui/forms/input_output/inputs/dins_physical_form.h \
     gui/forms/input_output/inputs/dins_virtual_form.h \
     gui/forms/algorithms/embedded/algs/MTZ_NN/MTZ_NN_Algorithm.h \
@@ -424,6 +446,7 @@ SOURCES += \
     device_operations/config_write_operation.cpp \
     device_operations/datetime_operation.cpp \
     device_operations/dc_operation_handler.cpp \
+    device_operations/report_operation/excel_zip_exporter.cpp \
     device_operations/filesystem_download_operation.cpp \
     device_operations/filesystem_format_operation.cpp \
     device_operations/filesystem_info_operation.cpp \
@@ -431,6 +454,7 @@ SOURCES += \
     device_operations/filesystem_new_operation.cpp \
     device_operations/filesystem_remove_operation.cpp \
     device_operations/filesystem_upload_operation.cpp \
+    device_operations/report_operation/report_operation.cpp \
     device_operations/reset_operation.cpp \
     device_operations/restart_operation.cpp \
     device_operations/soft_update_operation.cpp \
@@ -450,6 +474,7 @@ SOURCES += \
     gui/dialogs/config_deprotec.cpp \
     gui/dialogs/frmCreateProj.cpp \
     gui/dialogs/frmOpenProj.cpp \
+    gui/dialogs/restart_dialog.cpp \
     gui/editors/EditorsManager.cpp \
     gui/editors/types/CheckParamEditor.cpp \
     gui/editors/types/LineParamEditor.cpp \
@@ -459,20 +484,21 @@ SOURCES += \
     gui/forms/DcForm.cpp \
     gui/forms/DcFormFactory.cpp \
     gui/forms/DcMenu.cpp \
+    gui/forms/algorithms/custom/cfc_algs_model.cpp \
+    gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_link.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_node.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_basic_scene.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_line.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_link.cpp \
+    gui/forms/algorithms/custom/cfc_editor/cfc_namespace.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_new_link.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_node.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_scene.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_socket.cpp \
-    gui/forms/algorithms/custom/cfc_editor/cfc_title_item.cpp \
     gui/forms/algorithms/custom/cfc_editor/cfc_view.cpp \
-    gui/forms/algorithms/custom/cfc_algs_model.cpp \
     gui/forms/algorithms/custom/cfc_nodes/cfc_and.cpp \
     gui/forms/algorithms/custom/cfc_nodes/cfc_bi.cpp \
     gui/forms/algorithms/custom/cfc_nodes/cfc_bo.cpp \
@@ -490,7 +516,6 @@ SOURCES += \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_item.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_editor_model.cpp \
     gui/forms/algorithms/custom/cfc_tools/cfc_parser.cpp \
-    gui/forms/algorithms/custom/DcCustomAlgorithmsForm.cpp \
     gui/forms/algorithms/embedded/AlgDataModel.cpp \
     gui/forms/algorithms/embedded/DcEmbeddedAlgorithmsForm.cpp \
     gui/forms/algorithms/embedded/IAlgorithm.cpp \
@@ -544,19 +569,18 @@ SOURCES += \
     gui/forms/functions/virtual_functions/virtual_functions_form.cpp \
     gui/forms/functions/virtual_functions/virtual_functions_model.cpp \
     gui/forms/information/information_form.cpp \
-    gui/forms/input_output/analog_inputs/DcAnalogChannelsSettings.cpp \
-    gui/forms/input_output/counter_inputs/counter_inputs_form.cpp \
-    gui/forms/input_output/counter_inputs/counter_model.cpp \
-    gui/forms/input_output/inputs/DcDiscreteInputACDSignalForm.cpp \
-    gui/forms/input_output/inputs/DcDiscreteInputTwoPositionedSignalsForm.cpp \
+    gui/forms/input_output/analog_inputs/ains_form.cpp \
+    gui/forms/input_output/counter_inputs/cins_form.cpp \
+    gui/forms/input_output/inputs/dins_acp_form.cpp \
+    gui/forms/input_output/inputs/dpins_form.cpp \
     gui/forms/input_output/outputs/DcDiscreteOutputBlockControl.cpp \
-    gui/forms/input_output/outputs/DcDiscreteOutputChannelForm.cpp \
     gui/forms/input_output/outputs/DcDiscreteOutputClonesForm.cpp \
+    gui/forms/input_output/outputs/douts_form.cpp \
     gui/forms/interfaces_protocols/ConnectionDiscretWidget.cpp \
-    gui/forms/interfaces_protocols/IEC-101/DcIEC101ChannelsForm.cpp \
     gui/forms/interfaces_protocols/IEC-101/DcIEC101SettingsForm.cpp \
-    gui/forms/interfaces_protocols/IEC-103/DcIEC103ChannelsForm.cpp \
+    gui/forms/interfaces_protocols/IEC-101/iec101_channels_form.cpp \
     gui/forms/interfaces_protocols/IEC-103/DcIEC103SettingsForm.cpp \
+    gui/forms/interfaces_protocols/IEC-103/iec103_channels_form.cpp \
     gui/forms/interfaces_protocols/IEC-61850/Communication.cpp \
     gui/forms/interfaces_protocols/IEC-61850/DataTypeTemplates.cpp \
     gui/forms/interfaces_protocols/IEC-61850/Dc61850Form.cpp \
@@ -629,8 +653,8 @@ SOURCES += \
     gui/forms/interfaces_protocols/RS485/Sybus/slave/DcRs485SybusSlaveProtocol.cpp \
     gui/forms/interfaces_protocols/RS485/common_slave_functions.cpp \
     gui/forms/interfaces_protocols/SIM/DcSimForm.cpp \
-    gui/forms/interfaces_protocols/SPODES/DcSpodesChannelsForm.cpp \
     gui/forms/interfaces_protocols/SPODES/DcSpodesSettingsForm.cpp \
+    gui/forms/interfaces_protocols/SPODES/spodes_channels_form.cpp \
     gui/forms/interfaces_protocols/TCP/DcTcpForm.cpp \
     gui/forms/interfaces_protocols/TimeSync/DcTimeSyncForm.cpp \
     gui/forms/main/abstract_device_tab.cpp \
@@ -659,6 +683,11 @@ SOURCES += \
     gui/forms/thresholds_settings/DcPqiEventSettingsForm.cpp \
     gui/forms/thresholds_settings/DcPqiSettingsForm.cpp \
     gui/forms/thresholds_settings/DcThresholdsForm.cpp \
+    gui/models/ain_model.cpp \
+    gui/models/cin_model.cpp \
+    gui/models/din_model.cpp \
+    gui/models/dout_model.cpp \
+    gui/models/dpin_model.cpp \
     main.cpp \
     project/dc_config_loader.cpp \
     project/dc_device_node.cpp \
@@ -669,7 +698,6 @@ SOURCES += \
     report/DcIConfigReport.cpp \
     report/DcReportTable.cpp \
     report/DcTextDocumentConfigReport.cpp \
-    service_manager/service_manager.cpp \
     service_manager/services/alg/alg_manager.cpp \
     service_manager/services/alg/alg_service.cpp \
     service_manager/services/alg/alg_service_input.cpp \
@@ -685,39 +713,49 @@ SOURCES += \
     service_manager/services/service_input.cpp \
     service_manager/services/service_io.cpp \
     service_manager/services/service_output.cpp \
+    service_manager/signals/ain_acp_signal.cpp \
+    service_manager/signals/ain_physical_signal.cpp \
+    service_manager/signals/ain_remote_internal_signal.cpp \
+    service_manager/signals/ain_remote_signal.cpp \
     service_manager/signals/ain_signal.cpp \
-    service_manager/signals/ain_virtual.cpp \
+    service_manager/signals/ain_virtual_archive_signal.cpp \
+    service_manager/signals/ain_virtual_signal.cpp \
+    service_manager/signals/cin_physical_signal.cpp \
+    service_manager/signals/cin_remote_internal_signal.cpp \
+    service_manager/signals/cin_remote_signal.cpp \
     service_manager/signals/cin_signal.cpp \
-    service_manager/signals/cin_virtual.cpp \
-    service_manager/signals/din_adc.cpp \
-    service_manager/signals/din_logical.cpp \
-    service_manager/signals/din_physical.cpp \
-    service_manager/signals/din_remote.cpp \
+    service_manager/signals/cin_virtual_signal.cpp \
+    service_manager/signals/din_acp_signal.cpp \
+    service_manager/signals/din_logical_signal.cpp \
+    service_manager/signals/din_physical_signal.cpp \
+    service_manager/signals/din_remote_internal_signal.cpp \
+    service_manager/signals/din_remote_signal.cpp \
     service_manager/signals/din_signal.cpp \
-    service_manager/signals/din_virtual.cpp \
+    service_manager/signals/din_virtual_signal.cpp \
+    service_manager/signals/dout_led_signal.cpp \
+    service_manager/signals/dout_physical_signal.cpp \
+    service_manager/signals/dout_remote_internal_signal.cpp \
+    service_manager/signals/dout_remote_signal.cpp \
     service_manager/signals/dout_signal.cpp \
-    service_manager/signals/dout_virtual.cpp \
-    service_manager/signals/input_signal.cpp \
-    service_manager/signals/output_signal.cpp \
+    service_manager/signals/dout_virtual_signal.cpp \
+    service_manager/signals/dpin_signal.cpp \
     service_manager/signals/signal.cpp \
+    service_manager/signals/signal_factory.cpp \
+    service_manager/signals/signal_icustom_name.cpp \
+    service_manager/signals/signal_manager.cpp \
     service_manager/signals/target_element.cpp \
-    service_manager/signals/virtual_input_signal.cpp \
-    service_manager/signals/virtual_output_signal.cpp \
     updater/updater.cpp \
-    utils/bindings_update.cpp \
     utils/cfg_path.cpp \
-    utils/qzip.cpp \
     gui/dialogs/params_dialog.cpp \
     gui/dialogs/scene_dialog.cpp \
     gui/forms/algorithms/custom/flex_editor_form.cpp \
-    gui/forms/input_output/inputs/dins_board_widget.cpp \
     gui/forms/input_output/inputs/dins_external_form.cpp \
     gui/forms/input_output/inputs/dins_logical_form.cpp \
-    gui/forms/input_output/inputs/dins_model.cpp \
     gui/forms/input_output/inputs/dins_physical_form.cpp \
     gui/forms/input_output/inputs/dins_virtual_form.cpp \
     gui/forms/algorithms/embedded/algs/MTZ_NN/MTZ_NN_Algorithm.cpp \
     gui/forms/algorithms/embedded/algs/MTZ_SN/MTZ_SN_Algorithm.cpp \
     gui/forms/thresholds_settings/pqi_event_model.cpp \
     gui/forms/functions/oscillography/AnalogsModel.cpp \
-    gui/forms/interfaces_protocols/RS485/TransparentChannel/dc_rs485_transparent_protocol.cpp
+    gui/forms/interfaces_protocols/RS485/TransparentChannel/dc_rs485_transparent_protocol.cpp \
+    utils/qzip.cpp

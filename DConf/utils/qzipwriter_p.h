@@ -61,13 +61,13 @@ QT_BEGIN_NAMESPACE
 class QZipWriterPrivate;
 
 
-class Q_AUTOTEST_EXPORT QZipWriter
+class Q_AUTOTEST_EXPORT MyZipWriter
 {
 public:
-	QZipWriter(const QString &fileName, QIODevice::OpenMode mode = (QIODevice::WriteOnly | QIODevice::Truncate));
+    MyZipWriter(const QString &fileName, QIODevice::OpenMode mode = (QIODevice::WriteOnly | QIODevice::Truncate));
 
-	explicit QZipWriter(QIODevice *device);
-	~QZipWriter();
+    explicit MyZipWriter(QIODevice *device);
+    ~MyZipWriter();
 
 	bool isWritable() const;
 	bool exists() const;
@@ -105,7 +105,7 @@ public:
 	void close();
 private:
 	QZipWriterPrivate * d;
-	Q_DISABLE_COPY(QZipWriter)
+    Q_DISABLE_COPY(MyZipWriter)
 };
 
 QT_END_NAMESPACE

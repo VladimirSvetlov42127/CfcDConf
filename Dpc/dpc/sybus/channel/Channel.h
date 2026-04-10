@@ -18,7 +18,7 @@ namespace Dpc::Sybus
 		Q_OBJECT
 
 	public:
-		enum ResetMode {
+        enum ResetMode {
 			HardReset = 1,
 			MinimalModeReset = 3
 		};
@@ -27,6 +27,11 @@ namespace Dpc::Sybus
 			Work = 0, 
 			Prepare
 		};
+
+        enum DecontMode {
+            Decont = 0,
+            DecontT2
+        };
 
 		enum ErrorType {
 			NoErrorType = 0,
@@ -160,7 +165,7 @@ namespace Dpc::Sybus
         bool updateDevice(const QString &fileName, int board = -1);
 
 		// Сохранение конфигурации и перезагрузка устройства. После перезагрузки ожидается таймаут.
-		bool restartDevice(ResetMode mode = HardReset, int board = -1);		
+        bool restartDevice(ResetMode mode = HardReset, int board = -1);
 		bool saveConfig(int board = -1);
 
 		// Сброс конфигурации в заводские настройки

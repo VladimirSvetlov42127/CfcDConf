@@ -8,6 +8,8 @@
 
 #include <gui/editors/EditorsManager.h>
 
+#include "service_manager/signals/cin_virtual_signal.h"
+
 using namespace Dpc::Gui;
 
 namespace {
@@ -17,8 +19,8 @@ namespace {
 	{
 		ComboBoxDelegate* result = new ComboBoxDelegate(parent);
 		result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-		for (auto signal : contr->getSignalList(DEF_SIG_TYPE_DISCRETE)) {
-			result->append({ signal->name(), static_cast<uint>(signal->internalId()) });
+        for (auto signal : contr->signalManager().getSignals<DinSignal>()) {
+            result->append({ signal->text(), signal->internalID() });
 		}
 
 		return result;
@@ -28,8 +30,8 @@ namespace {
 	{
 		ComboBoxDelegate* result = new ComboBoxDelegate(parent);
 		result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-		for (auto signal : contr->getSignalList(DEF_SIG_TYPE_COUNTER, DEF_SIG_SUBTYPE_VIRTUAL)) {
-			result->append({ signal->name(), static_cast<uint>(signal->internalId()) });
+        for (auto signal : contr->signalManager().getSignals<CinVirtualSignal>()) {
+            result->append({ signal->text(), signal->internalID() });
 		}
 
 		return result;

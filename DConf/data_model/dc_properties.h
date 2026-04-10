@@ -6,7 +6,7 @@
 
 class DcProperties {
 public:
-    DcProperties();
+    DcProperties(const QString &jsonString = QString());
 
     auto begin() const { return m_container.begin(); }
     auto end() const { return m_container.end(); }

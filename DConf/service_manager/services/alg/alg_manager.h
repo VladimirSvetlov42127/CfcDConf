@@ -28,8 +28,10 @@ public:
     // Список встроенных алгоритмов/сервисов
     QList<AlgService*> algList() const;
 
-    // Возвращает встроенный алгоритм/сервис с адресом addr
-    AlgService* alg(uint16_t addr) const;    
+    // Возвращает встроенный алгоритм/сервис с адресом addr. profile - профиль алгоритма в рамках SP_CROSSTABLE.
+    // Для обратной совместимости с древними конфигурациями
+    // когда все привязки хранились в параметре SP_CROSSTABLE. В данный момент акутально только LT-P-GSM.
+    AlgService* alg(uint16_t addr, uint8_t profile = 0) const;
 
 private:
     DcController* config() const;
@@ -50,7 +52,7 @@ private:
 
 private:
     DcController* m_config;
-    std::unordered_map<uint16_t, AlgService::UPtr> m_algs;
+    std::unordered_map<uint32_t, AlgService::UPtr> m_algs;
     std::unordered_set<uint16_t> m_usedAlgIds;
     std::unordered_set<uint16_t> m_usedIOIds;
 };

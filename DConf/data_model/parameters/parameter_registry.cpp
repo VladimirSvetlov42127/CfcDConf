@@ -65,6 +65,31 @@ ParameterElement *ParameterRegistry::element(uint16_t addr, uint16_t position) c
     return parameter->element(position);
 }
 
+ParameterElement *ParameterRegistry::element(uint16_t addr, uint8_t profileIdx, uint16_t idx) const
+{
+    auto parameter = this->parameter(addr);
+    if (!parameter)
+        return nullptr;
+
+    return parameter->element(profileIdx, idx);
+}
+
+ElementBit ParameterRegistry::elementBit(uint16_t addr, uint32_t parameterBit, uint8_t profileIdx) const
+{
+    if (auto param = parameter(addr))
+        return param->elementBit(parameterBit, profileIdx);
+
+    return {};
+}
+
+ElementBit ParameterRegistry::elementBit(uint16_t addr, uint16_t bit, uint8_t profileIdx, uint16_t idx)
+{
+    if (auto param = parameter(addr))
+        return param->elementBit(bit, profileIdx, idx);
+
+    return {};
+}
+
 bool ParameterRegistry::isEqual(ParameterRegistry *other) const
 {
     if (size() != other->size()) {

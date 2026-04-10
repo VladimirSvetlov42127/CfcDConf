@@ -23,7 +23,7 @@ QString ServiceOutput::name() const
     return m_bindElement->name();
 }
 
-void ServiceOutput::setTarget(VirtualInputSignal *newTarget)
+void ServiceOutput::setTarget(DinVirtualSignal *newTarget)
 {
     if (target() == newTarget)
         return;
@@ -40,11 +40,11 @@ void ServiceOutput::setTarget(VirtualInputSignal *newTarget)
     onTargetChanged(newTarget, prevTarget);
 }
 
-void ServiceOutput::onTargetChanged(VirtualInputSignal*, VirtualInputSignal*)
+void ServiceOutput::onTargetChanged(DinVirtualSignal*, DinVirtualSignal*)
 {
 }
 
-VirtualInputSignal *ServiceOutput::target() const
+DinVirtualSignal *ServiceOutput::target() const
 {
     return m_target;
 }
@@ -59,7 +59,7 @@ ParameterElement *ServiceOutput::bindElement()
     return m_bindElement;
 }
 
-void ServiceOutput::updateBinding(VirtualInputSignal *new_target)
+void ServiceOutput::updateBinding(DinVirtualSignal *new_target)
 {
     auto newValue = new_target ? new_target->internalID() : g_NoSignal;
     bindElement()->updateValue(QString::number(newValue));

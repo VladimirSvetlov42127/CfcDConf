@@ -25,6 +25,12 @@ using namespace Dpc::Gui;
 
 namespace {
 
+enum Role {
+    NodeTypeRole = Qt::UserRole + 1,
+    NodeNameRole
+
+};
+
 } // namespace
 
 FilesystemDiaolog::FilesystemDiaolog(QWidget *parent)
@@ -192,11 +198,11 @@ void FilesystemDiaolog::onDownloadAction()
 {
     QStringList pathList;
     for (auto& item : m_listWidget->selectedItems()) {
-        auto nodeType = item->data(Qt::UserRole).value<NodeType>();
+        auto nodeType = item->data(NodeTypeRole).value<NodeType>();
         if (FileNode != nodeType)
             return;
 
-        pathList << makePath(item->text());
+        pathList << makePath(item->data(NodeNameRole).toString());
     }
 
     if (pathList.isEmpty())
@@ -228,11 +234,11 @@ void FilesystemDiaolog::onRemoveAction()
 
     QStringList removeList;
     for (auto item : m_listWidget->selectedItems()) {
-        auto nodeType = item->data(Qt::UserRole).value<NodeType>();
+        auto nodeType = item->data(NodeTypeRole).value<NodeType>();
         if (nodeType & (DriveNode | DotDotNode))
             continue;
 
-        removeList << makePath(item->text());
+        removeList << makePath(item->data(NodeNameRole).toString());
     }
 
     if (removeList.isEmpty())
@@ -251,11 +257,11 @@ void FilesystemDiaolog::onFormatAction()
 
     QStringList driveList;
     for (auto item : m_listWidget->selectedItems()) {
-        auto nodeType = item->data(Qt::UserRole).value<NodeType>();
+        auto nodeType = item->data(NodeTypeRole).value<NodeType>();
         if (nodeType != DriveNode)
             continue;
 
-        driveList << makePath(item->text());
+        driveList << makePath(item->data(NodeNameRole).toString());
     }
 
     if (driveList.isEmpty())
@@ -271,15 +277,15 @@ void FilesystemDiaolog::onFormatAction()
 
 void FilesystemDiaolog::onItemDoubleClicked(QListWidgetItem* item)
 {
-    auto nodeType = item->data(Qt::UserRole).value<NodeType>();
+    auto nodeType = item->data(NodeTypeRole).value<NodeType>();
     if (FileNode == nodeType)
         return;
 
     QString dir;
-    QString text = item->text();
+    QString nodeName = item->data(NodeNameRole).toString();
     QString curPath = currentPath();
     if (DriveNode == nodeType) {
-        dir = QString("%1:/").arg(text);
+        dir = QString("%1:/").arg(nodeName);
     }
     else if (DotDotNode == nodeType) {
         if (curPath.back() != '/') {
@@ -288,7 +294,7 @@ void FilesystemDiaolog::onItemDoubleClicked(QListWidgetItem* item)
         }
     }
     else {
-        dir = makePath(text);
+        dir = makePath(nodeName);
     }
 
     changeDirTo(dir);
@@ -298,7 +304,7 @@ void FilesystemDiaolog::onItemSelectionChanged()
 {
     NodeTypes selectedTypes = NoNode;
     for(auto item: m_listWidget->selectedItems()) {
-        auto nodeType = item->data(Qt::UserRole).value<NodeType>();
+        auto nodeType = item->data(NodeTypeRole).value<NodeType>();
         selectedTypes |= nodeType;
     }
 
@@ -331,20 +337,26 @@ void FilesystemDiaolog::changeDirTo(const QString& dir)
     emit operationRequest(std::make_shared<FilesystemListOperation>(dir));
 }
 
-void FilesystemDiaolog::addNode(const QString& text, NodeType type)
+void FilesystemDiaolog::addNode(const QString& nodeName, NodeType type)
 {
-    auto item = new QListWidgetItem(text, m_listWidget);
-    item->setData(Qt::UserRole, QVariant::fromValue<NodeType>(type));
+    auto item = new QListWidgetItem(nodeName, m_listWidget);
+    item->setData(NodeTypeRole, QVariant::fromValue<NodeType>(type));
+    item->setData(NodeNameRole, nodeName);
     switch (type) {
     case DriveNode:
-        item->setIcon(QIcon(":/icons/dsp.svg"));
+        item->setIcon(nodeName.toUInt() ? QIcon(":/icons/bd_o.svg") : QIcon(":/icons/bd_g.svg"));
+        item->setText(QString("Том %1").arg(nodeName));
         break;
     case DirNode:
     case DotDotNode:
         item->setIcon(QIcon(":/icons/folder.svg"));
         break;
     case FileNode:
-        item->setIcon(QIcon(":/icons/file.svg"));
+        item->setIcon(QIcon(":/icons/fs_file.svg"));
+        if (nodeName.endsWith(".zip"))
+            item->setIcon(QIcon(":/icons/fs_file_zip.svg"));
+        if (nodeName.endsWith(".dat"))
+            item->setIcon(QIcon(":/icons/fs_file_dat.svg"));
         break;
     default:
         break;
@@ -352,12 +364,12 @@ void FilesystemDiaolog::addNode(const QString& text, NodeType type)
     m_listWidget->addItem(item);
 }
 
-QString FilesystemDiaolog::makePath(const QString& text)
+QString FilesystemDiaolog::makePath(const QString& nodeName)
 {
     auto path = currentPath();
     if (path.size() && path.back() != '/')
         path.append('/');
-    path.append(text);
+    path.append(nodeName);
 
     return path;
 }

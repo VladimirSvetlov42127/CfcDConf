@@ -3,6 +3,8 @@
 #include <qstring.h>
 
 #include <dpc/dpc_global.h>
+#include <dpc/sybus/ParamAttribute.h>
+#include <dpc/sybus/ParamPack.h>
 
 namespace Dpc::Sybus
 {
@@ -10,6 +12,7 @@ namespace Dpc::Sybus
 	{
 	public:
 		ParamDimension(uint8_t profileCount = 0, uint16_t subProfileCount = 0);
+        explicit ParamDimension(uint16_t dimension, ParamAttribute attr);
 
 		uint8_t profileCount() const { return m_profileCount; }
 		uint16_t subProfileCount() const { return m_subProfileCount; }
@@ -20,7 +23,7 @@ namespace Dpc::Sybus
 		QString toString() const;
 
 	private:
-		uint8_t m_profileCount;
-		uint16_t m_subProfileCount;
+        uint8_t m_profileCount = 0;
+        uint16_t m_subProfileCount = 0;
 	};
 } // namespace

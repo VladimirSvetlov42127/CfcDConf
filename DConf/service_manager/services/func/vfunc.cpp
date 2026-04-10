@@ -4,7 +4,7 @@
 #include "service_manager/services/func/func_service.h"
 #include "service_manager/services/func/func_service_output.h"
 
-VFunc::VFunc(VirtualOutputSignal *vdout, ParameterElement *typeElement, ParameterElement *argElement, FuncService *service)
+VFunc::VFunc(DoutVirtualSignal *vdout, ParameterElement *typeElement, ParameterElement *argElement, FuncService *service)
     : m_vdout{ vdout }
     , m_typeElement{ typeElement }
     , m_argElement{ argElement}

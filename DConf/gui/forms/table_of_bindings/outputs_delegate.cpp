@@ -11,8 +11,8 @@
 //===================================================================================================================================================
 //	Подключение модулей проекта
 //===================================================================================================================================================
-#include "service_manager/signals/output_signal.h"
-#include "service_manager/signals/virtual_input_signal.h"
+#include "service_manager/signals/dout_signal.h"
+#include "service_manager/signals/din_virtual_signal.h"
 
 
 //===================================================================================================================================================
@@ -36,11 +36,11 @@ void OutputsDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 
     //  Получение параметров привязки
     QString name = QString();
-    auto output = Dpc::toPtr<OutputSignal>(index.data(SERVICE_DATA));
+    auto output = Dpc::toPtr<DoutSignal>(index.data(SERVICE_DATA));
     bool hasWarning = false;
     if (output->source()) {
         name = output->source()->fullText();
-        auto vdin = output->source()->to<VirtualInputSignal>();
+        auto vdin = output->source()->to<DinVirtualSignal>();
         if (vdin && !vdin->source())
             hasWarning = true;
     }

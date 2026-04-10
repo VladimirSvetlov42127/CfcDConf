@@ -3,27 +3,68 @@
 #include <qdebug.h>
 
 #include <dpc/sybus/ParamAttribute.h>
+#include "data_model/dc_signal.h"
 #include "data_model/parameters/parameter_element.h"
 #include "data_model/parameters/parameter_element_board.h"
 
+#include "service_manager/signals/signal_factory.h"
+
+//#define TRACE_ENABLE
+
+#ifdef TRACE_ENABLE
 #define TRACE(msg) \
     qDebug().noquote() << QString("[DB] %1").arg(msg);
+#else
+#define TRACE(msg)
+#endif
 
 namespace {
 
-const char* SELECT_SETTINGS             = "SELECT * FROM settings";
-const char* SELECT_CFG_HEADLINE         = "SELECT * FROM cfg_parameters_headline";
-const char* SELECT_CFG_ITEMS            = "SELECT * FROM cfg_parameters_items ORDER BY address, param_index";
-const char* SELECT_BOARDS               = "SELECT * FROM boards";
-const char* SELECT_BOARD_CFG_PARAMETERS = "SELECT * FROM board_cfg_parameters ORDER BY addr, param";
-const char* SELECT_SIGNALS              = "SELECT * FROM signals";
-const char* SELECT_ALGS                 = "SELECT * FROM algs ORDER BY name";
-const char* SELECT_ALG_IO               = "SELECT * FROM alg_io";
-const char* SELECT_ALGS_CFC             = "SELECT * FROM algs_cfc";
-const char* SELECT_ALG_CFC_IO           = "SELECT * FROM alg_cfc_io";
-const char* SELECT_MATRIX_ALG           = "SELECT * FROM matrix_alg";
-const char* SELECT_MATRIX_ALG_CFC       = "SELECT * FROM matrix_alg_cfc";
-const char* SELECT_MATRIX_SIGNALS       = "SELECT * FROM matrix_signals";
+constexpr const uint8_t INPUT = 1;
+constexpr const uint8_t OUTPUT = 2;
+
+constexpr const uint8_t DISCRET = 1;
+constexpr const uint8_t ANALOG = 2;
+constexpr const uint8_t COUNTER = 3;
+
+constexpr const char* SELECT_SETTINGS             = "SELECT * FROM settings";
+constexpr const char* SELECT_CFG_HEADLINE         = "SELECT * FROM cfg_parameters_headline";
+constexpr const char* SELECT_CFG_ITEMS            = "SELECT * FROM cfg_parameters_items ORDER BY address, param_index";
+constexpr const char* SELECT_BOARDS               = "SELECT * FROM boards";
+constexpr const char* SELECT_BOARD_CFG_PARAMETERS = "SELECT * FROM board_cfg_parameters ORDER BY addr, param";
+constexpr const char* SELECT_SIGNALS              = "SELECT * FROM signals WHERE direction = %1 AND type = %2 ORDER BY internal_id";
+constexpr const char* SELECT_ALGS                 = "SELECT * FROM algs ORDER BY name";
+constexpr const char* SELECT_ALG_IO               = "SELECT * FROM alg_io";
+constexpr const char* SELECT_ALGS_CFC             = "SELECT * FROM algs_cfc";
+constexpr const char* SELECT_ALG_CFC_IO           = "SELECT * FROM alg_cfc_io";
+constexpr const char* SELECT_MATRIX_ALG           = "SELECT * FROM matrix_alg";
+constexpr const char* SELECT_MATRIX_ALG_CFC       = "SELECT * FROM matrix_alg_cfc";
+constexpr const char* SELECT_MATRIX_SIGNALS       = "SELECT * FROM matrix_signals";
+
+uint16_t physicalSubtypeID;
+uint16_t logicalSubtypeID;
+uint16_t virtualSubtypeID;
+uint16_t remoteSubtypeID;
+uint16_t acpledSubtypeID;
+uint16_t archiveVirtualSubtypeID;
+uint16_t remoteInternalSubtypeID;
+
+void clearSubtypeIDs()
+{
+    physicalSubtypeID = 0;
+    logicalSubtypeID = 0;
+    virtualSubtypeID = 0;
+    remoteSubtypeID = 0;
+    acpledSubtypeID = 0;
+    archiveVirtualSubtypeID = 0;
+    remoteInternalSubtypeID = 0;
+}
+
+const SignalFactory& signalFactory()
+{
+    static SignalFactory f;
+    return f;
+}
 
 int callback_settings_controller(void *data, int argc, char **argv, char **) {
 
@@ -210,16 +251,86 @@ int callback_signals_controller(void *data, int argc, char **argv, char **) {
     if ((argv[0] == nullptr) || (argv[1] == nullptr) || (argv[2] == nullptr) || (argv[4] == nullptr) || (argv[5] == nullptr))
         return 0;
 
-    int signalid = atoi(argv[0]);
-    int internalid = atoi(argv[1]);
-    auto direction = static_cast<DefSignalDirection>(atoi(argv[2]));
-    auto type = static_cast<DefSignalType>(atoi(argv[3]));
-    auto subtype = static_cast<DefSignalSubType>(atoi(argv[4]));
+    uint32_t globalID = atoi(argv[0]);
+    uint16_t internalID = atoi(argv[1]);
+    uint8_t direction = atoi(argv[2]);
+    uint8_t typeVal = atoi(argv[3]);
+    uint8_t subtypeVal = atoi(argv[4]);
     QString name = argv[5];
-    QString properties = argv[6];
+    QString properties = argv[6];    
 
+    auto type = Signal::Type::Din;
+    if (direction == INPUT && typeVal == DISCRET)
+        type = Signal::Type::Din;
+    else if (direction == INPUT && typeVal == ANALOG)
+        type = Signal::Type::Ain;
+    else if (direction == INPUT && typeVal == COUNTER)
+        type = Signal::Type::Cin;
+    else if (direction == OUTPUT && typeVal == DISCRET)
+        type = Signal::Type::Dout;
+    else
+        return 0;
+
+    auto subtype = Signal::Subtype::None;
+    uint16_t subtypeID = 0;
+    switch (subtypeVal) {
+    case 1:
+        subtype = Signal::Subtype::Physical;
+        subtypeID = physicalSubtypeID++;
+        break;
+    case 2:
+        subtype = Signal::Subtype::Logical;
+        subtypeID = logicalSubtypeID++;
+        break;
+    case 3:
+        subtype = Signal::Subtype::Virtual;
+        subtypeID = virtualSubtypeID++;
+        break;
+    case 4:
+        subtype = Signal::Subtype::Remote;
+        subtypeID = remoteSubtypeID++;
+        break;
+    case 5:
+        if (Signal::Type::Dout == type)
+            subtype = Signal::Subtype::Led;
+        else
+            subtype = Signal::Subtype::Acp;
+        subtypeID = acpledSubtypeID++;
+        break;
+    case 6:
+        subtype = Signal::Subtype::ArchiveVirtual;
+        subtypeID = archiveVirtualSubtypeID++;
+        break;
+    case 7:
+        subtype = Signal::Subtype::RemoteInternal;
+        subtypeID = remoteInternalSubtypeID++;
+        break;
+    default:
+        return 0;
+    }
+
+    Signal::Config sconf{name, globalID, internalID, subtypeID, properties};
     auto pcontroller = static_cast<DcController*>(data);
-    auto psignal = new DcSignal(signalid, internalid, direction, type, subtype, name, properties, pcontroller);
+    auto& signalManager = pcontroller->signalManager();
+    if (Signal::Type::Ain == type)
+        signalManager.addSignal(signalFactory().createAinSignal(subtype, sconf));
+    if (Signal::Type::Din == type)
+        signalManager.addSignal(signalFactory().createDinSignal(subtype, sconf));
+    if (Signal::Type::Cin == type)
+        signalManager.addSignal(signalFactory().createCinSignal(subtype, sconf));
+    if (Signal::Type::Dout == type)
+        signalManager.addSignal(signalFactory().createDoutSignal(subtype, sconf));
+
+
+    auto psignal = new DcSignal(
+                globalID,
+                internalID,
+                static_cast<DefSignalDirection>(direction),
+                static_cast<DefSignalType>(typeVal),
+                static_cast<DefSignalSubType>(subtypeVal),
+                name,
+                properties,
+                pcontroller);
     if (!pcontroller->addSignal(psignal, true)) {
         delete psignal;
     }
@@ -463,8 +574,23 @@ DcController::UPtr DcDbManager::load(const QString &filePath, const QString &nam
         return nullptr;
     if (!exec(item.get(), SELECT_BOARD_CFG_PARAMETERS, callback_board_cfg_parameters, device.get()))
         return nullptr;
-    if (!exec(item.get(), SELECT_SIGNALS, callback_signals_controller, device.get()))
+
+    clearSubtypeIDs();
+    if (!exec(item.get(), QString(SELECT_SIGNALS).arg(INPUT).arg(DISCRET).toStdString().c_str(), callback_signals_controller, device.get()))
         return nullptr;
+
+    clearSubtypeIDs();
+    if (!exec(item.get(), QString(SELECT_SIGNALS).arg(INPUT).arg(ANALOG).toStdString().c_str(), callback_signals_controller, device.get()))
+        return nullptr;
+
+    clearSubtypeIDs();
+    if (!exec(item.get(), QString(SELECT_SIGNALS).arg(INPUT).arg(COUNTER).toStdString().c_str(), callback_signals_controller, device.get()))
+        return nullptr;
+
+    clearSubtypeIDs();
+    if (!exec(item.get(), QString(SELECT_SIGNALS).arg(OUTPUT).arg(DISCRET).toStdString().c_str(), callback_signals_controller, device.get()))
+        return nullptr;
+
     if (!exec(item.get(), SELECT_ALGS, callback_algs_controller, device.get()))
         return nullptr;
     if (!exec(item.get(), SELECT_ALG_IO, callback_alg_io_controller, device.get()))
@@ -481,8 +607,9 @@ DcController::UPtr DcDbManager::load(const QString &filePath, const QString &nam
         return nullptr;
 
     device->setUid(freeUid());
-//    TRACE(QString("Loaded uid(%1), name(%2), file(%3)").arg(device->uid()).arg(device->name(), device->path()));
+    TRACE(QString("Loaded uid(%1), name(%2), file(%3)").arg(device->uid()).arg(device->name(), device->path()));
     m_connections.emplace(device->uid(), std::move(item));
+
     return device;
 }
 
@@ -516,7 +643,7 @@ void DcDbManager::close(int32_t uid)
     if (it == m_connections.end())
         return;
 
-//    TRACE(QString("Close uid(%1), name(%2), file(%3)").arg(uid).arg(it->second->device->name(), it->second->filePath));
+    TRACE(QString("Close uid(%1), name(%2), file(%3)").arg(uid).arg(it->second->device->name(), it->second->filePath));
     m_connections.erase(it);
 }
 
@@ -563,6 +690,7 @@ bool DcDbManager::stepTransaction()
         return false;
     }
 
+    TRACE(QString("%1 => %2").arg(item->device ? item->device->name() : QString(), ppair.second));
     int rc = sqlite3_exec(item->db, ppair.second.toStdString().c_str(), 0, 0, 0);
     if (rc != SQLITE_OK) {
         makeError(QString("%1: \"%2\"").arg(sqlite3_errmsg(item->db), ppair.second), item);

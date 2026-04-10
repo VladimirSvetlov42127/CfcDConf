@@ -174,14 +174,14 @@ QVariant TreeViewDataModel::data(const QModelIndex & index, int role) const
 			{
             case BaseTreeItem::LDType: return QIcon(":/icons/LD.svg");
             case BaseTreeItem::LNType: return QIcon(":/icons/LN.svg");
-            case BaseTreeItem::DOType: return QIcon(":/icons/D_O.svg");
+            case BaseTreeItem::DOType: return QIcon(":/icons/DO.svg");
 			case BaseTreeItem::SDOType:
 			case BaseTreeItem::BDAType:
 			case BaseTreeItem::FCDAType:
-            case BaseTreeItem::DAType: return QIcon(":/icons/D_A.svg");
-            case BaseTreeItem::DSType: return QIcon(":/icons/D_S.svg");
+            case BaseTreeItem::DAType: return QIcon(":/icons/DA.svg");
+            case BaseTreeItem::DSType: return QIcon(":/icons/DS.svg");
             case BaseTreeItem::RType: return QIcon(":/icons/R.svg");
-            case BaseTreeItem::GSEType: return QIcon(":/icons/G_S.svg");
+            case BaseTreeItem::GSEType: return QIcon(":/icons/GS.svg");
 			default: return QVariant();
 			}
 	}

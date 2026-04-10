@@ -3,6 +3,15 @@
 #include "data_model/dc_controller.h"
 #include "db/dc_db_manager.h"
 
+namespace {
+
+uint32_t combine(uint16_t addr, uint8_t profile)
+{
+    return (static_cast<uint32_t>(profile) << 16) | static_cast<uint32_t>(addr);
+}
+
+}
+
 AlgManager::AlgManager(DcController* config)
     : m_config{config}
 {
@@ -52,14 +61,14 @@ void AlgManager::clearBindings()
 void AlgManager::rebind()
 {
     for(auto &[addr, alg]: m_algs) {
-        for(auto& input: alg->inputs()) {
+        for(const auto& input: alg->inputs()) {
             auto bindValue = static_cast<const ServiceInput*>(input.get())->bindElement()->value().toUInt();
-            input->setSource(config()->serviceManager()->din(bindValue));
+            input->setSource(config()->signalManager().getSignal<DinSignal>(bindValue));
         }
 
         for(auto& output: alg->outputs()) {
             auto bindValue = static_cast<const ServiceOutput*>(output.get())->bindElement()->value().toUInt();
-            output->setTarget(config()->serviceManager()->vdin(bindValue));
+            output->setTarget(config()->signalManager().getSignal<DinVirtualSignal>(bindValue));
         }
     }
 }
@@ -78,9 +87,9 @@ QList<AlgService *> AlgManager::algList() const
     return result;
 }
 
-AlgService *AlgManager::alg(uint16_t addr) const
+AlgService *AlgManager::alg(uint16_t addr, uint8_t profile) const
 {
-    if (auto algIt = m_algs.find(addr); algIt != m_algs.end())
+    if (auto algIt = m_algs.find(combine(addr, profile)); algIt != m_algs.end())
         return algIt->second.get();
 
     return nullptr;
@@ -99,10 +108,23 @@ void AlgManager::load(DcAlgInternal *internalAlg)
     auto id = internalAlg->index();
     uint16_t inAddr = internalAlg->property("addr").toUInt(nullptr, 16);
     uint16_t outAddr = inAddr + 1;
+    uint8_t profile = 0;
+    if (!inAddr) {
+        // Если не указан адрес алгоритма и позиция не отрицательна, то адрес алгоритма SP_CROSSTABLE,
+        // а входы/выходы в профиле position.
+        if (internalAlg->position() < 0)
+            return;
+
+        // Входы и выходы в одном профиле параметра SP_CROSSTABLE.
+        inAddr = SP_CROSSTABLE;
+        outAddr = SP_CROSSTABLE;
+        profile = internalAlg->position();
+    }
     if (!inAddr || this->alg(inAddr))
         return;
 
-    auto alg = m_algs.emplace(inAddr, std::make_unique<AlgService>(id, internalAlg->name(), inAddr) ).first->second.get();
+    auto alg = m_algs.emplace(combine(inAddr, profile), std::make_unique<AlgService>(id, internalAlg->name(), inAddr) ).first->second.get();
+    alg->setProfile(profile);
     setUsedAlgID(id);
 
     auto inParameter = config()->paramsRegistry().parameter(inAddr);
@@ -139,6 +161,10 @@ void AlgManager::update(uint16_t inAddr, const QString &name)
     if (!inAddr)
         return;
 
+    // Старые алгоритмы не возможно обновить этим методом.
+    if (inAddr == SP_CROSSTABLE)
+        return;
+
     uint16_t outAddr = inAddr + 1;
     auto inParameter = config()->paramsRegistry().parameter(inAddr);
     auto outParameter = config()->paramsRegistry().parameter(outAddr);
@@ -149,7 +175,7 @@ void AlgManager::update(uint16_t inAddr, const QString &name)
         if (!inParameter && !outParameter)
             return;
 
-        alg = m_algs.emplace(inAddr, std::make_unique<AlgService>(takeFreeAlgID(), name, inAddr) ).first->second.get();
+        alg = m_algs.emplace(combine(inAddr, 0), std::make_unique<AlgService>(takeFreeAlgID(), name, inAddr) ).first->second.get();
         if (uid) {
             DcProperties prop;
             prop.set("addr", QString("0x%1").arg(QString::number(inAddr, 16).toUpper()));
@@ -163,6 +189,9 @@ void AlgManager::update(uint16_t inAddr, const QString &name)
             query = QString("DELETE FROM alg_io WHERE alg_id = %1;").arg(alg->id());
             gDbManager.execute(uid, query);
         }
+
+        // Для новых сервисов, фиксация изменений в табилцах не нужна
+        alg->setFillTables(false);
     }
 
     auto ioQuery = QString("INSERT INTO alg_io(io_id, alg_id, alg_pin, io_direction, name) VALUES(%1, %2, %3, %4, '%5');");

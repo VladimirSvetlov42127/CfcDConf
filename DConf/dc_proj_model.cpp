@@ -4,6 +4,8 @@
 #include <QMenu>
 #include <QHeaderView>
 #include <QFileDialog>
+#include <QStandardItemModel>
+#include <QTreeView>
 #include <QItemSelectionModel>
 #include <QDirIterator>
 #include <QStyledItemDelegate>
@@ -24,14 +26,7 @@ using namespace Dpc::Gui;
 
 namespace 
 {
-#ifdef QT_DEBUG
-    constexpr const char*  DVIEW_PATH = "dview.exe";
-#else
-	const QString DVIEW_PATH =	"dview.exe";
-#endif
-
-    constexpr const char* TEXT_ALREADY_RUNING = "Программа уже запущена!";
-    constexpr const char* default_filder_name = "Новая папка";
+    constexpr const char* default_dir_name = "Новая папка";
 
     enum {
         ProgressRole = Qt::UserRole + 2,
@@ -87,13 +82,14 @@ DcProjModel::DcProjModel(QWidget *parent)
     : QWidget{parent}
     , m_tree{new QTreeView(this) }
     , m_model{new QStandardItemModel(m_tree) }
-    , m_processDView{ new QProcess(this) }
+//    , m_processDView{ new QProcess(this) }
     , m_nodeToCopy{ nullptr }    
 {
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(QMargins(0, 0, 0, 0));
     layout->addWidget(m_tree);
 
+    m_model->setHorizontalHeaderLabels({"Имя", "Объект", "Автор", "Описание"});
     connect(m_model, &QStandardItemModel::itemChanged, this, &DcProjModel::onItemChanged);
 
     m_tree->setModel(m_model);
@@ -102,7 +98,7 @@ DcProjModel::DcProjModel(QWidget *parent)
 	m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_tree->setItemDelegateForColumn(0, new ProgressDelegate(this));
-    m_tree->header()->hide();
+//    m_tree->header()->hide();
     connect(m_tree, &QTreeView::doubleClicked, this, &DcProjModel::onTreeDoubleClicked);
     connect(m_tree, &QTreeView::customContextMenuRequested, this, &DcProjModel::onCustomContextMenu);
 //    connect(m_tree->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DcProjModel::onTreeSelection);
@@ -130,9 +126,6 @@ DcProjModel::DcProjModel(QWidget *parent)
 
     m_closeAction = new QAction("Закрыть проект", this);
     connect(m_closeAction, SIGNAL(triggered()), this, SLOT(slotCloseProject()));
-
-    m_openDView = new QAction("Открыть DView", this);
-    connect(m_openDView, SIGNAL(triggered()), this, SLOT(slotOpenDView()));
 }
 
 DcProjModel::~DcProjModel()
@@ -143,6 +136,11 @@ DcProjModel::~DcProjModel()
 bool DcProjModel::contains(DcProject *project) const
 {
     return m_openedProjects.contains(project);
+}
+
+const QList<DcProject *> &DcProjModel::projects() const
+{
+    return m_openedProjects;
 }
 
 DcNode *DcProjModel::selectedNode() const
@@ -156,16 +154,17 @@ void DcProjModel::openProject(DcProject *project)
         return;
 
     m_openedProjects.append(project);
-    connect(project, &DcNode::nameChanged, this, &DcProjModel::onProjectNameChanged);
+    connect(project, &DcProject::infoChanged, this, &DcProjModel::onProjectInfoChanged);
 
     auto project_view_item = makeViewItem(project, nullptr);
     for (size_t i = 0; i < project->childsSize(); ++i)
         fillProjTreeItem(project->child(i), project_view_item);
 
     auto index = project_view_item->index();
-    m_tree->expand(index);
+    m_tree->expandRecursively(index);
     m_tree->scrollTo(index, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentIndex(index);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void DcProjModel::closeProject(DcProject *project)
@@ -173,7 +172,7 @@ void DcProjModel::closeProject(DcProject *project)
     if (!contains(project))
         return;
 
-    disconnect(project, &DcNode::nameChanged, this, &DcProjModel::onProjectNameChanged);
+    disconnect(project, &DcProject::infoChanged, this, &DcProjModel::onProjectInfoChanged);
     for(int i = 0; i < m_model->rowCount(); ++i) {
         auto view_item = m_model->item(i, 0);
         if (getNode(view_item) == project)
@@ -191,12 +190,13 @@ void DcProjModel::closeAll()
 
 void DcProjModel::onCustomContextMenu(const QPoint &point)
 {
-    auto node = getNode(m_model->itemFromIndex(m_tree->indexAt(point)));
+    auto selectedIndex = m_tree->indexAt(point);
+    auto nodeIndex = m_model->index(selectedIndex.row(), 0, selectedIndex.parent());
+    auto node = getNode(m_model->itemFromIndex(nodeIndex));
     if (!node)
         return;
 
     auto menu = new QMenu(this);
-
     if (DcNode::ProjectType == node->type()) {
         menu->addAction(m_settingsAction);
         menu->addSeparator();
@@ -223,85 +223,78 @@ void DcProjModel::onCustomContextMenu(const QPoint &point)
         menu->addAction(m_copyController);
         menu->addAction(m_exportController);
         menu->addSeparator();
-        menu->addAction(m_openDView);
-        menu->addSeparator();
         menu->addAction(m_removeItem);
     }
 
     menu->popup(m_tree->viewport()->mapToGlobal(point));
 }
 
-void DcProjModel::fillProjTreeItem(DcNode *node, QStandardItem* parent_view_item)
+void DcProjModel::onItemChanged(QStandardItem* view_item)
 {
-    if (!node)
+    if (!view_item)
         return;
 
-    auto view_item = makeViewItem(node, parent_view_item);
-    for (size_t i = 0; i < node->childsSize(); ++i)
-        fillProjTreeItem(node->child(i), view_item);
+    auto newText = view_item->text().trimmed();
+    if (newText.isEmpty()) {
+        auto textBackup = view_item->data(TextBackup).toString();
+        view_item->setText(textBackup);
+        return;
+    }
+
+    auto node = getNode(view_item);
+    if (!node || node->name() == newText) // если имя не менялось - ничего не делаем
+        return;
+
+    node->setName(newText);
+
+    auto project_node = getProject(node);
+    if (!project_node)
+        return;
+
+    project_node->save();
 }
 
 //void DcProjModel::onTreeSelection(const QItemSelection &sel, const QItemSelection &desel)
 //{
 //}
 
-void DcProjModel::onProjectNameChanged(const QString &name)
+void DcProjModel::onProjectInfoChanged()
 {
-    auto node = dynamic_cast<DcNode*>(sender());
-    if (!node)
+    auto project = dynamic_cast<DcProject*>(sender());
+    if (!project)
         return;
 
     for(int i = 0; i < m_model->rowCount(); ++i) {
         auto item = m_model->item(i, 0);
-        if (getNode(item) == node)
-            item->setText(name);
+        if (getNode(item) != project)
+            continue;
+
+        item->setText(project->name());
+        m_model->item(i, 1)->setText(project->object());
+        m_model->item(i, 2)->setText(project->author());
+        m_model->item(i, 3)->setText(project->desc());
     }
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-void DcProjModel::close(QStandardItem *view_item, bool remove)
+void DcProjModel::onSettingsAction()
 {
-    if (!view_item)
+    auto selectedIndex = m_tree->currentIndex();
+    auto nodeIndex = m_model->index(selectedIndex.row(), 0, selectedIndex.parent());
+    auto node = getNode(m_model->itemFromIndex(nodeIndex));
+    if (!node || node->type() != DcNode::ProjectType)
         return;
 
-    for(int i = view_item->rowCount() - 1; 0 <= i ; --i)
-        close(view_item->child(i), remove);
-
-    auto node = getNode(view_item);
-    if (auto parent_view_item = view_item->parent(); parent_view_item)
-        parent_view_item->removeRow(view_item->row());
-    else
-        m_model->removeRow(view_item->row());
-
-    if (!node)
-        return;
-
-    if (node == m_nodeToCopy) {
-        m_nodeToCopy = nullptr;
-        m_pasteController->setEnabled(false);
-    }
-    emit aboutToClose(node);
-
-    if (remove && node->parent()) {        
-        if (auto project = getProject(node); project)
-            project->removeNodeData(node);
-
-        node->parent()->removeChild(node->position());
-    }
+    emit activate(node);
 }
 
-DcNode *DcProjModel::createDeviceNode(const QString &nameTemplate, DcNode *parent_node)
+void DcProjModel::onTreeDoubleClicked(const QModelIndex &index)
 {
-    auto project_node = getProject(parent_node);
-    if (!project_node)
-        return nullptr;
+    auto node = getNode(m_model->itemFromIndex(index));
+    if (!node || node->type() != DcNode::DeviceType)
+        return;
 
-    auto node = project_node->createNode(nameTemplate, DcNode::DeviceType, parent_node);
-    if (!node)
-        return nullptr;
-
-    node->setName(QString("%1 (%2)").arg(nameTemplate).arg(node->id()));
-    project_node->save();
-    return node;
+    emit activate(node);
 }
 
 void DcProjModel::slotAddFolder()
@@ -363,10 +356,10 @@ void DcProjModel::slotExportController()
 	if (filename.isNull())
 		return;
 
-	QZipWriter zip(filename);
-	if (zip.status() != QZipWriter::NoError)
+    MyZipWriter zip(filename);
+    if (zip.status() != MyZipWriter::NoError)
 		return;
-	zip.setCompressionPolicy(QZipWriter::AutoCompress);
+    zip.setCompressionPolicy(MyZipWriter::AutoCompress);
 
     auto device_node = static_cast<DcDeviceNode*>(node);
     QString unitpath = device_node->path();
@@ -414,24 +407,24 @@ void DcProjModel::slotImportController()
     if (filename.isNull())
         return;
 
-    QZipReader unzip(filename, QIODevice::ReadOnly);
+    MyZipReader unzip(filename, QIODevice::ReadOnly);
     if (!unzip.exists()) {
         MsgBox::error(QString("Некорректный путь к архиву устройства"));
         return;
     }
 
-    auto node = createDeviceNode(QFileInfo(filename).baseName(), parent_node);
+    auto node = makeNode(QFileInfo(filename).baseName(), DcNode::DeviceType, parent_node);
     if (!node)
         return;
 
     auto device_node = static_cast<DcDeviceNode*>(node);
     QString controllerpath = device_node->path();
-    QList<QZipReader::FileInfo> allFiles = unzip.fileInfoList();
-    QZipReader::FileInfo fi;
-    foreach(QZipReader::FileInfo fi, allFiles) {
-        const QString absPath = controllerpath + fi.filePath;
+    QList<MyZipReader::FileInfo> allFiles = unzip.fileInfoList();
+    MyZipReader::FileInfo fi;
+    foreach(MyZipReader::FileInfo fi, allFiles) {
+        const QString absPath = QString("%1/%2").arg(controllerpath, fi.filePath);
         if (fi.isDir) {
-            if (!QDir().mkdir(controllerpath + fi.filePath)) {
+            if (!QDir().mkdir(absPath)) {
                 MsgBox::error(QString("Ошибка распаковки архива устройства 1"));
                 return;
             }
@@ -442,8 +435,8 @@ void DcProjModel::slotImportController()
         }
     }
 
-    foreach(QZipReader::FileInfo fi, allFiles) {
-        const QString absPath = controllerpath + fi.filePath;
+    foreach(MyZipReader::FileInfo fi, allFiles) {
+        const QString absPath = QString("%1/%2").arg(controllerpath, fi.filePath);
         if (fi.isFile) {
             QFile file(absPath);
             if (file.open(QFile::WriteOnly)){
@@ -457,8 +450,7 @@ void DcProjModel::slotImportController()
     }
     unzip.close();
 
-    emit activate(node);
-    makeViewItem(node, parent_view_item);
+    append(node, parent_view_item);
 }
 
 void DcProjModel::slotPasteController()
@@ -474,7 +466,7 @@ void DcProjModel::slotPasteController()
     if ( DcNode::DeviceType == parent_node->type() )
         return;
 
-    auto node = createDeviceNode(m_nodeToCopy->name(), parent_node);
+    auto node = makeNode(m_nodeToCopy->name(), DcNode::DeviceType, parent_node);
     if (!node)
         return;
 
@@ -487,18 +479,7 @@ void DcProjModel::slotPasteController()
         return;
     }
 
-    emit activate(device_node);
-    makeViewItem(node, parent_view_item);    
-}
-
-void DcProjModel::slotOpenDView()
-{
-    if (m_processDView->state() == QProcess::Running) {
-		MsgBox::warning(TEXT_ALREADY_RUNING);
-		return;
-	}
-
-    m_processDView->start(DVIEW_PATH, QStringList());
+    append(node, parent_view_item);
 }
 
 void DcProjModel::slotCloseProject()
@@ -514,24 +495,6 @@ void DcProjModel::slotCloseProject()
     closeProject(project);
 }
 
-void DcProjModel::onSettingsAction()
-{
-    auto node = getNode(m_model->itemFromIndex(m_tree->currentIndex()));
-    if (!node || node->type() != DcNode::ProjectType)
-        return;
-
-    emit activate(node);
-}
-
-void DcProjModel::onTreeDoubleClicked(const QModelIndex &index)
-{
-    auto node = getNode(m_model->itemFromIndex(index));
-    if (!node || node->type() != DcNode::DeviceType)
-        return;
-
-    emit activate(node);
-}
-
 QStandardItem *DcProjModel::makeViewItem(DcNode *node, QStandardItem *parent_view_item)
 {
     if (!node)
@@ -541,13 +504,48 @@ QStandardItem *DcProjModel::makeViewItem(DcNode *node, QStandardItem *parent_vie
     view_item->setIcon(node->icon());
     view_item->setFlags(view_item->flags() | Qt::ItemIsEditable);    
     view_item->setData(Dpc::fromPtr(node), NodeRole);
+    if (node->type() == DcNode::ProjectType && !parent_view_item) {
+        auto project = static_cast<DcProject*>(node);
+        QList<QStandardItem*> pItems = { view_item };
+        pItems.append(new QStandardItem{project->object()});
+        pItems.append(new QStandardItem{project->author()});
+        pItems.append(new QStandardItem{project->desc()});
+        for(auto item: pItems)
+            item->setData(QColor("#dbdbdb"), Qt::BackgroundRole);
 
-    if (!parent_view_item)
-        m_model->appendRow(view_item);
-    else
+        m_model->appendRow(pItems);
+    }
+    else if (node->type() != DcNode::ProjectType && parent_view_item) {
+//        connect(node, &DcNode::nameChanged, this, [view_item](const QString& name) {
+//            if (view_item->text() != name)
+//                view_item->setText(name);
+//        });
+
         parent_view_item->appendRow(view_item);
+    }
+    else {
+        // !!!Сюда не должны попадать!!!
+        return nullptr;
+    }
 
     return view_item;
+}
+
+DcNode *DcProjModel::makeNode(const QString &name, DcNode::Type type, DcNode *parent_node)
+{
+    auto project_node = getProject(parent_node);
+    if (!project_node)
+        return nullptr;
+
+    auto node = project_node->createNode(name, type, parent_node);
+    if (!node)
+        return nullptr;
+
+    if (DcNode::DeviceType == type)
+        node->setName(QString("%1 (%2)").arg(node->name()).arg(node->id()));
+
+    project_node->save();
+    return node;
 }
 
 DcNode *DcProjModel::getNode(QStandardItem *view_item, bool checkParent) const
@@ -563,43 +561,23 @@ DcNode *DcProjModel::getNode(QStandardItem *view_item, bool checkParent) const
     return nullptr;
 }
 
-void DcProjModel::onItemChanged(QStandardItem* view_item)
+void DcProjModel::fillProjTreeItem(DcNode *node, QStandardItem* parent_view_item)
 {
-    if (!view_item)
+    if (!node)
         return;
 
-    auto newText = view_item->text().trimmed();
-    if (newText.isEmpty()) {
-        auto textBackup = view_item->data(TextBackup).toString();
-        view_item->setText(textBackup);
-        return;
-    }
-
-    auto node = getNode(view_item);
-    if (!node || node->name() == newText) // если имя не менялось - ничего не делаем
-        return;
-
-    node->setName(newText);
-
-    auto project_node = getProject(node);
-    if (!project_node)
-        return;
-
-    project_node->save();
+    auto view_item = makeViewItem(node, parent_view_item);
+    for (size_t i = 0; i < node->childsSize(); ++i)
+        fillProjTreeItem(node->child(i), view_item);
 }
 
 void DcProjModel::addFolder(QStandardItem *parent_view_item)
 {
     auto parent_node = getNode(parent_view_item);
-    auto project_node = getProject(parent_node);
-    if (!project_node)
-        return;
-
-    auto node = project_node->createNode(default_filder_name, DcNode::DirType, parent_node);
+    auto node = makeNode(default_dir_name, DcNode::DirType, parent_node);
     if (!node)
         return;
 
-    project_node->save();
     makeViewItem(node, parent_view_item);
     m_tree->expand(m_model->indexFromItem(parent_view_item));
 }
@@ -615,7 +593,7 @@ void DcProjModel::addDevice(QStandardItem *parent_view_item)
     if (dlgcontroller.exec() != QDialog::Accepted)
         return;
 
-    auto node = createDeviceNode(dlgcontroller.deviceType(), parent_node);
+    auto node = makeNode(dlgcontroller.deviceType(), DcNode::DeviceType, parent_node);
     if (!node)
         return;
 
@@ -626,6 +604,50 @@ void DcProjModel::addDevice(QStandardItem *parent_view_item)
         return;
     }
 
-    emit activate(device_node);
-    makeViewItem(node, parent_view_item);    
+    append(node, parent_view_item);
+}
+
+void DcProjModel::append(DcNode *node, QStandardItem *parent_view_item)
+{
+    if (!node)
+        return;
+
+    emit appended(node);
+    auto view_item = makeViewItem(node, parent_view_item);
+
+    auto index = view_item->index();
+    m_tree->scrollTo(index, QAbstractItemView::PositionAtCenter);
+    m_tree->setCurrentIndex(index);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
+}
+
+void DcProjModel::close(QStandardItem *view_item, bool remove)
+{
+    if (!view_item)
+        return;
+
+    for(int i = view_item->rowCount() - 1; 0 <= i ; --i)
+        close(view_item->child(i), remove);
+
+    auto node = getNode(view_item);
+    if (auto parent_view_item = view_item->parent(); parent_view_item)
+        parent_view_item->removeRow(view_item->row());
+    else
+        m_model->removeRow(view_item->row());
+
+    if (!node)
+        return;
+
+    if (node == m_nodeToCopy) {
+        m_nodeToCopy = nullptr;
+        m_pasteController->setEnabled(false);
+    }
+    emit aboutToClose(node);
+
+    if (remove && node->parent()) {
+        if (auto project = getProject(node); project)
+            project->removeNodeData(node);
+
+        node->parent()->removeChild(node->position());
+    }
 }

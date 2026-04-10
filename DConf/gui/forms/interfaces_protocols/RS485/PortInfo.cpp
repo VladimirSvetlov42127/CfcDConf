@@ -84,11 +84,11 @@ int32_t PortInfo::getMaxTypeCountForAllPorts(ModbusMaster_ns::channelType_t type
 	switch (type)
 	{
 	case ModbusMaster_ns::AinsInd:
-		return m_controller->getSignalList(DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_REMOTE).size();
+        return m_controller->signalManager().getSignals<AinSignal>(Signal::Subtype::Remote).size();
 	case ModbusMaster_ns::DinsInd:
-		return m_controller->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_REMOTE).size();
+        return m_controller->signalManager().getSignals<DinSignal>(Signal::Subtype::Remote).size();
 	case ModbusMaster_ns::CinsInd:
-		return m_controller->getSignalList(DEF_SIG_TYPE_COUNTER, DEF_SIG_SUBTYPE_REMOTE).size();
+        return m_controller->signalManager().getSignals<CinSignal>(Signal::Subtype::Remote).size();
 	case ModbusMaster_ns::RAoutsInd:	// НЕ РЕАЛИЗОВАНО
 	case ModbusMaster_ns::RDoutsInd:	// НЕ РЕАЛИЗОВАНО
 	case ModbusMaster_ns::WAoutsInd:	// НЕ РЕАЛИЗОВАНО

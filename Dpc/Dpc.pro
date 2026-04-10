@@ -108,7 +108,6 @@ HEADERS += \
     dpc/sybus/channel/channel_types/VComChannel.h \
     dpc/sybus/smparlist.h \
     dpc/sybus/utils.h \
-    dpc/utilities.h \
     version.h
 
 SOURCES += \
@@ -187,5 +186,4 @@ SOURCES += \
     dpc/sybus/channel/channel_types/Rs485Channel.cpp \
     dpc/sybus/channel/channel_types/TcpChannel.cpp \
     dpc/sybus/channel/channel_types/VComChannel.cpp \
-    dpc/sybus/utils.cpp \
-    dpc/utilities.cpp
+    dpc/sybus/utils.cpp

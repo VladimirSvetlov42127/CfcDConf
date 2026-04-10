@@ -12,6 +12,8 @@
 #include <gui/forms/functions/analogs/conversion/CustomConversionDialog.h>
 #include <gui/forms/functions/analogs/comparison/ComparisonModel.h>
 
+#include "service_manager/signals/ain_virtual_signal.h"
+
 
 using namespace Dpc::Gui;
 
@@ -19,12 +21,12 @@ namespace {
 	ComboBoxDelegate g_ConversionTypeDelegate = { "Отсутсвует", "ТСМ50", "Pt1000", "Пользовательский" };
 	ComboBoxDelegate g_CompareTypeDelegate = { "Больше", "Меньше" };
 
-    ComboBoxDelegate* g_signalsDelegate(DcController* controller, DefSignalType type, DefSignalSubType subType = DEF_SIG_SUBTYPE_UNDEF, QObject *parent = nullptr)
-	{
+    template<typename SignalType>
+    ComboBoxDelegate* g_signalsDelegate(DcController* controller, Signal::Subtype subtype, QObject *parent = nullptr) {
 		ComboBoxDelegate* result = new ComboBoxDelegate(parent);
 		result->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-        for (auto signal : controller->getSignalList(type, subType)) {
-			result->append({ signal->name(), static_cast<uint>(signal->internalId()) });
+        for (auto signal : controller->signalManager().getSignals<SignalType>(subtype)) {
+            result->append({ signal->text(), signal->internalID() });
 		}
 
 		return result;
@@ -45,9 +47,9 @@ namespace Text
 DcAnalogsForm::DcAnalogsForm(DcController* controller) :
 	DcForm(controller,  "Аналоги", false)
 {
-	m_analogsDelegate = g_signalsDelegate(controller, DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_UNDEF, this);
-	m_virtualAnalogsDelegate = g_signalsDelegate(controller, DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_VIRTUAL, this);
-	m_virtualDiscretsDelegate = g_signalsDelegate(controller, DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_VIRTUAL, this);
+    m_analogsDelegate = g_signalsDelegate<AinSignal>(controller, Signal::Subtype::Any, this);
+    m_virtualAnalogsDelegate = g_signalsDelegate<AinVirtualSignal>(controller, Signal::Subtype::Virtual, this);
+    m_virtualDiscretsDelegate = g_signalsDelegate<DinVirtualSignal>(controller, Signal::Subtype::Virtual, this);
 
 	QVBoxLayout* formLayout = new QVBoxLayout(centralWidget());
 
@@ -72,9 +74,9 @@ void DcAnalogsForm::fillReport(DcIConfigReport* report)
 {
 	auto device = report->device();
 
-	auto analogsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate(device, DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_UNDEF));
-	auto virtualAnalogsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate(device, DEF_SIG_TYPE_ANALOG, DEF_SIG_SUBTYPE_VIRTUAL));
-	auto virtualDiscretsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate(device, DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_VIRTUAL));
+    auto analogsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate<AinSignal>(device, Signal::Subtype::Any));
+    auto virtualAnalogsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate<AinVirtualSignal>(device, Signal::Subtype::Virtual));
+    auto virtualDiscretsDelegate = std::unique_ptr<ComboBoxDelegate>(g_signalsDelegate<DinVirtualSignal>(device, Signal::Subtype::Virtual));
 
     auto param = device->paramsRegistry().parameter(SP_AIN_CONVERS_WORDAIN_PARAM);
 	if (param) {
@@ -175,14 +177,14 @@ QWidget* DcAnalogsForm::createComparisonTab()
 	if (!param)
 		return nullptr;
 
-    AlgService* analogService = controller()->serviceManager()->algManager().alg(SP_AINCMP_WORDIN_PARAM);
+    AlgService* analogService = controller()->algManager().alg(SP_AINCMP_WORDIN_PARAM);
     if (!analogService)
         return nullptr;
 
     //	Создание модели и делегата
     Dpc::Gui::ComboBoxDelegate* delegate = new Dpc::Gui::ComboBoxDelegate(this);
     delegate->append({ "Не используется" , std::numeric_limits<uint16_t>::max() });
-    for (auto vdin: controller()->serviceManager()->vdins()) {
+    for (auto vdin: controller()->signalManager().getSignals<DinVirtualSignal>()) {
         if (vdin->source() && vdin->source()->service() != analogService)
             continue;
 
@@ -201,7 +203,7 @@ QWidget* DcAnalogsForm::createComparisonTab()
 
             auto ser_output = analogService->outputs().at(i).get();
             if (ser_output)
-                ser_output->setTarget(controller()->serviceManager()->vdin(value));
+                ser_output->setTarget(controller()->signalManager().getSignal<DinVirtualSignal>(value));
         }
 
         delegate->setExcluding(list);

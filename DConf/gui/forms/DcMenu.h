@@ -52,7 +52,7 @@ public:
         ADD_MENU(discret_outputs, ":/icons/signal_d_out.svg", "Дискретные выходы", input_output);
 			ADD_MENU(discret_output_channels, ":/icons/chanel_settings.svg", "Поканальные настройки", discret_outputs);			
 			ADD_MENU(block_control, ":/icons/block.svg", "Блокировка управления", discret_outputs);
-			ADD_MENU(output_clones, ":/icons/double_point.svg", "Дублирование физических выходов", discret_outputs);
+            ADD_MENU(output_clones, ":/icons/clon.svg", "Дублирование физических выходов", discret_outputs);
         ADD_MENU(analog_inputs, ":/icons/signal_a_in.svg", "Аналоговые входы", input_output);
             ADD_MENU(analogs_aperture, ":/icons/limits.svg", "Апертуры и пороги", analog_inputs);
         ADD_MENU(counter_inputs, ":/icons/signal_c_in.svg", "Счетчики", input_output);

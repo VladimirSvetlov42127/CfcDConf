@@ -27,9 +27,9 @@
 #include "gui/forms/table_of_bindings/outputs_delegate.h"
 #include "gui/dialogs/binding_dialog.h"
 #include "service_manager/signals/target_element.h"
-#include "service_manager/signals/virtual_input_signal.h"
-#include "service_manager/signals/input_signal.h"
-#include "service_manager/signals/output_signal.h"
+#include "service_manager/signals/din_virtual_signal.h"
+#include "service_manager/signals/din_signal.h"
+#include "service_manager/signals/dout_signal.h"
 
 #include "service_manager/services/alg/alg_service.h"
 #include "service_manager/services/service_input.h"
@@ -75,7 +75,7 @@ BindingForm::BindingForm(DcController *controller)
     vbox->addWidget(tab_widgets);
 
     //  Вывод закладки алгоритмов
-    if (controller->serviceManager()->algManager().count()) {
+    if (controller->algManager().count()) {
         QWidget *algs_tab = new QWidget();
         QHBoxLayout *algs_box = new QHBoxLayout();
         algs_tab->setLayout(algs_box);
@@ -141,7 +141,7 @@ bool BindingForm::isAvailableFor(DcController * controller)
 		{SP_CROSSTABLEDOUT}			//	Нужен список привязок алгоритмов
 	};
 
-    if (hasAny(controller, params) || controller->serviceManager()->algManager().count())
+    if (hasAny(controller, params) || controller->algManager().count())
         return true;
 
     return false;
@@ -202,7 +202,7 @@ void BindingForm::fillReport(DcIConfigReport * report)
     DcReportTable::ValueList logicals;
     DcReportTable::ValueList virtuals;
     DcReportTable::ValueList remotes;
-//    for (auto signal: device->getSignalList(DEF_SIG_TYPE_DISCRETE, DEF_SIG_SUBTYPE_UNDEF, DEF_SIG_DIRECTION_OUTPUT)) {
+//    for (auto signal: device->getSignalList(DEF_SIG_TYPE_DISCRETE, Signal::Subtype::UNDEF, DEF_SIG_DIRECTION_OUTPUT)) {
 //        QString value;
 //        auto bind = device->matrix_signals()->getDst(signal->index());
 //        if (bind) {
@@ -214,11 +214,11 @@ void BindingForm::fillReport(DcIConfigReport * report)
 //        QStringList rec = { QString::number(signal->internalId()), signal->name(), value };
 //        switch (signal->subtype())
 //        {
-//        case DEF_SIG_SUBTYPE_PHIS: phisicals << rec; break;
-//        case DEF_SIG_SUBTYPE_LED_AD: leds << rec; break;
-//        case DEF_SIG_SUBTYPE_LOGIC: logicals << rec; break;
-//        case DEF_SIG_SUBTYPE_VIRTUAL: virtuals << rec; break;
-//        case DEF_SIG_SUBTYPE_REMOTE: remotes << rec; break;
+//        case Signal::Subtype::PHIS: phisicals << rec; break;
+//        case Signal::Subtype::LED_AD: leds << rec; break;
+//        case Signal::Subtype::LOGIC: logicals << rec; break;
+//        case Signal::Subtype::VIRTUAL: virtuals << rec; break;
+//        case Signal::Subtype::REMOTE: remotes << rec; break;
 //        default: break;
 //        }
 //    }
@@ -257,11 +257,11 @@ void BindingForm::onAlgClicked(const QModelIndex& index)
         }
         else {
             //  Добавление входа
-            BindingDialog dialog(BindingDialog::TYPE_INPUT, controller()->serviceManager());
+            BindingDialog dialog(BindingDialog::TYPE_INPUT, &controller()->signalManager());
             if (dialog.exec() != QDialog::Accepted)
                 return;
 
-            InputSignal* input_signal = dialog.selectedSignal();
+            auto input_signal = dialog.selectedSignal();
             if (input_signal)
                 service_data->setSource(input_signal);
         }
@@ -289,11 +289,11 @@ void BindingForm::onAlgClicked(const QModelIndex& index)
         }
         else {
             //  Добавление выхода
-            BindingDialog dialog(BindingDialog::TYPE_OUTPUT, controller()->serviceManager());
+            BindingDialog dialog(BindingDialog::TYPE_OUTPUT, &controller()->signalManager());
             if (dialog.exec() != QDialog::Accepted)
                 return;
 
-            VirtualInputSignal* output_signal = dynamic_cast<VirtualInputSignal*>(dialog.selectedSignal());
+            auto output_signal = dynamic_cast<DinVirtualSignal*>(dialog.selectedSignal());
             if (!output_signal)
                 return;
 
@@ -304,7 +304,7 @@ void BindingForm::onAlgClicked(const QModelIndex& index)
 
 void BindingForm::onOutputClicked(const QModelIndex& index)
 {
-    auto output_data = Dpc::toPtr<OutputSignal>(index.data(OutputsDelegate::SERVICE_DATA));
+    auto output_data = Dpc::toPtr<DoutSignal>(index.data(OutputsDelegate::SERVICE_DATA));
     if (!output_data)
         return;
 
@@ -317,11 +317,11 @@ void BindingForm::onOutputClicked(const QModelIndex& index)
     }
     else {
         //  Добавление привязки
-        BindingDialog dialog(BindingDialog::TYPE_INPUT, controller()->serviceManager());
+        BindingDialog dialog(BindingDialog::TYPE_INPUT, &controller()->signalManager());
         if (dialog.exec() != QDialog::Accepted)
             return;
 
-        InputSignal* input_signal = dialog.selectedSignal();
+        auto input_signal = dialog.selectedSignal();
         if (input_signal)
             output_data->setSource(input_signal);
     }
@@ -336,7 +336,7 @@ bool BindingForm::getAlgModel(QStandardItemModel* model)
     model->setColumnCount(2);
     QStandardItem* root = model->invisibleRootItem();
 
-    auto algList = controller()->serviceManager()->algManager().algList();
+    auto algList = controller()->algManager().algList();
     std::sort(algList.begin(), algList.end(), [](AlgService* a, AlgService* b) { return a->name() < b->name(); });
     for (int i = 0; i < algList.count(); i++) {
         auto alg_service = algList.at(i);
@@ -391,8 +391,8 @@ bool BindingForm::getAlgModel(QStandardItemModel* model)
 bool BindingForm::getOutputModel(QStandardItemModel* model)
 {
     //	Проверка сигналов
-    QList<OutputSignal*> douts_list = controller()->serviceManager()->douts();
-    if (douts_list.count() < 1)
+    auto douts_list = controller()->signalManager().getSignals<DoutSignal>();
+    if (douts_list.size() < 1)
         return false;
 
     //	Заполнение модели
@@ -407,12 +407,9 @@ bool BindingForm::getOutputModel(QStandardItemModel* model)
     QStandardItem* remote_item = nullptr;
 
     //  Цикл по сигналам
-    for (int i = 0; i < douts_list.count(); i++) {
-        OutputSignal* output = douts_list.at(i);
-
+    for (auto* dout: douts_list) {
         //	Добавление индикаторов
-        if ((output->subType() == DEF_SIG_SUBTYPE_PHIS || output->subType() == DEF_SIG_SUBTYPE_LED_AD) &&
-            douts_list.at(i)->name().contains("LED")) {
+        if ((dout->subtype() == Signal::Subtype::Led)) {
             if (!led_item) {
                 led_item = new QStandardItem(QIcon(":/icons/led.svg"), "Индикаторы");
                 led_item->setEditable(false);
@@ -420,68 +417,68 @@ bool BindingForm::getOutputModel(QStandardItemModel* model)
             }
 
             QList<QStandardItem*> row_items;
-            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), output->text());
+            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), dout->text());
             output_item->setEditable(false);
             row_items.append(output_item);
             QStandardItem* data_item = new QStandardItem;
-            data_item->setData(Dpc::fromPtr(output), OutputsDelegate::SERVICE_DATA);
+            data_item->setData(Dpc::fromPtr(dout), OutputsDelegate::SERVICE_DATA);
             row_items.append(data_item);
             led_item->appendRow(row_items);
         }
 
         //	Добавление физических выходов
-        if (output->subType() == DEF_SIG_SUBTYPE_PHIS && !output->name().contains("LED")) {
+        if (dout->subtype() == Signal::Subtype::Physical) {
             if (!physical_item) {
                 physical_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), "Физические выходы");
                 physical_item->setEditable(false);
                 root->appendRow(physical_item);
             }
             QList<QStandardItem*> row_items;
-            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), output->text());
+            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), dout->text());
             output_item->setEditable(false);
             row_items.append(output_item);
             QStandardItem* data_item = new QStandardItem;
-            data_item->setData(Dpc::fromPtr(output), OutputsDelegate::SERVICE_DATA);
+            data_item->setData(Dpc::fromPtr(dout), OutputsDelegate::SERVICE_DATA);
             row_items.append(data_item);
             physical_item->appendRow(row_items);
         }
 
         //	Добавление логических выходов
-        if (output->subType() == DEF_SIG_SUBTYPE_LOGIC) {
+        if (dout->subtype() == Signal::Subtype::Logical) {
             if (!logical_item) {
                 logical_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), "Логические выходы");
                 logical_item->setEditable(false);
                 root->appendRow(logical_item);
             }
             QList<QStandardItem*> row_items;
-            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), output->text());
+            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), dout->text());
             output_item->setEditable(false);
             row_items.append(output_item);
             QStandardItem* data_item = new QStandardItem;
-            data_item->setData(Dpc::fromPtr(output), OutputsDelegate::SERVICE_DATA);
+            data_item->setData(Dpc::fromPtr(dout), OutputsDelegate::SERVICE_DATA);
             row_items.append(data_item);
             logical_item->appendRow(row_items);
         }
 
         //	Добавление виртуальных выходов
-        if (output->subType() == DEF_SIG_SUBTYPE_VIRTUAL) {
+        if (dout->subtype() == Signal::Subtype::Virtual) {
             if (!virtual_item) {
-                virtual_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), "Выходы виртуальных функций");
+                virtual_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), "Виртуальные выходы");
                 virtual_item->setEditable(false);
                 root->appendRow(virtual_item);
             }
             QList<QStandardItem*> row_items;
-            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), output->text());
+            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), dout->text());
             output_item->setEditable(false);
             row_items.append(output_item);
             QStandardItem* data_item = new QStandardItem;
-            data_item->setData(Dpc::fromPtr(output), OutputsDelegate::SERVICE_DATA);
+            data_item->setData(Dpc::fromPtr(dout), OutputsDelegate::SERVICE_DATA);
             row_items.append(data_item);
             virtual_item->appendRow(row_items);
         }
 
         //	Добавление внешних выходов
-        if (output->subType() == DEF_SIG_SUBTYPE_REMOTE) {
+        if (dout->subtype() == Signal::Subtype::Remote) {
             if (!remote_item) {
                 remote_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), "Внешние выходы");
                 remote_item->setEditable(false);
@@ -490,11 +487,11 @@ bool BindingForm::getOutputModel(QStandardItemModel* model)
             }
 
             QList<QStandardItem*> row_items;
-            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), output->text());
+            QStandardItem* output_item = new QStandardItem(QIcon(":/icons/signal_out.svg"), dout->text());
             output_item->setEditable(false);
             row_items.append(output_item);
             QStandardItem* data_item = new QStandardItem;
-            data_item->setData(Dpc::fromPtr(output), OutputsDelegate::SERVICE_DATA);
+            data_item->setData(Dpc::fromPtr(dout), OutputsDelegate::SERVICE_DATA);
             row_items.append(data_item);
             remote_item->appendRow(row_items);
         }
@@ -503,7 +500,7 @@ bool BindingForm::getOutputModel(QStandardItemModel* model)
     return true;
 }
 
-bool BindingForm::isUsedInCfc(VirtualInputSignal *vdin) const
+bool BindingForm::isUsedInCfc(DinVirtualSignal *vdin) const
 {
     if (vdin->source() && vdin->source()->service()->type() == Service::CfcAlgType)
         return true;

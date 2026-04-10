@@ -50,6 +50,8 @@ private slots:
     void onPassportAction();
     void onFilesystemAction();
     void onFirmwareUpdateAction();
+    void onDViewAction();
+    void onReportAction();
     void onViewItemSelected(const QString &itemIdx, bool isConfigItem);
 
     void execOperation(AbstractOperation::SPtr operation);
@@ -65,7 +67,7 @@ private:
     DcController* config() const;
 
     void createActions();
-    void setDeviceActionsEnabled(bool enabled);    
+    void setDeviceActionsEnabled(bool enabled, bool full = true);
     void operationFinished(AbstractOperation* operation);
     void setCurrentForm(DcForm *form);
     void setProgressIndicator(bool busyIndicator);
@@ -96,8 +98,11 @@ private:
     QAction* m_passportAction;
     QAction* m_filesystemAction;
     QAction* m_firmwareUpdateAction;
+    QAction* m_reportAction;
 
     std::unique_ptr<DcForm> m_currentConfigWidget;
+
+    bool m_hasT2Compatibility = false;
 };
 
 #endif // DCDEVICEWINDOW_H

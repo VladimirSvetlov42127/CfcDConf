@@ -36,21 +36,23 @@ public:
 	//===============================================================================================================================================
 	//	Конструктор и деструктор класса
 	//===============================================================================================================================================
-    CfcNewLink(CfcSocket* socket, /*const QPointF& mouse_point,*/ QGraphicsItem* parent = nullptr);
+    CfcNewLink(CfcSocket* socket, QGraphicsItem* parent = nullptr);
 
 	//===============================================================================================================================================
 	//	Открытые методы класса
 	//===============================================================================================================================================
-    CfcSocket* source() {return _source_socket;}
-    CfcSocket* target() {return _target_socket;}
+    CfcSocket* currentSocket() const {return _current_socket;}
+    CfcSocket* source() const {return _source_socket;}
+    CfcSocket* target() const {return _target_socket;}
     QList<QPointF> points() const;
-    virtual QRectF boundingRect() const override;
-    virtual QPainterPath shape() const override;
 
     //===============================================================================================================================================
-    //	Виртуальные методы класса
+    //	Перегружаемые методы класса
     //===============================================================================================================================================
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    virtual QRectF boundingRect() const override;
+    virtual QPainterPath shape() const override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
@@ -62,6 +64,11 @@ private:
     QPolygonF polygon() const;
     QPainterPath path() const;
 
+    //  Проверка валидности финального сокета при создании связи
+    //  Проверка на соответствие входа/выхода и на наличие связей
+    //  При валидности сокета возвращает true, в противном случае - false
+    bool checkSocket(CfcSocket* socket) const;
+
     //===============================================================================================================================================
     //	Свойства класса
     //===============================================================================================================================================
@@ -69,7 +76,6 @@ private:
     CfcSocket* _source_socket;
     CfcSocket* _target_socket;
     QPointF _mouse_point;
-    bool _released;
 };
 
 #endif	//	__CFC_NEW_LINK_H__

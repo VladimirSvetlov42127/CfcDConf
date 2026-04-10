@@ -151,6 +151,41 @@ namespace Dpc::Sybus
         return list.join(", ");
     }
 
+    uint8_t ParamPack::typeSize(uint8_t type)
+    {
+        switch (type)
+        {
+        case T_BYTE:
+        case T_8BIT:
+        case T_CHAR:
+        case T_BYTEBOOL:
+        case T_BOOL:
+        case T_SBYTE:
+            return 1;
+        case T_SHORT:
+        case T_WORD:
+        case T_16BIT:
+            return 2;
+        case T_INTEGER:
+        case T_DWORD:
+        case T_32BIT:
+        case T_FLOAT:
+        case T_DATETIME:
+        case T_IP4ADR:
+            return 4;
+        case T_OUI:
+        case T_STRICT:
+            return 6;
+        case T_UTCTIME:
+        case T_UINT64:
+        case T_INT64:
+        case T_TIME61850:
+            return 8;
+        default:
+            return 0;
+        }
+    }
+
     QString ParamPack::toUnicode(const QByteArray &win1251_data)
     {
         return g_Win1251Codec()->toUnicode(win1251_data);
@@ -163,37 +198,7 @@ namespace Dpc::Sybus
 
 	uint8_t ParamPack::typeSize() const
 	{
-		switch (typeId())
-		{
-		case T_BYTE:
-		case T_8BIT:
-		case T_CHAR:
-		case T_BYTEBOOL:
-		case T_BOOL:
-		case T_SBYTE:
-			return 1;
-		case T_SHORT:
-		case T_WORD:
-		case T_16BIT:
-			return 2;
-		case T_INTEGER:
-		case T_DWORD:
-		case T_32BIT:
-		case T_FLOAT:
-		case T_DATETIME:
-		case T_IP4ADR:
-			return 4;
-		case T_OUI:
-		case T_STRICT:
-			return 6;
-		case T_UTCTIME:
-		case T_UINT64:
-		case T_INT64:
-		case T_TIME61850:
-			return 8;
-		default:
-			return 0;
-		}
+        return typeSize(typeId());
 	}
 
 	bool ParamPack::append(const QString& value)

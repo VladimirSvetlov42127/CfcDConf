@@ -4,9 +4,11 @@
 #include "data_model/dc_controller.h"
 
 // ConfigLoader - Загрузчик кофигураций устройств из файла.
-// Инкапсулирует в себе логику обновление конфигурации по шаблонам или версиям.
+// Инкапсулирует в себе логику обновления конфигурации по шаблонам/версиям.
+// А также обновлении значений параметров на основании таблиц привязок (matrix_alg, matrix_alg_cfc, matrix_signals).
 
 // TO DO: Механизм уведомления об ошибках
+// TO DO: Большой потенциал для оптимизации, возможно вынести часть работы в загрузку DBManager.
 
 class ConfigLoader : public QObject
 {
@@ -33,6 +35,10 @@ private:
     void updateSignals(DcController *contr, DcController *temp);
     void updateAlgs(DcController *contr, DcController *temp);
     void updateSettings(DcController *contr, DcController *temp);
+
+    void outputsToParams(DcController *config);
+    void algsToParams(DcController *config);
+    void cfcAlgsToParams(DcController *config);
 
 private:
     std::map<QString, DcController::UPtr> m_cache;

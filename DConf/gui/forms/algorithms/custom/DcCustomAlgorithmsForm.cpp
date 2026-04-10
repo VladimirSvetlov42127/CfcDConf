@@ -19,7 +19,7 @@ namespace {
 
 DcCustomAlgorithmsForm::DcCustomAlgorithmsForm(DcController *controller)
     : DcForm(controller, "Пользовательские алгоритмы", false)
-    , m_model{new CfcAlgsModel(&controller->serviceManager()->cfcManager(), this)}
+    , m_model{new CfcAlgsModel(&controller->cfcManager(), this)}
     , m_algsTableView{ new TableView(m_model, this)}
     , m_addButton(new QPushButton(QIcon(":/icons/table_+.svg"), "Добавить"))
     , m_removeButton(new QPushButton(QIcon(":/icons/table_-.svg"), "Удалить"))
