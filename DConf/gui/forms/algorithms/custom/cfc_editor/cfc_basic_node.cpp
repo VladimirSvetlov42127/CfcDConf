@@ -8,9 +8,7 @@
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.h"
 
-//===================================================================================================================================================
 //	Конструкторы класса
-//===================================================================================================================================================
 CfcBasicNode::CfcBasicNode(QString id, QGraphicsItem* parent) : QGraphicsObject(parent)
 {
     //  Формирование id соединения
@@ -97,11 +95,29 @@ CfcBasicNode::CfcBasicNode(QDomNode xml, QGraphicsItem* parent) : QGraphicsObjec
     setZValue(10);
 }
 
+CfcBasicNode::CfcBasicNode(RamNode node, QGraphicsItem* parent) : QGraphicsObject(parent)
+{
+    //  Основные параметры элемента
+    _id = QString::number(++_counter);
+    _size = node.size;
+    setPos(node.position);
+    _params_list = node.params_list;
+    if (node.outputs > 0)
+        setOutput();
+    if (node.inputs >0)
+        setInputs(node.inputs);
 
-//===================================================================================================================================================
+    //	Установк флагов
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setFlag(QGraphicsItem::ItemIsMovable);
+    setZValue(10);
+}
+
+
 //	Открытые методы класса
-//===================================================================================================================================================
-uint8_t CfcBasicNode::inputs()
+uint8_t CfcBasicNode::inputs() const
 {
     return hasOutput() ? sockets().count() - 1 : sockets().count();
 }
@@ -199,9 +215,7 @@ void CfcBasicNode::removeInput()
 }
 
 
-//===================================================================================================================================================
 //	Параметры элемента
-//===================================================================================================================================================
 void CfcBasicNode::addParam(QString name, QString id, QVariant value, QString short_info)
 {
     NodeParam element({ name, id, value, short_info });
@@ -255,10 +269,9 @@ void CfcBasicNode::setParam(int index, QVariant value)
     return;
 }
 
-//===================================================================================================================================================
+
 //	Сериализация элемента
-//===================================================================================================================================================
-QDomNode CfcBasicNode::toXML()
+QDomNode CfcBasicNode::toXML() const
 {
     QDomDocument xml;
     QDomElement xml_node = xml.createElement("ELEMENT");
@@ -301,3 +314,16 @@ QDomNode CfcBasicNode::toXML()
     return xml_node;
 }
 
+RamNode CfcBasicNode::toRam() const
+{
+    RamNode node;
+
+    node.name = name();
+    node.position = pos();
+    node.size = size();
+    node.outputs = hasOutput() ? 1 : 0;
+    node.inputs = inputs();
+    node.params_list = paramsList();
+
+    return node;
+}

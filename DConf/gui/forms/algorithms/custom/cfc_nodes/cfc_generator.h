@@ -33,6 +33,7 @@ public:
 	//===============================================================================================================================================
     CfcGenerator(QString id = QString(), QSizeF node_size = QSizeF(), QGraphicsItem* parent = nullptr);
     CfcGenerator(QDomNode xml, QGraphicsItem* parent = nullptr);
+    CfcGenerator(RamNode node, QGraphicsItem* parent = nullptr);
 
 protected:
 	//===============================================================================================================================================

@@ -55,6 +55,15 @@ CfcReturnDelay::CfcReturnDelay(QDomNode xml, QGraphicsItem* parent) : CfcNode(xm
         setParam(paramNames().at(i), paramValues().at(i));
 }
 
+CfcReturnDelay::CfcReturnDelay(RamNode node, QGraphicsItem* parent) : CfcNode(node, parent)
+{
+    //  Настройка параметров
+    setName("ReturnDelay");
+    setNodeType(RZA_DELAY_OFF);
+    setInversion(false);
+    initInputs(1, 1);
+}
+
 
 //===================================================================================================================================================
 //	Вспомогательные методы класса
