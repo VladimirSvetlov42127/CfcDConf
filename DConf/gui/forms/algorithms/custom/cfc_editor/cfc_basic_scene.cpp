@@ -200,9 +200,26 @@ void CfcBasicScene::copySelected()
             continue;
         if (!link->source()->parent()->isSelected() || !link->target()->parent()->isSelected())
             continue;
+
         RamLink ram_link;
         for (int ii = 0; ii < link->points().count(); ii++)
             ram_link.points.append(link->points().at(ii));
+
+        for (int n = 0; n < nodes.count(); n++) {
+            for (int nn = 0; nn < nodes.at(n)->sockets().count(); nn++) {
+                CfcSocket* socket = nodes.at(n)->sockets().at(nn);
+                if (link->source() == socket) {
+                    ram_link.source_node = n;
+                    ram_link.source_socket = nn;
+                    break;
+                }
+                if (link->target() == socket) {
+                    ram_link.target_node = n;
+                    ram_link.target_socket = nn;
+                    break;
+                }
+            }
+        }
         _buffer_links.append(ram_link);
     }
 
@@ -228,41 +245,18 @@ void CfcBasicScene::pasteSelected()
     //  Вывод связей
     for (int i = 0; i < _buffer_links.count(); i++) {
         QList<QPointF> new_points;
-        for (int ii = 0; ii < _buffer_links.at(i).points.count(); ii++)
-            new_points.append(_buffer_links.at(i).points.at(ii) + delta);
+        RamLink buffer_link = _buffer_links.at(i);
+        for (int ii = 0; ii < buffer_link.points.count(); ii++)
+            new_points.append(buffer_link.points.at(ii) + delta);
+
         CfcLink* link = new CfcLink(QString(), new_points);
-        QPointF source_point = link->points().at(0);
-        QPointF target_point = link->points().at(link->points().count() - 1);
-        if (link->source() != nullptr && link->target() != nullptr)
-            continue;
-
-        //  Привязка связей к сокетам
-        for (int n = 0; n < nodes.count(); n++) {
-            CfcNode* node = nodes.at(n);
-            for (int nn = 0; nn < node->sockets().count(); nn++) {
-                CfcSocket* socket = node->sockets().at(nn);
-                QPointF x = socket->scenePos();
-                QLineF source_line = QLineF(x, source_point);
-                QLineF target_line = QLineF(x, target_point);
-
-                qDebug() << i << source_point << target_point << source_line.length() << target_line.length();
-
-                if (!link->source() && source_line.length() < 1) {
-                    link->setSource(socket);
-                    socket->appendLink(link);
-                }
-                if (!link->target() && target_line.length() < 1) {
-                    link->setTarget(socket);
-                    socket->appendLink(link);
-                }
-                if (link->source() != nullptr && link->target() != nullptr)
-                    break;
-            }
-            if (link->source() != nullptr && link->target() != nullptr)
-                break;
-        }
-        if (link->source() && link->target())
-            addItem(link);
+        CfcSocket* source_socket = nodes.at(buffer_link.source_node)->sockets().at(buffer_link.source_socket);
+        CfcSocket* target_socket = nodes.at(buffer_link.target_node)->sockets().at(buffer_link.target_socket);
+        link->setSource(source_socket);
+        source_socket->appendLink(link);
+        link->setTarget(target_socket);
+        target_socket->appendLink(link);
+        addItem(link);
     }
     _buffer_links.clear();
     nodes.clear();
