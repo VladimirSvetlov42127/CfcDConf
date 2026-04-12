@@ -1,30 +1,20 @@
 #include "cfc_basic_scene.h"
 
 
-//===================================================================================================================================================
-//	Подключение внешних библиотек
-//===================================================================================================================================================
 #include <dpc/gui/dialogs/msg_box/MsgBox.h>
+#include <QLineF>
+#include <QDebug>
 
-//===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
 #include <gui/forms/algorithms/custom/cfc_nodes/cfc_nodes_list.h>
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
 
 
-//===================================================================================================================================================
-//	список переменных
-//===================================================================================================================================================
 namespace {
     QColor scene_bkcolor = QColor(255,255,255);
     uint8_t select_shape = 10;
 }
 
 
-//===================================================================================================================================================
-//	Конструктор класса
-//===================================================================================================================================================
 CfcBasicScene::CfcBasicScene(CfcAlgService* service, QGraphicsScene* parent) : QGraphicsScene(parent)
 {
     _menu_point = QPointF();
@@ -38,9 +28,6 @@ CfcBasicScene::CfcBasicScene(CfcAlgService* service, QGraphicsScene* parent) : Q
 }
 
 
-//===================================================================================================================================================
-//	Открытые методы класса
-//===================================================================================================================================================
 CfcNode* CfcBasicScene::newEditorNode(QString name)
 {
     if (name == "And")
@@ -80,6 +67,48 @@ CfcNode* CfcBasicScene::newEditorNode(QString name)
 
     return nullptr;
 }
+
+CfcNode* CfcBasicScene::ramNode(RamNode node)
+{
+    QString name = node.name;
+    if (name == "And")
+        return new CfcAnd(node);
+    if (name == "Generator")
+        return new CfcGenerator(node);
+    if (name == "ImpulsePF")
+        return new CfcImpulsePF(node);
+    if (name == "ImpulseZF")
+        return new CfcImpulseZF(node);
+    if (name == "Not")
+        return new CfcNot(node);
+    if (name == "Or")
+        return new CfcOr(node);
+    if (name == "ReturnDelay")
+        return new CfcReturnDelay(node);
+    if (name == "RsTrigger")
+        return new CfcRsTrigger(node);
+    if (name == "TriggerDelay")
+        return new CfcTriggerDelay(node);
+    if (name == "Xor")
+        return new CfcXor(node);
+
+    if (name == "BI") {
+        auto input = service()->makeInput();
+        if (!input)
+            return nullptr;
+        return new CfcBI(QString(), QSizeF(), input);
+    }
+
+    if (name == "BO") {
+        auto output = service()->makeOutput();
+        if (!output)
+            return nullptr;
+        return new CfcBO(QString(), QSizeF(), output);
+    }
+
+    return nullptr;
+}
+
 
 QList<CfcNode*> CfcBasicScene::nodes() const
 {
@@ -138,9 +167,7 @@ QList<CfcLink*> CfcBasicScene::selectedLinks() const
 }
 
 
-//===================================================================================================================================================
 //	Методы обработки сигналов сцены
-//===================================================================================================================================================
 void CfcBasicScene::removeSelected()
 {
     //  Удаление выделенных связей
@@ -161,74 +188,20 @@ void CfcBasicScene::copySelected()
     //  Копирование выделенных узлов
     QList<CfcNode*> nodes = selectedNodes();
     for (int i = 0; i < nodes.count(); i++) {
-        CfcNode* node = copyNode(nodes.at(i));
+        RamNode node= nodes.at(i)->toRam();
         _buffer_nodes.append(node);
     }
 
-    //  Копирование выделенных связей
+    // Копирование выделенных связей (копируются только связи имеющие два соединения)
     QList<CfcLink*> links = selectedLinks();
     for (int i = 0; i < links.count(); i++) {
         CfcLink* link = links.at(i);
         if (!link->source()->parent()->isSelected() || !link->target()->parent()->isSelected())
             continue;
-        CfcLink* link_copy = new CfcLink(QString(), link->points());
-        _buffer_links.append(link_copy);
-    }
-
-    //  Привязка источников связи
-    for (int i = 0; i < _buffer_links.count(); i++) {
-        CfcLink* link = _buffer_links.at(i);
-        if (!link)
-            continue;
-        bool found = false;
-        QPointF source_pos = link->points().at(0);
-        for (int ii = 0; ii < _buffer_nodes.count(); ii++) {
-            if (found)
-                break;
-            CfcNode* node = _buffer_nodes.at(ii);
-            if (!node)
-                continue;
-            for (int iii = 0; iii < node->sockets().count(); iii++) {
-                CfcSocket* socket = node->sockets().at(iii);
-                if (!socket)
-                    continue;
-                QPointF socket_pos = socket->scenePos();
-                QLineF check_line(source_pos, socket_pos);
-                if (check_line.length() > select_shape)
-                    continue;
-
-                //  Найден источник связи
-                socket->appendLink(link);
-                link->setSource(socket);
-                found = true;
-                break;
-            }
-        }
-    }
-
-    //  Привязка целей связи
-    for (int i = 0; i < _buffer_links.count(); i++) {
-        CfcLink* link = _buffer_links.at(i);
-        bool found = false;
-        QPointF target_pos = link->points().last();
-        for (int ii = 0; ii < _buffer_nodes.count(); ii++) {
-            if (found)
-                break;
-            CfcNode* node = _buffer_nodes.at(ii);
-            for (int iii = 0; iii < node->sockets().count(); iii++) {
-                CfcSocket* socket = node->sockets().at(iii);
-                QPointF socket_pos = socket->scenePos();
-                QLineF check_line(target_pos, socket_pos);
-                if (check_line.length() > select_shape)
-                    continue;
-
-                //  Найдена цель связи
-                socket->appendLink(link);
-                link->setTarget(socket);
-                found = true;
-                break;
-            }
-        }
+        RamLink ram_link;
+        for (int ii = 0; ii < link->points().count(); ii++)
+            ram_link.points.append(link->points().at(ii));
+        _buffer_links.append(ram_link);
     }
 
     _basic_point = menuPoint();
@@ -241,21 +214,47 @@ void CfcBasicScene::pasteSelected()
     QPointF delta = menuPoint() - _basic_point;
 
     //  Вывод узлов
+    QList<CfcNode*> nodes;
     for (int i = 0; i < _buffer_nodes.count(); i++) {
-        CfcNode* node = _buffer_nodes.at(i);
-        node->setPos(node->pos() + delta);
+        CfcNode* node = ramNode(_buffer_nodes.at(i));
+        node->setPos(_buffer_nodes.at(i).position + delta);
+        nodes.append(node);
         addItem(node);
     }
     _buffer_nodes.clear();
 
     //  Вывод связей
     for (int i = 0; i < _buffer_links.count(); i++) {
-        CfcLink* link = _buffer_links.at(i);
-        QList<QPointF> cfc_points = link->points();
         QList<QPointF> new_points;
-        for (int i = 0; i < cfc_points.count(); i++)
-            new_points.append(cfc_points.at(i) + delta);
-        link->setPoints(new_points);
+        for (int ii = 0; ii < _buffer_links.at(i).points.count(); ii++)
+            new_points.append(_buffer_links.at(i).points.at(ii) + delta);
+        CfcLink* link = new CfcLink(QString(), new_points);
+        QPointF source_point = link->points().at(0);
+        QPointF target_point = link->points().at(link->points().count() - 1);
+        if (link->source() != nullptr && link->target() != nullptr)
+            continue;
+
+        //  Привязка связей к сокетам
+        for (int n = 0; n < nodes.count(); n++) {
+            CfcNode* node = nodes.at(n);
+            for (int nn = 0; nn < node->sockets().count(); nn++) {
+                CfcSocket* socket = node->sockets().at(nn);
+                QPointF x = socket->scenePos();
+                QLineF source_line = QLineF(x, source_point);
+                QLineF target_line = QLineF(x, target_point);
+
+                if (source_line.length() < 1) {
+                    link->setSource(socket);
+                    socket->appendLink(link);
+                }
+                if (target_line.length() < 1) {
+                    link->setTarget(socket);
+                    socket->appendLink(link);
+                }
+            }
+            if (link->source() != nullptr && link->target() != nullptr)
+                break;
+        }
         addItem(link);
     }
     _buffer_links.clear();

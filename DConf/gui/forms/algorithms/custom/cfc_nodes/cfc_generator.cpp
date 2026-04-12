@@ -64,11 +64,6 @@ CfcGenerator::CfcGenerator(RamNode node, QGraphicsItem* parent) : CfcNode(node, 
     setNodeType(RZA_PULSE_REPETITIVE);
     setInversion(false);
     initInputs(0, 0);
-    addParam("Частота", "period", 50, "Частота, Гц = ");
-    addParam("Величина", "value", 0, "Величина = ");
-
-    for (int i = 0; i < paramNames().count(); i++)
-        setParam(paramNames().at(i), paramValues().at(i));
 }
 
 

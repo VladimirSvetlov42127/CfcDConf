@@ -1,12 +1,11 @@
 #include "cfc_basic_node.h"
 
 
-//===================================================================================================================================================
-//	Подключение модулей проекта
-//===================================================================================================================================================
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_input_socket.h"
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_output_socket.h"
+#include "gui/forms/algorithms/custom/cfc_editor/cfc_link.h"
+
 
 //	Конструкторы класса
 CfcBasicNode::CfcBasicNode(QString id, QGraphicsItem* parent) : QGraphicsObject(parent)
@@ -15,8 +14,10 @@ CfcBasicNode::CfcBasicNode(QString id, QGraphicsItem* parent) : QGraphicsObject(
     bool ok;
     if (!id.isEmpty()) {
         uint16_t int_id = id.toUInt(&ok);
-        if (int_id >= _counter) _counter = int_id;
-        _id = id; }
+        if (int_id >= _counter)
+            _counter = int_id;
+        _id = id;
+    }
     else _id = QString::number(++_counter);
 
     //	Установк флагов
@@ -163,7 +164,8 @@ void CfcBasicNode::addInput()
 {
     int count = _sockets.count();
     if (hasOutput()) count--;
-    if (count == maxInputs()) return;
+    if (count == maxInputs())
+        return;
 
     //	Изменение размера элемента
     count++;
@@ -177,9 +179,19 @@ void CfcBasicNode::addInput()
     _sockets.append(socket);
 
     //	Изменение положения выходного сокета
-    if (!hasOutput()) return;
-    if (count < 1) return;
-    sockets().at(0)->setPos(QPointF(availableRect().width(), size().height() / 2));
+    if (!hasOutput())
+        return;
+    if (count < 1)
+        return;
+
+    CfcSocket* output_socket = sockets().at(0);
+    output_socket->setPos(QPointF(availableRect().width(), size().height() / 2));
+    for (int i = 0; i < output_socket->links().count(); i++) {
+        CfcLink* link = output_socket->links().at(i);
+        if (!link)
+            continue;
+        link->changeSource(output_socket->scenePos());
+    }
 
     return;
 }
@@ -189,7 +201,8 @@ void CfcBasicNode::removeInput()
     //	Проверка количества сокетов
     int count = _sockets.count();
     if (hasOutput()) count--;
-    if (count == minInputs()) return;
+    if (count == minInputs())
+        return;
 
     //	Проверка возможности удаления сокета
     if (!sockets().at(sockets().count() - 1)->links().isEmpty())
@@ -207,8 +220,10 @@ void CfcBasicNode::removeInput()
     _sockets.removeLast();
 
     //	Изменение положения выходного сокета
-    if (!hasOutput()) return;
-    if (count < 1) return;
+    if (!hasOutput())
+        return;
+    if (count < 1)
+        return;
     sockets().at(0)->setPos(QPointF(availableRect().width(), size().height() / 2));
 
     return;

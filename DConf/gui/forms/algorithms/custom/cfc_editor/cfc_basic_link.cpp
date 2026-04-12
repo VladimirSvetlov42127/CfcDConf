@@ -1,19 +1,12 @@
 #include "cfc_basic_link.h"
 
-#include <QDebug>
 #include <QLineF>
 
-//===================================================================================================================================================
-//	список переменных
-//===================================================================================================================================================
 namespace {
     int delta = 5;
 }
 
 
-//===================================================================================================================================================
-//	Конструкторы класса
-//===================================================================================================================================================
 CfcBasicLink::CfcBasicLink(QString id, QList<QPointF> points, QGraphicsItem* parent) : QGraphicsObject(parent)
 {
     //  Формирование id соединения
@@ -38,8 +31,6 @@ CfcBasicLink::CfcBasicLink(QString id, QList<QPointF> points, QGraphicsItem* par
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    //setFlag(QGraphicsItem::ItemIsMovable);
-    //setZValue(5);
 }
 
 CfcBasicLink::CfcBasicLink(QDomNode xml, QGraphicsItem* parent) : QGraphicsObject(parent)
@@ -95,14 +86,9 @@ CfcBasicLink::CfcBasicLink(QDomNode xml, QGraphicsItem* parent) : QGraphicsObjec
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    //setFlag(QGraphicsItem::ItemIsMovable);
-    //setZValue(5);
 }
 
 
-//===================================================================================================================================================
-//	Открытые методы класса
-//===================================================================================================================================================
 void CfcBasicLink::setSource(CfcSocket* source)
 {
     _source =  source;
@@ -229,10 +215,16 @@ QPolygonF CfcBasicLink::polygon() const
     return cfc_polygon;
 }
 
+void CfcBasicLink::changeSource(const QPointF& point)
+{
+    QList<QPointF> cfc_points = points();
+    cfc_points[0] = point;
+    cfc_points[1].setY( cfc_points[0].y());
+    setPoints(cfc_points);
+}
 
-//===================================================================================================================================================
+
 //	Сериализация элемента
-//===================================================================================================================================================
 QDomNode CfcBasicLink::toXML() const
 {
     QDomDocument xml;
@@ -272,9 +264,6 @@ QDomNode CfcBasicLink::toXML() const
 }
 
 
-//===================================================================================================================================================
-//	Вспомогательные методы класса
-//===================================================================================================================================================
 bool CfcBasicLink::isOnLine(const QPointF& begin, const QPointF& end, const QPointF& node)
 {
     //	Проверка точки на пределы
