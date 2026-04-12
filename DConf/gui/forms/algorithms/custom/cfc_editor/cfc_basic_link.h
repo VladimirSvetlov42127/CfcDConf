@@ -15,6 +15,10 @@
 #include "gui/forms/algorithms/custom/cfc_editor/cfc_socket.h"
 
 struct RamLink {
+    int source_node;
+    int source_socket;
+    int target_node;
+    int target_socket;
     QList <QPointF> points;
 };
 

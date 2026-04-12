@@ -196,6 +196,8 @@ void CfcBasicScene::copySelected()
     QList<CfcLink*> links = selectedLinks();
     for (int i = 0; i < links.count(); i++) {
         CfcLink* link = links.at(i);
+        if (!link->source() || !link->target())
+            continue;
         if (!link->source()->parent()->isSelected() || !link->target()->parent()->isSelected())
             continue;
         RamLink ram_link;
@@ -243,21 +245,27 @@ void CfcBasicScene::pasteSelected()
                 QLineF source_line = QLineF(x, source_point);
                 QLineF target_line = QLineF(x, target_point);
 
-                if (source_line.length() < 1) {
+                qDebug() << i << source_point << target_point << source_line.length() << target_line.length();
+
+                if (!link->source() && source_line.length() < 1) {
                     link->setSource(socket);
                     socket->appendLink(link);
                 }
-                if (target_line.length() < 1) {
+                if (!link->target() && target_line.length() < 1) {
                     link->setTarget(socket);
                     socket->appendLink(link);
                 }
+                if (link->source() != nullptr && link->target() != nullptr)
+                    break;
             }
             if (link->source() != nullptr && link->target() != nullptr)
                 break;
         }
-        addItem(link);
+        if (link->source() && link->target())
+            addItem(link);
     }
     _buffer_links.clear();
+    nodes.clear();
 
     return;
 }
